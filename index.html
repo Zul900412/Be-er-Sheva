@@ -408,7 +408,12 @@
         }
         .tarifa-item-grid:last-child { border-bottom: none; }
         .precio-col { display: flex; flex-direction: column; }
-        .precio-original { color: #666666; text-decoration: line-through; font-size: 0.8rem; }
+        .precio-original { 
+    color: #A0A0A0; /* Un gris intermedio para que no compita con el dorado, pero que sea perfectamente legible */
+    text-decoration: line-through; 
+    font-size: 0.85rem; /* Lo subimos un poco de tamaño */
+    font-weight: 600; /* Lo ponemos en negrita contundente */
+}
         .precio-descuento { color: var(--dorado-claro); font-weight: 600; }
 
         /* --- 4. EXPERIENCIA GASTRONÓMICA --- */
@@ -719,7 +724,7 @@
                             <div class="precio-col"><span class="precio-original">$270.000</span><span class="precio-descuento">$232.500</span></div>
                         </div>
                         <div class="tarifa-item-grid">
-                            <span class="tarifa-nombre">Media Pensión</span>
+                            <span class="tarifa-nombre">Media Pensión<br><small style="color: #888888; font-size: 0.75rem; font-weight: 300;">(Desayuno y Cena)</small></span>
                             <div class="precio-col"><span class="precio-original">$190.000</span><span class="precio-descuento">$165.000</span></div>
                             <div class="precio-col"><span class="precio-original">$285.000</span><span class="precio-descuento">$247.500</span></div>
                         </div>
@@ -778,7 +783,7 @@
                             <div class="precio-col"><span class="precio-original">$240.900</span><span class="precio-descuento">$203.400</span></div>
                         </div>
                         <div class="tarifa-item-grid">
-                            <span class="tarifa-nombre">Media Pensión</span>
+                            <span class="tarifa-nombre">Media Pensión<br><small style="color: #888888; font-size: 0.75rem; font-weight: 300;">(Desayuno y Cena)</small></span>
                             <div class="precio-col"><span class="precio-original">$170.600</span><span class="precio-descuento">$145.600</span></div>
                             <div class="precio-col"><span class="precio-original">$255.900</span><span class="precio-descuento">$218.400</span></div>
                         </div>
@@ -793,12 +798,12 @@
                     <div class="carrusel-contenedor">
                         <span class="carrusel-nav carrusel-prev" onclick="moverCarrusel(this, -1)">‹</span>
                         <div class="carrusel-track">
-                            <div class="carrusel-slide"><img src="images/202-1.jpg" alt="202-1"></div>
-                            <div class="carrusel-slide"><img src="images/202-2.jpg" alt="202-2"></div>
-                            <div class="carrusel-slide"><img src="images/202-3.jpg" alt="202-3"></div>
+                            <div class="carrusel-slide"><img src="images/202-1.jpeg" alt="202-1"></div>
+                            <div class="carrusel-slide"><img src="images/202-2.jpeg" alt="202-2"></div>
+                            <div class="carrusel-slide"><img src="images/202-3.jpeg" alt="202-3"></div>
                             <div class="carrusel-slide"><img src="images/202-4.jpg" alt="202-4"></div>
-                            <div class="carrusel-slide"><img src="images/202-5.jpg" alt="202-5"></div>
-                            <div class="carrusel-slide"><img src="images/202-6.jpg" alt="202-6"></div>
+                            <div class="carrusel-slide"><img src="images/202-5.jpeg" alt="202-5"></div>
+                            <div class="carrusel-slide"><img src="images/202-6.jpeg" alt="202-6"></div>
                         </div>
                         <span class="carrusel-nav carrusel-next" onclick="moverCarrusel(this, 1)">›</span>
                     </div>
@@ -837,7 +842,7 @@
                             <div class="precio-col"><span class="precio-original">$218.700</span><span class="precio-descuento">$181.200</span></div>
                         </div>
                         <div class="tarifa-item-grid">
-                            <span class="tarifa-nombre">Media Pensión</span>
+                            <span class="tarifa-nombre">Media Pensión<br><small style="color: #888888; font-size: 0.75rem; font-weight: 300;">(Desayuno y Cena)</small></span>
                             <div class="precio-col"><span class="precio-original">$155.800</span><span class="precio-descuento">$130.800</span></div>
                             <div class="precio-col"><span class="precio-original">$233.700</span><span class="precio-descuento">$196.200</span></div>
                         </div>
@@ -852,7 +857,7 @@
                     <div class="carrusel-contenedor">
                         <span class="carrusel-nav carrusel-prev" onclick="moverCarrusel(this, -1)">‹</span>
                         <div class="carrusel-track">
-                            <div class="carrusel-slide"><img src="images/101.jpg" alt="101-1"></div>
+                            <div class="carrusel-slide"><img src="images/101-1.jpg" alt="101-1"></div>
                             <div class="carrusel-slide"><img src="images/101-2.jpg" alt="101-2"></div>
                             <div class="carrusel-slide"><img src="images/101-3.jpg" alt="101-3"></div>
                             <div class="carrusel-slide"><img src="images/101-4.jpg" alt="101-4"></div>
@@ -896,7 +901,7 @@
                             <span style="color: #444444; font-size: 0.85rem; text-align: center; font-weight: 300;">N/A</span>
                         </div>
                         <div class="tarifa-item-grid">
-                            <span class="tarifa-nombre">Media Pensión</span>
+                            <span class="tarifa-nombre">Media Pensión<br><small style="color: #888888; font-size: 0.75rem; font-weight: 300;">(Desayuno y Cena)</small></span>
                             <div class="precio-col"><span class="precio-original">$148.800</span><span class="precio-descuento">$123.800</span></div>
                             <span style="color: #444444; font-size: 0.85rem; text-align: center; font-weight: 300;">N/A</span>
                         </div>
@@ -959,7 +964,7 @@
             <div class="punto-interes-col">
                 <h4>🛍️ Centros Comerciales y Negocios</h4>
                 <ul>
-                    <li>• <strong>C.C. Iserra 100:</strong> Ideal para diligencias cotidianas, restaurantes y servicios bancarios a unos minutos a pie.</li>
+                    <li>• <strong>C.C. Iserra:</strong> Ideal para diligencias cotidianas, restaurantes y servicios bancarios a unos minutos a pie.</li>
                     <li>• <strong>C.C. Bulevar Niza:</strong> Llegada sumamente rápida y directa en auto o transporte.</li>
                     <li>• <strong>C.C. Unicentro:</strong> El corazón comercial del norte, a tan solo 15 minutos en carro.</li>
                     <li>• <strong>Hacienda Santa Bárbara:</strong> Un entorno colonial exclusivo y corporativo al que accedes con total agilidad en auto.</li>
