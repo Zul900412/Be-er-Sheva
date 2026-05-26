@@ -3,23 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Be'er Sheva Casa de Huéspedes</title>
+    <title>Be'er Sheva 113 Casa de Huéspedes</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
     
     <style>
-        /* --- VARIABLES DE DISEÑO (PALETA DE COLORES) --- */
+        /* --- PALETA DE COLORES: NEGRO, DORADO PREMIUM Y VERDE CONTUNDENTE --- */
         :root {
+            --negro-profundo: #111111;   /* Fondo principal */
+            --negro-suave: #1A1A1A;      /* Fondos secundarios y tarjetas */
+            --dorado-principal: #D4AF37; /* Dorado elegante para títulos y detalles */
+            --dorado-viejo: #AA7C11;     /* Dorado oscuro */
+            --dorado-claro: #F3E5AB;     /* Champán sutil para textos descriptivos */
+            
+            /* EL VERDE ENÉRGICO Y CONTUNDENTE */
+            --verde-contundente: #2B9348;      /* Verde seleccionado para máxima atención */
+            --verde-contundente-ho: #227539;   /* Verde un poco más oscuro para efectos de clic */
+            --verde-contundente-trans: rgba(43, 147, 72, 0.08); /* Fondo suave translúcido */
+            
             --blanco-puro: #FFFFFF;
-            --fondo-crema: #FDFBF7;
-            --texto-oscuro: #2C2A29;
-            --texto-suave: #65615E;
-            --madera-caoba: #8B4513;
-            --madera-clara: #D2B48C;
-            --verde-organico: #4A5D4E;
+            --texto-gris: #CCCCCC;       /* Texto de lectura */
+            --gris-lineas: #2A2A2A;      /* Líneas divisorias sutiles */
             --verde-whatsapp: #25D366;
-            --gris-lineas: #EAE6DF;
         }
 
         /* --- ESTILOS GENERALES Y RESET --- */
@@ -33,20 +39,33 @@
         }
         body {
             font-family: 'Montserrat', sans-serif;
-            background-color: var(--fondo-crema);
-            color: var(--texto-oscuro);
+            background-color: var(--negro-profundo);
+            color: var(--texto-gris);
             line-height: 1.7;
             -webkit-font-smoothing: antialiased;
         }
+        
         h1, h2, h3 {
             font-family: 'Playfair Display', serif;
-            font-weight: 600;
-            color: var(--texto-oscuro);
+            font-weight: 500;
+            color: var(--blanco-puro);
             margin-bottom: 1.5rem;
+            letter-spacing: 0.5px;
         }
+        
+        /* Resaltados limpios sin cursiva (Dorado) */
+        .texto-dorado {
+            color: var(--dorado-principal) !important;
+        }
+
+        /* Resaltados limpios sin cursiva (Verde Contundente) */
+        .destaque-verde {
+            color: var(--verde-contundente) !important;
+        }
+
         p {
             font-weight: 300;
-            color: var(--texto-suave);
+            color: var(--texto-gris);
             margin-bottom: 1.5rem;
             font-size: 1.05rem;
         }
@@ -60,9 +79,9 @@
             transition: all 0.3s ease;
         }
 
-     /* --- CONTENEDORES --- */
+        /* --- CONTENEDORES --- */
         .seccion-contenedor {
-            padding: 3.5rem 10% 3.5rem 10%;
+            padding: 5rem 10%;
             max-width: 1400px;
             margin: 0 auto;
         }
@@ -71,27 +90,44 @@
         header {
             position: sticky;
             top: 0;
-            background-color: rgba(253, 251, 247, 0.95);
+            background-color: rgba(17, 17, 17, 0.95);
             backdrop-filter: blur(10px);
             border-bottom: 1px solid var(--gris-lineas);
             z-index: 1000;
-            transition: all 0.3s ease;
         }
         .nav-container {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 1.5rem 5%;
+            padding: 1rem 5%;
             max-width: 1400px;
             margin: 0 auto;
         }
-        .logo {
+        
+        /* ESTRUCTURA DEL LOGO CON SUBTÍTULO */
+        .brand-logo-box {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .logo-main {
             font-family: 'Playfair Display', serif;
-            font-size: 1.8rem;
+            font-size: 1.6rem;
             font-weight: 600;
             letter-spacing: 1px;
-            color: var(--texto-oscuro);
+            color: var(--dorado-principal);
+            line-height: 1.2;
         }
+        .logo-sub {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 400;
+            letter-spacing: 1.5px;
+            color: var(--texto-gris);
+            text-transform: uppercase;
+            margin-top: 2px;
+        }
+
         .nav-menu {
             display: flex;
             gap: 2.5rem;
@@ -101,22 +137,26 @@
             font-size: 0.9rem;
             font-weight: 400;
             letter-spacing: 0.5px;
-            color: var(--texto-suave);
+            color: var(--texto-gris);
         }
         .nav-link:hover {
-            color: var(--madera-caoba);
+            color: var(--verde-contundente);
         }
+        
+        /* RECUADRO DE RESERVA (HEADER) */
         .btn-cta-header {
-            background-color: var(--verde-organico);
+            background-color: var(--verde-contundente);
             color: var(--blanco-puro);
-            padding: 0.7rem 1.5rem;
+            padding: 0.8rem 1.6rem;
             font-size: 0.85rem;
-            font-weight: 500;
-            border-radius: 2px;
+            font-weight: 600;
+            border-radius: 3px;
             letter-spacing: 0.5px;
+            box-shadow: 0 4px 10px rgba(43, 147, 72, 0.2);
         }
         .btn-cta-header:hover {
-            background-color: var(--texto-oscuro);
+            background-color: var(--verde-contundente-ho);
+            transform: translateY(-1px);
         }
 
         /* --- 1. HERO SECTION --- */
@@ -127,35 +167,39 @@
             justify-content: center;
             text-align: center;
             padding: 4rem 10%;
-            background: linear-gradient(rgba(253, 251, 247, 0.85), rgba(253, 251, 247, 0.85)), 
+            background: linear-gradient(rgba(17, 17, 17, 0.8), rgba(17, 17, 17, 0.95)), 
                         url('https://images.unsplash.com/photo-1540555700478-4be289fbecef?q=80&w=1200') no-repeat center center/cover;
         }
         .hero-content {
             max-width: 800px;
         }
         #inicio h1 {
-            font-size: 3.5rem;
-            margin-bottom: 1rem;
+            font-size: 4rem;
+            margin-bottom: 0.5rem;
             letter-spacing: 1px;
+            color: var(--blanco-puro);
         }
         #inicio h2 {
             font-size: 1.8rem;
             font-weight: 400;
-            font-style: italic;
-            color: var(--verde-organico);
-            margin-bottom: 2rem;
+            color: var(--verde-contundente);
+            margin-bottom: 2.5rem;
+            letter-spacing: 1px;
         }
         .btn-action-hero {
             display: inline-block;
-            border: 1px solid var(--texto-oscuro);
+            border: 1px solid var(--dorado-principal);
+            color: var(--dorado-principal);
             padding: 1rem 2.5rem;
             font-size: 0.9rem;
             letter-spacing: 1px;
             font-weight: 500;
             margin-top: 1rem;
+            border-radius: 2px;
         }
         .btn-action-hero:hover {
-            background-color: var(--texto-oscuro);
+            background-color: var(--verde-contundente);
+            border-color: var(--verde-contundente);
             color: var(--blanco-puro);
         }
 
@@ -163,14 +207,8 @@
         .sobre-nosotros-grid {
             display: grid;
             grid-template-columns: 1.2fr 0.8fr;
-            gap: 3rem;
+            gap: 4rem;
             align-items: center;
-        }
-        .sobre-nosotros-imagen {
-            width: 100%;
-            height: 300px;
-            background: url('https://images.unsplash.com/photo-1540518614846-7eded433c457?q=80&w=800') no-repeat center center/cover;
-            border-radius: 2px;
         }
         .caracteristicas-lista {
             margin-top: 1.5rem;
@@ -179,7 +217,10 @@
             margin-bottom: 1.5rem;
             font-size: 1.05rem;
             font-weight: 300;
-            color: var(--texto-suave);
+            color: var(--texto-gris);
+        }
+        .caracteristicas-lista strong {
+            color: var(--verde-contundente);
         }
 
         /* --- CARRUSEL DE IMÁGENES CSS --- */
@@ -196,7 +237,6 @@
             overflow-x: auto;
             scroll-snap-type: x mandatory;
             scroll-behavior: smooth;
-            -webkit-overflow-scrolling: touch;
         }
         .carrusel-track::-webkit-scrollbar {
             display: none;
@@ -221,24 +261,24 @@
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
-            background-color: rgba(253, 251, 247, 0.8);
+            background-color: rgba(26, 26, 26, 0.8);
             backdrop-filter: blur(4px);
-            color: var(--texto-oscuro);
+            color: var(--dorado-principal);
             width: 35px;
             height: 35px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 0.9rem;
+            font-size: 1.1rem;
             font-weight: bold;
             cursor: pointer;
-            border: 1px solid var(--gris-lineas);
+            border: 1px solid var(--dorado-principal);
             z-index: 10;
-            transition: all 0.3s ease;
         }
         .carrusel-nav:hover {
-            background-color: var(--texto-oscuro);
+            background-color: var(--verde-contundente);
+            border-color: var(--verde-contundente);
             color: var(--blanco-puro);
         }
         .carrusel-prev { left: 10px; }
@@ -250,21 +290,21 @@
 
         /* --- 3. HABITACIONES Y TARIFAS --- */
         #habitaciones {
-            background-color: var(--blanco-puro);
+            background-color: var(--negro-suave);
             border-top: 1px solid var(--gris-lineas);
             border-bottom: 1px solid var(--gris-lineas);
         }
-       .estandar-calidad {
-            border: 1px solid var(--gris-lineas);
-            background-color: var(--fondo-crema);
-            padding: 2rem;
+        .estandar-calidad {
+            border: 2px solid var(--verde-contundente);
+            background-color: var(--verde-contundente-trans);
+            padding: 2.5rem;
             text-align: center;
             font-family: 'Playfair Display', serif;
-            font-style: italic;
-            font-size: 1.15rem;
-            color: var(--verde-organico);
-            margin-bottom: 4rem; /* Cambia si quieres menos espacio abajo del recuadro */
-            border-radius: 2px;
+            font-size: 1.25rem;
+            color: var(--blanco-puro);
+            margin-bottom: 4rem;
+            border-radius: 4px;
+            box-shadow: inset 0 0 20px rgba(43, 147, 72, 0.05);
         }
         .habitaciones-grid {
             display: grid;
@@ -272,7 +312,7 @@
             gap: 4rem;
         }
         .habitacion-card {
-            background-color: var(--fondo-crema);
+            background-color: var(--negro-profundo);
             border: 1px solid var(--gris-lineas);
             padding: 3rem;
             display: flex;
@@ -285,6 +325,7 @@
             border-bottom: 1px solid var(--gris-lineas);
             padding-bottom: 1rem;
             margin-bottom: 1.5rem;
+            color: var(--blanco-puro);
         }
         .habitacion-detalles {
             margin-bottom: 2rem;
@@ -292,11 +333,14 @@
         .habitacion-detalles li {
             margin-bottom: 0.6rem;
             font-size: 0.95rem;
-            color: var(--texto-suave);
+            color: var(--texto-gris);
             font-weight: 300;
         }
+        .habitacion-detalles strong {
+            color: var(--verde-contundente);
+        }
         
-        /* --- EFECTO ACORDEÓN / COLAPSABLE ELEGANTE --- */
+        /* --- EFECTO ACORDEÓN --- */
         .tarifas-colapsable {
             margin-top: auto;
             width: 100%;
@@ -307,51 +351,37 @@
             align-items: center;
             padding: 1rem 1.5rem;
             background-color: transparent;
-            border: 1px solid var(--texto-oscuro);
-            color: var(--texto-oscuro);
+            border: 1px solid var(--dorado-principal);
+            color: var(--dorado-principal);
             font-size: 0.85rem;
             font-weight: 500;
             text-transform: uppercase;
             letter-spacing: 1px;
             cursor: pointer;
-            list-style: none;
             transition: all 0.3s ease;
         }
-        .tarifas-summary::-webkit-details-marker {
-            display: none;
-        }
         .tarifas-summary:hover {
-            background-color: var(--texto-oscuro);
-            color: var(--blanco-puro);
+            background-color: var(--dorado-principal);
+            color: var(--negro-profundo);
         }
-        .tarifas-summary::after {
-            content: '+';
-            font-size: 1.2rem;
-            font-weight: 300;
-        }
+        .tarifas-summary::after { content: '+'; font-size: 1.2rem; }
+        
         .tarifas-colapsable[open] .tarifas-summary {
-            background-color: var(--texto-oscuro);
-            color: var(--blanco-puro);
+            background-color: var(--dorado-principal);
+            color: var(--negro-profundo);
             margin-bottom: 1rem;
         }
-        .tarifas-colapsable[open] .tarifas-summary::after {
-            content: '−';
-        }
+        .tarifas-colapsable[open] .tarifas-summary::after { content: '−'; }
 
         .tarifas-box {
-            background-color: var(--blanco-puro);
+            background-color: var(--negro-suave);
             border: 1px solid var(--gris-lineas);
             padding: 1.5rem;
-            animation: expandirContenido 0.4s ease;
-        }
-        @keyframes expandirContenido {
-            from { opacity: 0; transform: translateY(-5px); }
-            to { opacity: 1; transform: translateY(0); }
         }
         .tarifas-box h4 {
             font-size: 0.95rem;
             font-weight: 500;
-            color: var(--texto-oscuro);
+            color: var(--blanco-puro);
             margin-bottom: 1rem;
             letter-spacing: 0.5px;
             border-bottom: 1px solid var(--gris-lineas);
@@ -363,8 +393,7 @@
             font-size: 0.75rem;
             font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
-            color: var(--verde-organico);
+            color: var(--dorado-principal);
             padding-bottom: 0.5rem;
             margin-bottom: 0.5rem;
             border-bottom: 1px solid var(--gris-lineas);
@@ -377,34 +406,47 @@
             border-bottom: 1px dashed var(--gris-lineas);
             align-items: center;
         }
-        .tarifa-item-grid:last-child {
-            border-bottom: none;
-        }
-        .tarifa-nombre {
-            font-weight: 300;
-            color: var(--texto-suave);
-            padding-right: 5px;
-        }
-        .precio-col {
-            display: flex;
-            flex-direction: column;
-        }
-        .precio-original {
-            color: #A09B97;
-            text-decoration: line-through;
-            font-size: 0.8rem;
-        }
-        .precio-descuento {
-            color: var(--texto-oscuro);
-            font-weight: 600;
-        }
+        .tarifa-item-grid:last-child { border-bottom: none; }
+        .precio-col { display: flex; flex-direction: column; }
+        .precio-original { color: #666666; text-decoration: line-through; font-size: 0.8rem; }
+        .precio-descuento { color: var(--dorado-claro); font-weight: 600; }
 
         /* --- 4. EXPERIENCIA GASTRONÓMICA --- */
         .gastronomia-box {
-            background-color: #F7F4EE;
-            padding: 4rem;
-            border: 1px solid var(--gris-lineas);
+            background-color: var(--verde-contundente);
+            padding: 5rem 4rem;
+            border-radius: 4px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
+        .gastronomia-box h2 {
+            color: var(--blanco-puro);
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        .gastronomia-box p {
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 1.5rem;
+        }
+        
+        /* BOTÓN MENÚ DIGITAL INTERNO */
+        .btn-menu-gastronomia {
+            display: inline-block;
+            background-color: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            color: var(--blanco-puro);
+            padding: 0.8rem 2rem;
+            font-size: 0.9rem;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            border-radius: 2px;
+            margin-bottom: 1rem;
+        }
+        .btn-menu-gastronomia:hover {
+            background-color: var(--negro-profundo);
+            border-color: var(--dorado-principal);
+            color: var(--dorado-principal);
+        }
+
         .gastronomia-lista {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -412,13 +454,21 @@
             margin-top: 3rem;
         }
         .gastronomia-item {
-            background-color: var(--blanco-puro);
-            padding: 2rem;
-            border: 1px solid var(--gris-lineas);
+            background-color: var(--negro-profundo);
+            padding: 2.5rem 2rem;
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 2px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
         }
         .gastronomia-item h3 {
-            font-size: 1.25rem;
+            font-size: 1.3rem;
             margin-bottom: 1rem;
+            color: var(--dorado-principal);
+        }
+        .gastronomia-item p {
+            color: var(--texto-gris);
+            font-size: 0.95rem;
+            margin-bottom: 0;
         }
 
         /* --- 5. UBICACIÓN Y LUGARES DE INTERÉS --- */
@@ -435,6 +485,7 @@
             border: 1px solid var(--gris-lineas);
             border-radius: 2px;
             overflow: hidden;
+            filter: grayscale(0.4) invert(0.08); 
         }
         .mapa-contenedor iframe {
             width: 100%;
@@ -445,10 +496,12 @@
             margin-bottom: 1.5rem;
             font-size: 1.05rem;
             font-weight: 300;
-            color: var(--texto-suave);
+            color: var(--texto-gris);
+        }
+        .ubicacion-detalles strong {
+            color: var(--dorado-principal);
         }
         
-        /* Rejilla elegante de Puntos de Interés */
         .puntos-interes-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -460,61 +513,51 @@
         .punto-interes-col h4 {
             font-family: 'Playfair Display', serif;
             font-size: 1.2rem;
-            color: var(--verde-organico);
+            color: var(--verde-contundente);
             margin-bottom: 1rem;
         }
         .punto-interes-col ul li {
             font-size: 0.95rem;
             font-weight: 300;
-            color: var(--texto-suave);
+            color: var(--texto-gris);
             margin-bottom: 0.6rem;
         }
+        .punto-interes-col ul li strong { color: var(--blanco-puro); }
 
-        /* --- 6. FOOTER / CONTACTO --- */
+        /* --- 6. FOOTER --- */
         footer {
-            background-color: var(--texto-oscuro);
+            background-color: #090a0a;
             color: var(--blanco-puro);
             padding: 5rem 10% 4rem 10%;
             text-align: center;
+            border-top: 1px solid var(--gris-lineas);
         }
-        footer h2 {
-            color: var(--blanco-puro);
-            font-size: 2.2rem;
-        }
-        footer p {
-            color: var(--gris-lineas);
-            max-width: 600px;
-            margin: 0 auto 3rem auto;
-        }
-        .contacto-info {
-            margin-bottom: 3rem;
-        }
-        .contacto-info p {
-            font-size: 1.2rem;
-            color: var(--blanco-puro);
-            margin-bottom: 0.5rem;
-        }
+        footer h2 { font-size: 2.2rem; }
+        footer p { max-width: 600px; margin: 0 auto 3rem auto; }
+        .contacto-info { margin-bottom: 3rem; }
+        .contacto-info p { font-size: 1.2rem; color: var(--verde-contundente); margin-bottom: 0.5rem; font-weight: 500; }
+        
         .btn-whatsapp-footer {
             display: inline-flex;
             align-items: center;
-            gap: 0.8rem;
-            background-color: var(--verde-organico);
+            background-color: var(--verde-contundente);
             color: var(--blanco-puro);
-            padding: 1rem 2.5rem;
-            font-size: 1rem;
-            font-weight: 500;
+            padding: 1.2rem 3rem;
+            font-size: 1.05rem;
+            font-weight: 600;
             letter-spacing: 0.5px;
-            border-radius: 2px;
+            border-radius: 4px;
+            box-shadow: 0 4px 15px rgba(43, 147, 72, 0.3);
         }
         .btn-whatsapp-footer:hover {
-            background-color: var(--blanco-puro);
-            color: var(--texto-oscuro);
+            background-color: var(--verde-contundente-ho);
+            transform: translateY(-2px);
         }
         .copyright {
             margin-top: 5rem;
             font-size: 0.8rem;
-            color: #888;
-            border-top: 1px solid #3E3B3A;
+            color: #444444;
+            border-top: 1px solid var(--gris-lineas);
             padding-top: 2rem;
         }
 
@@ -531,59 +574,28 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.4);
             z-index: 9999;
             transition: all 0.3s ease;
         }
-        .whatsapp-flotante:hover {
-            transform: scale(1.1);
-        }
-        .whatsapp-flotante svg {
-            width: 32px;
-            height: 32px;
-            fill: currentColor;
-        }
+        .whatsapp-flotante:hover { transform: scale(1.1); }
+        .whatsapp-flotante svg { width: 32px; height: 32px; fill: currentColor; }
 
         /* --- RESPONSIVIDAD --- */
         @media (max-width: 1024px) {
-            .sobre-nosotros-grid, .ubicacion-grid {
+            .sobre-nosotros-grid, .ubicacion-grid, .habitaciones-grid, .gastronomia-lista, .puntos-interes-grid {
                 grid-template-columns: 1fr;
                 gap: 3rem;
             }
-            .habitaciones-grid {
-                grid-template-columns: 1fr;
-                gap: 3rem;
-            }
-            .gastronomia-lista {
-                grid-template-columns: 1fr;
-                gap: 1.5rem;
-            }
-            .puntos-interes-grid {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-            }
-            .seccion-contenedor {
-                padding: 5rem 5%;
-            }
-            .carrusel-zonas-sociales .carrusel-slide img {
-                height: 320px;
-            }
+            .gastronomia-box { padding: 3rem 2rem; }
+            .seccion-contenedor { padding: 5rem 5%; }
+            .carrusel-zonas-sociales .carrusel-slide img { height: 320px; }
         }
-
         @media (max-width: 768px) {
-            .nav-menu {
-                display: none;
-            }
-            #inicio h1 {
-                font-size: 2.5rem;
-            }
-            #inicio h2 {
-                font-size: 1.4rem;
-            }
-            .whatsapp-flotante {
-                bottom: 20px;
-                right: 20px;
-            }
+            .nav-menu { display: none; }
+            #inicio h1 { font-size: 3rem; }
+            #inicio h2 { font-size: 1.4rem; }
+            .whatsapp-flotante { bottom: 20px; right: 20px; }
         }
     </style>
 </head>
@@ -591,7 +603,11 @@
 
     <header>
         <div class="nav-container">
-            <div class="logo">Be'er Sheva</div>
+            <div class="brand-logo-box">
+                <div class="logo-main">Be'er Sheva 113</div>
+                <div class="logo-sub">Casa de Huéspedes</div>
+            </div>
+            
             <nav class="nav-menu">
                 <a href="#inicio" class="nav-link">Inicio</a>
                 <a href="#sobre-nosotros" class="nav-link">Sobre Nosotros</a>
@@ -605,20 +621,20 @@
 
     <section id="inicio">
         <div class="hero-content">
-            <h1>Be'er Sheva Casa de Huéspedes</h1>
-            <h2>Un oasis de descanso en un sector estratégico de Bogotá.</h2>
+            <h1>Be'er Sheva 113</h1>
+            <h2 class="destaque-verde">Casa de Huéspedes</h2>
             <p>Descubre una casa de huéspedes exclusiva en el distinguido sector de la calle 113 con 55 en Bogotá. Un refugio seguro, rodeado de árboles y muy cercano del Humedal Córdoba, donde el caos de la ciudad desaparece para dar paso al confort, el descanso y la tranquilidad.</p>
-            <a href="#habitaciones" class="btn-action-hero">Consultar Disponibilidad</a>
+            <a href="#habitaciones" class="btn-action-hero">Conoce nuestras opciones</a>
         </div>
     </section>
 
     <section id="sobre-nosotros" class="seccion-contenedor">
         <div class="sobre-nosotros-grid" style="align-items: start;">
             <div>
-                <h2>El Significado del Descanso Urbano</h2>
-                <p>En Be'er Sheva, creamos un espacio que hace honor a su nombre: un auténtico lugar de tranquilidad en plena capital. Nuestra ubicación estratégica te permite estar a minutos de los principales centros de negocios, salud y gastronomía del norte de Bogotá, mientras disfrutas de una atmósfera tan pacífica y campestre que olvidarás que estás en el corazón de la ciudad. Sector residencial de estrato alto y máxima seguridad, nuestra casa de huéspedes fusiona la calidez de un hogar premium con la funcionalidad que buscas.</p>
+                <h2>El Significado del <span class="destaque-verde">Descanso Urbano</span></h2>
+                <p>En Be'er Sheva 113, creamos un espacio que hace honor a su nombre: un auténtico lugar de tranquilidad en plena capital. Nuestra ubicación estratégica te permite estar a minutos de los principales centros de negocios, salud y gastronomía del norte de Bogotá, mientras disfrutas de una atmósfera tan pacífica y campestre que olvidarás que estás en el corazón de la ciudad. Sector residencial de estrato alto y máxima seguridad, nuestra casa de huéspedes fusiona la calidez de un hogar premium con la funcionalidad que buscas.</p>
                 
-                <p>En Be'er Sheva, creemos firmemente que el silencio es el nuevo lujo. Para garantizar un descanso profundo, la desconexión total del estrés diario y el respeto por el espacio del otro, nuestra casa y habitaciones están completamente libres de televisores. Aquí el ruido desaparece.</p>
+                <p>En Be'er Sheva 113, creemos firmemente que el silencio es el nuevo lujo. Para garantizar un descanso profundo, la desconexión total del estrés diario y el respeto por el espacio del otro, nuestra casa y habitaciones están completamente libres de televisores. Aquí el ruido desaparece.</p>
                 
                 <p>Sin embargo, sabemos que la conectividad es importante: contamos con Wi-Fi de alta velocidad en todas las áreas para que trabajes cómodamente desde tu portátil o disfrutes de tu contenido favorito con total privacidad.</p>
                 
@@ -629,17 +645,16 @@
             </div>
             
             <div style="position: sticky; top: 120px;">
-                <h3 style="font-size: 1.3rem; margin-bottom: 1rem; text-align: center;">Nuestros Espacios Sociales</h3>
+                <h3 style="font-size: 1.3rem; margin-bottom: 1rem; text-align: center;" class="texto-dorado">Nuestros Espacios Sociales</h3>
                 <div class="carrusel-contenedor carrusel-zonas-sociales">
-                    <span class="carrusel-nav carrusel-prev" onclick="this.nextElementSibling.scrollBy({left: -400, behavior: 'smooth'})">‹</span>
+                    <span class="carrusel-nav carrusel-prev" onclick="moverCarrusel(this, -1)">‹</span>
                     <div class="carrusel-track">
-                        <div class="carrusel-slide"><img src="images/social1.jpg" alt="Chimenea"></div>
-                        <div class="carrusel-slide"><img src="images/social2.jpg" alt="Sala"></div>
-                        <div class="carrusel-slide"><img src="images/social3.jpg" alt="Comedor"></div>
-                        <div class="carrusel-slide"><img src="images/social4.jpg" alt="Decoración"></div>
-                        <div class="carrusel-slide"><img src="images/social5.jpg" alt="Sala"></div>
+                        <div class="carrusel-slide"><img src="imagenes/chimenea.jpg" alt="Chimenea"></div>
+                        <div class="carrusel-slide"><img src="imagenes/fachada.jpg" alt="Fachada"></div>
+                        <div class="carrusel-slide"><img src="imagenes/balcon.jpg" alt="Balcón"></div>
+                        <div class="carrusel-slide"><img src="imagenes/chimenea.jpg" alt="Decoración"></div>
                     </div>
-                    <span class="carrusel-nav carrusel-next" onclick="this.previousElementSibling.scrollBy({left: 400, behavior: 'smooth'})">›</span>
+                    <span class="carrusel-nav carrusel-next" onclick="moverCarrusel(this, 1)">›</span>
                 </div>
             </div>
         </div>
@@ -647,26 +662,23 @@
 
     <section id="habitaciones" class="seccion-contenedor">
         <div class="estandar-calidad">
-            ✨ Estándar de Calidad en Cada Habitación: Para garantizar un descanso excepcional, todas nuestras opciones cuentan con lencería premium: plumones térmicos y sábanas totalmente blancas, toallas impecables y baños dotados con jabón de manos, gel de ducha, champú y secador de cabello.
+            🏁 Estándar de Calidad en Cada Habitación: Para garantizar un descanso excepcional, todas nuestras opciones cuentan con lencería premium: plumones térmicos y sábanas totalmente blancas, toallas impecables y baños dotados con jabón de manos, gel de ducha, champú y secador de cabello.
         </div>
 
         <div class="habitaciones-grid">
             
             <div class="habitacion-card">
                 <div>
-                    <h3>🥇 Junior Suite</h3>
+                    <h3>🥇 <span class="texto-dorado">Junior Suite</span></h3>
                     
                     <div class="carrusel-contenedor">
-                        <span class="carrusel-nav carrusel-prev" onclick="this.nextElementSibling.scrollBy({left: -350, behavior: 'smooth'})">‹</span>
+                        <span class="carrusel-nav carrusel-prev" onclick="moverCarrusel(this, -1)">‹</span>
                         <div class="carrusel-track">
-                            <div class="carrusel-slide"><img src="images/201-1.jpg" alt="Cama"></div>
-                            <div class="carrusel-slide"><img src="images/201-2.jpg" alt="Sofá"></div>
-                            <div class="carrusel-slide"><img src="images/201-3.jpg" alt="Escritorio"></div>
-                            <div class="carrusel-slide"><img src="images/201-4.jpg" alt="Baño"></div>
-                            <div class="carrusel-slide"><img src="images/201-5.jpg" alt="Terraza"></div>
-                            <div class="carrusel-slide"><img src="images/201-6.jpg" alt="Vistas"></div>
+                            <div class="carrusel-slide"><img src="imagenes/junior-suite.jpg" alt="Cama Junior Suite"></div>
+                            <div class="carrusel-slide"><img src="imagenes/bathroom.jpg" alt="Baño"></div>
+                            <div class="carrusel-slide"><img src="imagenes/balcon.jpg" alt="Terraza"></div>
                         </div>
-                        <span class="carrusel-nav carrusel-next" onclick="this.previousElementSibling.scrollBy({left: 350, behavior: 'smooth'})">›</span>
+                        <span class="carrusel-nav carrusel-next" onclick="moverCarrusel(this, 1)">›</span>
                     </div>
 
                     <p>Confort y privacidad en un solo lugar. Una habitación amplia y luminosa diseñada para tu comodidad.</p>
@@ -713,22 +725,18 @@
 
             <div class="habitacion-card">
                 <div>
-                    <h3>🥈 Habitación Doble Executive</h3>
+                    <h3>🥈 Habitación <span class="texto-dorado">Double Executive</span></h3>
                     
                     <div class="carrusel-contenedor">
-                        <span class="carrusel-nav carrusel-prev" onclick="this.nextElementSibling.scrollBy({left: -350, behavior: 'smooth'})">‹</span>
+                        <span class="carrusel-nav carrusel-prev" onclick="moverCarrusel(this, -1)">‹</span>
                         <div class="carrusel-track">
-                            <div class="carrusel-slide"><img src="images/203-1.jpg" alt="Cama"></div>
-                            <div class="carrusel-slide"><img src="images/203-2.jpg" alt="Sofá"></div>
-                            <div class="carrusel-slide"><img src="images/203-3.jpg" alt="Escritorio"></div>
-                            <div class="carrusel-slide"><img src="images/203-4.jpg" alt="Baño"></div>
-                            <div class="carrusel-slide"><img src="images/203-5.jpg" alt="Terraza"></div>
-                            <div class="carrusel-slide"><img src="images/203-6.jpg" alt="Vistas"></div>
+                            <div class="carrusel-slide"><img src="imagenes/junior-suite.jpg" alt="Cama"></div>
+                            <div class="carrusel-slide"><img src="imagenes/balcon.jpg" alt="Terraza"></div>
                         </div>
-                        <span class="carrusel-nav carrusel-next" onclick="this.previousElementSibling.scrollBy({left: 350, behavior: 'smooth'})">›</span>
+                        <span class="carrusel-nav carrusel-next" onclick="moverCarrusel(this, 1)">›</span>
                     </div>
 
-                    <p>Una habitación  amplia y confortable, pensada para quienes priorizan el espacio y la comodidad.</p>
+                    <p>Una habitación amplia y confortable, pensada para quienes priorizan el espacio y la comodidad.</p>
                     <ul class="habitacion-detalles">
                         <li><strong>Tamaño:</strong> 20 m2 apx.</li>
                         <li><strong>Capacidad:</strong> 1 o 2 personas.</li>
@@ -772,20 +780,15 @@
 
             <div class="habitacion-card">
                 <div>
-                    <h3>🥉 Habitación Doble Confort</h3>
+                    <h3>🥉 Habitación <span class="texto-dorado">Doble Confort</span></h3>
                     
                     <div class="carrusel-contenedor">
-                        <span class="carrusel-nav carrusel-prev" onclick="this.nextElementSibling.scrollBy({left: -350, behavior: 'smooth'})">‹</span>
+                        <span class="carrusel-nav carrusel-prev" onclick="moverCarrusel(this, -1)">‹</span>
                         <div class="carrusel-track">
-                            <div class="carrusel-slide"><img src="images/202-1.jpg" alt="Cama"></div>
-                            <div class="carrusel-slide"><img src="images/202-2.jpg" alt="Sillas"></div>
-                            <div class="carrusel-slide"><img src="images/202-3.jpg" alt="Escritorio"></div>
-                            <div class="carrusel-slide"><img src="images/202-4.jpg" alt="Baño"></div>
-                            <div class="carrusel-slide"><img src="images/202-5.jpg" alt="Terraza"></div>
-                            <div class="carrusel-slide"><img src="images/202-6.jpg" alt="Vistas"></div>
-                            <div class="carrusel-slide"><img src="images/202-7.jpg" alt="Espejo"></div>
-                            <div class="carrusel-slide"><img src="images/202-8.jpg" alt="Cama"></div>
-                        <span class="carrusel-nav carrusel-next" onclick="this.previousElementSibling.scrollBy({left: 350, behavior: 'smooth'})">›</span>
+                            <div class="carrusel-slide"><img src="imagenes/junior-suite.jpg" alt="Cama"></div>
+                            <div class="carrusel-slide"><img src="imagenes/balcon.jpg" alt="Terraza"></div>
+                        </div>
+                        <span class="carrusel-nav carrusel-next" onclick="moverCarrusel(this, 1)">›</span>
                     </div>
 
                     <p>Una opción acogedora, sumamente luminosa y funcional, sin perder el encanto del exterior.</p>
@@ -832,19 +835,14 @@
 
             <div class="habitacion-card">
                 <div>
-                    <h3>💼 Habitación Individual Business</h3>
+                    <h3>💼 Habitación <span class="texto-dorado">Individual Business</span></h3>
                     
                     <div class="carrusel-contenedor">
-                        <span class="carrusel-nav carrusel-prev" onclick="this.nextElementSibling.scrollBy({left: -350, behavior: 'smooth'})">‹</span>
+                        <span class="carrusel-nav carrusel-prev" onclick="moverCarrusel(this, -1)">‹</span>
                         <div class="carrusel-track">
-                            <div class="carrusel-slide"><img src="images/101-1.jpg" alt="Cama"></div>
-                            <div class="carrusel-slide"><img src="images/101-2.jpg" alt="Sofá"></div>
-                            <div class="carrusel-slide"><img src="images/101-3.jpg" alt="Escritorio"></div>
-                            <div class="carrusel-slide"><img src="images/101-4.jpg" alt="Baño"></div>
-                            <div class="carrusel-slide"><img src="images/101-5.jpg" alt="Cama"></div>
-                            <div class="carrusel-slide"><img src="images/101-6.jpg" alt="Vistas"></div>
+                            <div class="carrusel-slide"><img src="imagenes/junior-suite.jpg" alt="Cama"></div>
                         </div>
-                        <span class="carrusel-nav carrusel-next" onclick="this.previousElementSibling.scrollBy({left: 350, behavior: 'smooth'})">›</span>
+                        <span class="carrusel-nav carrusel-next" onclick="moverCarrusel(this, 1)">›</span>
                     </div>
 
                     <p>La opción perfecta para quienes viajan por negocios o buscan tranquilidad y concentración en un espacio práctico para una persona.</p>
@@ -868,22 +866,22 @@
                         <div class="tarifa-item-grid">
                             <span class="tarifa-nombre">Solo Hospedaje</span>
                             <div class="precio-col"><span class="precio-original">$123.800</span><span class="precio-descuento">$98.800</span></div>
-                            <span style="color: #A09B97; font-size: 0.85rem; text-align: center; font-weight: 300;">N/A</span>
+                            <span style="color: #444444; font-size: 0.85rem; text-align: center; font-weight: 300;">N/A</span>
                         </div>
                         <div class="tarifa-item-grid">
                             <span class="tarifa-nombre">Con Desayuno</span>
                             <div class="precio-col"><span class="precio-original">$137.800</span><span class="precio-descuento">$112.800</span></div>
-                            <span style="color: #A09B97; font-size: 0.85rem; text-align: center; font-weight: 300;">N/A</span>
+                            <span style="color: #444444; font-size: 0.85rem; text-align: center; font-weight: 300;">N/A</span>
                         </div>
                         <div class="tarifa-item-grid">
                             <span class="tarifa-nombre">Con Cena</span>
                             <div class="precio-col"><span class="precio-original">$138.800</span><span class="precio-descuento">$113.800</span></div>
-                            <span style="color: #A09B97; font-size: 0.85rem; text-align: center; font-weight: 300;">N/A</span>
+                            <span style="color: #444444; font-size: 0.85rem; text-align: center; font-weight: 300;">N/A</span>
                         </div>
                         <div class="tarifa-item-grid">
                             <span class="tarifa-nombre">Media Pensión</span>
                             <div class="precio-col"><span class="precio-original">$148.800</span><span class="precio-descuento">$123.800</span></div>
-                            <span style="color: #A09B97; font-size: 0.85rem; text-align: center; font-weight: 300;">N/A</span>
+                            <span style="color: #444444; font-size: 0.85rem; text-align: center; font-weight: 300;">N/A</span>
                         </div>
                     </div>
                 </details>
@@ -894,8 +892,10 @@
 
     <section id="gastronomia" class="seccion-contenedor">
         <div class="gastronomia-box">
-            <h2>Sabores que complementan tu Estancia</h2>
+            <h2>Sabores que <span class="texto-dorado">complementan</span> tu Estancia</h2>
             <p>Queremos que disfrutes sin preocupaciones, por eso nos adaptamos a tu ritmo con tarifas flexibles:</p>
+            
+            <a href="menu.html" class="btn-menu-gastronomia">Ver nuestro menú digital</a>
             
             <div class="gastronomia-lista">
                 <div class="gastronomia-item">
@@ -917,7 +917,7 @@
    <section id="ubicacion" class="seccion-contenedor">
         <div class="ubicacion-grid">
             <div>
-                <h2>Ubicación Estratégica</h2>
+                <h2>Ubicación <span class="destaque-verde">Estratégica</span></h2>
                 <p>Nuestra casa de huéspedes se encuentra en una de las zonas residenciales más tranquilas, seguras y exclusivas del norte de la capital:</p>
                 <ul class="ubicacion-detalles">
                     <li><strong>📍 Dirección Exacta:</strong> Calle 113 # 55-84, Barrio Puente Largo, Bogotá, Colombia.</li>
@@ -958,9 +958,8 @@
         </div>
     </section>
 
-
     <footer>
-        <h2>Planifica tu Estadía</h2>
+        <h2>Planifica tu <span class="destaque-verde">Estadía</span></h2>
         <p>Atendemos de forma personalizada todas tus solicitudes, reservas de planes y elecciones de alimentación.</p>
         
         <div class="contacto-info">
@@ -973,7 +972,7 @@
         </a>
 
         <div class="copyright">
-            © 2026 Be'er Sheva Casa de Huéspedes. Todos los derechos reservados. | Diseñado con fines de descanso y desconexión consciente.
+            © 2026 Be'er Sheva 113 Casa de Huéspedes. Todos los derechos reservados. | Diseñado con fines de descanso y desconexión consciente.
         </div>
     </footer>
 
@@ -982,6 +981,29 @@
             <path d="M16 2a13 13 0 0 0-11.27 19.46L3 29l7.76-2A13 13 0 1 0 16 2zm6.65 18.57c-.29.83-1.42 1.52-2.33 1.63s-1.89.06-3-.38a11.16 11.16 0 0 1-4.38-2.92 12.3 12.3 0 0 1-2.65-3.92 3.65 3.65 0 0 1-.09-2.58c.2-.29.43-.6.65-.86s.29-.43.43-.71a.88.88 0 0 0 0-.83c-.06-.14-.54-1.31-.74-1.8s-.39-1-.54-1h-.54a1.73 1.73 0 0 0-1.23.54c-.43.46-1.63 1.59-1.63 3.87a7.6 7.6 0 0 0 1.57 4.07A16.82 16.82 0 0 0 12 21.05a18.25 18.25 0 0 0 2.45 1.54c.74.34 1.43.31 2 .23a3.19 3.19 0 0 0 2.1-1.48 2.61 2.61 0 0 0 .17-1.48c-.08-.11-.28-.2-.57-.34z"/>
         </svg>
     </a>
+
+    <script>
+        function moverCarrusel(boton, direccion) {
+            const contenedor = boton.parentElement.querySelector('.carrusel-track');
+            const anchoSlide = contenedor.querySelector('.carrusel-slide').clientWidth;
+            
+            const posicionActual = contenedor.scrollLeft;
+            const scrollMaximo = contenedor.scrollWidth - contenedor.clientWidth;
+            
+            let nuevaPosicion = posicionActual + (anchoSlide * direccion);
+            
+            if (nuevaPosicion > scrollMaximo + 10) {
+                nuevaPosicion = 0;
+            } else if (nuevaPosicion < -10) {
+                nuevaPosicion = scrollMaximo;
+            }
+            
+            contenedor.scrollTo({
+                left: nuevaPosicion,
+                behavior: 'smooth'
+            });
+        }
+    </script>
 
 </body>
 </html>
