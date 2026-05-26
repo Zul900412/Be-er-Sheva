@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menú Digital - Be'er Sheva 113</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- CONSTANTES DE DISEÑO IDÉNTICAS AL INDEX --- */
+        :root {
+            --negro-profundo: #111111;
+            --negro-suave: #1A1A1A;
+            --dorado-principal: #D4AF37;
+            --dorado-claro: #F3E5AB;
+            --verde-contundente: #2B9348;
+            --verde-contundente-ho: #227539;
+            --blanco-puro: #FFFFFF;
+            --texto-gris: #CCCCCC;
+            --gris-lineas: #2A2A2A;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--negro-profundo);
+            color: var(--texto-gris);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* --- HEADER SIMPLIFICADO --- */
+        header {
+            background-color: rgba(17, 17, 17, 0.95);
+            border-bottom: 1px solid var(--gris-lineas);
+            width: 100%;
+        }
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        .brand-logo-box {
+            display: flex;
+            flex-direction: column;
+        }
+        .logo-main {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            color: var(--dorado-principal);
+            line-height: 1.2;
+        }
+        .logo-sub {
+            font-size: 0.7rem;
+            font-weight: 400;
+            letter-spacing: 1.5px;
+            color: var(--texto-gris);
+            text-transform: uppercase;
+            margin-top: 2px;
+        }
+        .btn-volver-alta {
+            font-size: 0.85rem;
+            text-decoration: none;
+            color: var(--texto-gris);
+            border: 1px solid var(--gris-lineas);
+            padding: 0.6rem 1.2rem;
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+        .btn-volver-alta:hover {
+            color: var(--blanco-puro);
+            border-color: var(--dorado-principal);
+        }
+
+        /* --- SECCIÓN DE EXPECTATIVA (HERO) --- */
+        .expectativa-container {
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 4rem 10%;
+            text-align: center;
+            background: linear-gradient(rgba(17, 17, 17, 0.85), rgba(17, 17, 17, 0.98)), 
+                        url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=1200') no-repeat center center/cover;
+        }
+
+        .contenido-box {
+            max-width: 750px;
+            background-color: rgba(26, 26, 26, 0.6);
+            padding: 4rem 3rem;
+            border: 1px solid var(--gris-lineas);
+            border-radius: 4px;
+            backdrop-filter: blur(8px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+        }
+
+        .tag-premium {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--dorado-principal);
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            display: inline-block;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            color: var(--blanco-puro);
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
+        .resaltado-verde {
+            color: var(--verde-contundente);
+        }
+
+        p {
+            font-weight: 300;
+            font-size: 1.15rem;
+            line-height: 1.8;
+            margin-bottom: 2.5rem;
+            color: var(--texto-gris);
+        }
+
+        /* BOTÓN PRINCIPAL DE REGRESO */
+        .btn-regresar {
+            display: inline-block;
+            text-decoration: none;
+            background-color: var(--verde-contundente);
+            color: var(--blanco-puro);
+            padding: 1rem 2.5rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            border-radius: 3px;
+            box-shadow: 0 4px 15px rgba(43, 147, 72, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .btn-regresar:hover {
+            background-color: var(--verde-contundente-ho);
+            transform: translateY(-2px);
+        }
+
+        /* --- FOOTER SIMPLIFICADO --- */
+        footer {
+            background-color: #090a0a;
+            color: #444444;
+            padding: 2rem 5%;
+            text-align: center;
+            font-size: 0.8rem;
+            border-top: 1px solid var(--gris-lineas);
+        }
+
+        /* RESPONSIVIDAD */
+        @media (max-width: 768px) {
+            h1 { font-size: 2.2rem; }
+            p { font-size: 1rem; }
+            .contenido-box { padding: 2.5rem 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="nav-container">
+            <div class="brand-logo-box">
+                <div class="logo-main">Be'er Sheva 113</div>
+                <div class="logo-sub">Casa de Huéspedes</div>
+            </div>
+            <a href="index.html" class="btn-volver-alta">← Volver al Inicio</a>
+        </div>
+    </header>
+
+    <main class="expectativa-container">
+        <div class="contenido-box">
+            <span class="tag-premium">Experiencia Gastronómica</span>
+            <h1>Algo extraordinario se está <span class="resaltado-verde">cocinando</span></h1>
+            <p>Muy pronto subiremos nuestro exclusivo menú digital para que conozcas la propuesta de nuestra cocina de autor. Estamos perfeccionando cada receta y seleccionando los mejores ingredientes locales para ofrecerte platos únicos que complementarán perfectamente el descanso y la tranquilidad de tu estancia.</p>
+            <a href="index.html" class="btn-regresar">Explorar la Casa de Huéspedes</a>
+        </div>
+    </main>
+
+    <footer>
+        © 2026 Be'er Sheva 113 Casa de Huéspedes. Todos los derechos reservados. | Sabores en evolución.
+    </footer>
+
+</body>
+</html>
