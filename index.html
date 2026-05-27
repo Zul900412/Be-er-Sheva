@@ -95,6 +95,7 @@
             border-bottom: 1px solid var(--gris-lineas);
             z-index: 1000;
         }
+/* --- NAVIGATION REFACTORIZADA (RESPONSIVA) --- */
         .nav-container {
             display: flex;
             justify-content: space-between;
@@ -102,17 +103,18 @@
             padding: 1rem 5%;
             max-width: 1400px;
             margin: 0 auto;
+            position: relative;
         }
         
-        /* ESTRUCTURA DEL LOGO CON SUBTÍTULO */
         .brand-logo-box {
             display: flex;
             flex-direction: column;
             justify-content: center;
+            z-index: 1001;
         }
         .logo-main {
             font-family: 'Playfair Display', serif;
-            font-size: 1.6rem;
+            font-size: 1.5rem;
             font-weight: 600;
             letter-spacing: 1px;
             color: var(--dorado-principal);
@@ -120,7 +122,7 @@
         }
         .logo-sub {
             font-family: 'Montserrat', sans-serif;
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             font-weight: 400;
             letter-spacing: 1.5px;
             color: var(--texto-gris);
@@ -130,33 +132,99 @@
 
         .nav-menu {
             display: flex;
-            gap: 2.5rem;
+            gap: 1.5rem; /* Reducido para que quepa todo en una sola línea */
             align-items: center;
         }
         .nav-link {
-            font-size: 0.9rem;
+            font-size: 0.85rem; /* Ajustado sutilmente */
             font-weight: 400;
             letter-spacing: 0.5px;
             color: var(--texto-gris);
+            white-space: nowrap; /* Evita que los textos se partan */
         }
         .nav-link:hover {
             color: var(--verde-contundente);
         }
         
-        /* RECUADRO DE RESERVA (HEADER) */
+        .idiomas-nav {
+            display: flex;
+            gap: 0.6rem;
+            align-items: center;
+        }
+        .bandera-link {
+            opacity: 0.6;
+            transition: all 0.3s ease;
+            line-height: 1;
+        }
+        .bandera-link:hover, .bandera-link.activo {
+            opacity: 1;
+            transform: scale(1.1);
+        }
+
         .btn-cta-header {
             background-color: var(--verde-contundente);
             color: var(--blanco-puro);
-            padding: 0.8rem 1.6rem;
-            font-size: 0.85rem;
+            padding: 0.7rem 1.2rem;
+            font-size: 0.8rem;
             font-weight: 600;
             border-radius: 3px;
             letter-spacing: 0.5px;
+            white-space: nowrap;
             box-shadow: 0 4px 10px rgba(43, 147, 72, 0.2);
         }
         .btn-cta-header:hover {
             background-color: var(--verde-contundente-ho);
             transform: translateY(-1px);
+        }
+
+        /* --- BOTÓN HAMBURGUESA CORREGIDO --- */
+        .menu-hamburguesa {
+            display: none; /* Oculto en PC */
+            flex-direction: column;
+            justify-content: space-between;
+            width: 30px;
+            height: 22px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            z-index: 1001;
+            padding: 0;
+        }
+        /* Esto es lo que faltaba: darle forma física a las 3 líneas */
+        .menu-hamburguesa span {
+            display: block;
+            width: 100%;
+            height: 3px;
+            background-color: var(--dorado-principal);
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        /* --- MEDIA QUERIES PARA ADAPTACIÓN MÓVIL CORREGIDO --- */
+        @media (max-width: 1150px) {
+            .menu-hamburguesa {
+                display: flex; /* Aparece en tablets y celulares */
+            }
+            .nav-menu {
+                display: none; /* Oculto por defecto en móvil */
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: rgba(26, 26, 26, 0.98);
+                border-bottom: 1px solid var(--gris-lineas);
+                padding: 2rem 5%;
+                gap: 1.8rem;
+                z-index: 1000;
+            }
+            /* Esta clase se activa con el JavaScript al dar clic */
+            .nav-menu.abierto {
+                display: flex; 
+            }
+            .idiomas-nav {
+                margin: 0.5rem 0;
+            }
         }
 
         /* --- 1. HERO SECTION --- */
@@ -607,22 +675,41 @@
 <body>
 
     <header>
-        <div class="nav-container">
-            <div class="brand-logo-box">
-                <div class="logo-main">Be'er Sheva 113</div>
-                <div class="logo-sub">Casa de Huéspedes</div>
+            <div class="nav-container">
+                <div class="brand-logo-box">
+                    <div class="logo-main">Be'er Sheva 113</div>
+                    <div class="logo-sub">Casa de Huéspedes</div>
+                </div>
+                
+                <button class="menu-hamburguesa" id="btn-menu" aria-label="Abrir menú">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                
+                <nav class="nav-menu" id="menu-principal">
+                    <a href="#inicio" class="nav-link">Inicio</a>
+                    <a href="#sobre-nosotros" class="nav-link">Sobre Nosotros</a>
+                    <a href="#habitaciones" class="nav-link">Habitaciones</a>
+                    <a href="#gastronomia" class="nav-link">Experiencia Gastronómica</a>
+                    <a href="#ubicacion" class="nav-link">Ubicación y Contacto</a>
+                    
+                    <div class="idiomas-nav">
+                        <a href="index.html" class="bandera-link activo" title="Español">
+                            <img src="https://flagcdn.com/w40/co.png" alt="Español" style="width: 22px; height: auto; display: inline-block; border-radius: 2px;">
+                        </a>
+                        <a href="index-en.html" class="bandera-link" title="English">
+                            <img src="https://flagcdn.com/w40/us.png" alt="English" style="width: 22px; height: auto; display: inline-block; border-radius: 2px;">
+                        </a>
+                        <a href="index-fr.html" class="bandera-link" title="Français">
+                            <img src="https://flagcdn.com/w40/fr.png" alt="Français" style="width: 22px; height: auto; display: inline-block; border-radius: 2px;">
+                        </a>
+                    </div>
+
+                    <a href="https://wa.me/573202100527" target="_blank" class="btn-cta-header">Reservar por WhatsApp</a>
+                </nav>
             </div>
-            
-            <nav class="nav-menu">
-                <a href="#inicio" class="nav-link">Inicio</a>
-                <a href="#sobre-nosotros" class="nav-link">Sobre Nosotros</a>
-                <a href="#habitaciones" class="nav-link">Habitaciones</a>
-                <a href="#gastronomia" class="nav-link">Experiencia Gastronómica</a>
-                <a href="#ubicacion" class="nav-link">Ubicación y Contacto</a>
-                <a href="https://wa.me/573202100527" target="_blank" class="btn-cta-header">Reservar por WhatsApp</a>
-            </nav>
-        </div>
-    </header>
+        </header>
 
     <section id="inicio">
         <div class="hero-content">
@@ -1005,26 +1092,38 @@
     </a>
 
     <script>
+        // --- FUNCIÓN DEL CARRUSEL DE FOTOS (YA LO TENÍAS) ---
         function moverCarrusel(boton, direccion) {
             const contenedor = boton.parentElement.querySelector('.carrusel-track');
             const anchoSlide = contenedor.querySelector('.carrusel-slide').clientWidth;
-            
             const posicionActual = contenedor.scrollLeft;
             const scrollMaximo = contenedor.scrollWidth - contenedor.clientWidth;
-            
             let nuevaPosicion = posicionActual + (anchoSlide * direccion);
             
             if (nuevaPosicion > scrollMaximo + 10) {
                 nuevaPosicion = 0;
             } else if (nuevaPosicion < -10) {
-                nuevaPosicion = scrollMaximo;
+                scrollMaximo;
             }
-            
-            contenedor.scrollTo({
-                left: nuevaPosicion,
-                behavior: 'smooth'
-            });
+            contenedor.scrollTo({ left: nuevaPosicion, behavior: 'smooth' });
         }
+
+        // --- CONTROL DEL MENÚ HAMBURGUESA (REVISE QUE ESTÉ ASÍ) ---
+        const btnMenu = document.getElementById('btn-menu');
+        const menuPrincipal = document.getElementById('menu-principal');
+        const enlacesMenu = document.querySelectorAll('.nav-link, .btn-cta-header, .bandera-link');
+
+        // Alternar menú al hacer clic en las tres líneas
+        btnMenu.addEventListener('click', () => {
+            menuPrincipal.classList.toggle('abierto');
+        });
+
+        // Cerrar el menú automáticamente cuando se hace clic en cualquier enlace
+        enlacesMenu.forEach(enlace => {
+            enlace.addEventListener('click', () => {
+                menuPrincipal.classList.remove('abierto');
+            });
+        });
     </script>
 
 </body>
