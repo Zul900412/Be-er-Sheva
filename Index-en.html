@@ -1,0 +1,1130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Be'er Sheva 113 Casa de Huéspedes</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- PALETA DE COLORES: NEGRO, DORADO PREMIUM Y VERDE CONTUNDENTE --- */
+        :root {
+            --negro-profundo: #111111;   /* Fondo principal */
+            --negro-suave: #1A1A1A;      /* Fondos secundarios y tarjetas */
+            --dorado-principal: #D4AF37; /* Dorado elegante para títulos y detalles */
+            --dorado-viejo: #AA7C11;     /* Dorado oscuro */
+            --dorado-claro: #F3E5AB;     /* Champán sutil para textos descriptivos */
+            
+            /* EL VERDE ENÉRGICO Y CONTUNDENTE */
+            --verde-contundente: #395740;      /* Verde seleccionado para máxima atención */
+            --verde-contundente-ho: #227539;   /* Verde un poco más oscuro para efectos de clic */
+            --verde-contundente-trans: rgba(43, 147, 72, 0.08); /* Fondo suave translúcido */
+            
+            --blanco-puro: #FFFFFF;
+            --texto-gris: #CCCCCC;       /* Texto de lectura */
+            --gris-lineas: #2A2A2A;      /* Líneas divisorias sutiles */
+            --verde-whatsapp: #25D366;
+        }
+
+        /* --- ESTILOS GENERALES Y RESET --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--negro-profundo);
+            color: var(--texto-gris);
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+        }
+        
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 500;
+            color: var(--blanco-puro);
+            margin-bottom: 1.5rem;
+            letter-spacing: 0.5px;
+        }
+        
+        /* Resaltados limpios sin cursiva (Dorado) */
+        .texto-dorado {
+            color: var(--dorado-principal) !important;
+        }
+
+        /* Resaltados limpios sin cursiva (Verde Contundente) */
+        .destaque-verde {
+            color: var(--verde-contundente) !important;
+        }
+
+        p {
+            font-weight: 300;
+            color: var(--texto-gris);
+            margin-bottom: 1.5rem;
+            font-size: 1.05rem;
+        }
+        ul {
+            list-style: none;
+        }
+        a {
+            text-transform: none;
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.3s ease;
+        }
+
+        /* --- CONTENEDORES --- */
+        .seccion-contenedor {
+            padding: 5rem 10%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* --- HEADER Y NAVEGACIÓN --- */
+        header {
+            position: sticky;
+            top: 0;
+            background-color: rgba(17, 17, 17, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--gris-lineas);
+            z-index: 1000;
+        }
+/* --- NAVIGATION REFACTORIZADA (RESPONSIVA) --- */
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+        }
+        
+        .brand-logo-box {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            z-index: 1001;
+        }
+        .logo-main {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            color: var(--dorado-principal);
+            line-height: 1.2;
+        }
+        .logo-sub {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.7rem;
+            font-weight: 400;
+            letter-spacing: 1.5px;
+            color: var(--texto-gris);
+            text-transform: uppercase;
+            margin-top: 2px;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 1.5rem; /* Reducido para que quepa todo en una sola línea */
+            align-items: center;
+        }
+        .nav-link {
+            font-size: 0.85rem; /* Ajustado sutilmente */
+            font-weight: 400;
+            letter-spacing: 0.5px;
+            color: var(--texto-gris);
+            white-space: nowrap; /* Evita que los textos se partan */
+        }
+        .nav-link:hover {
+            color: var(--verde-contundente);
+        }
+        
+        .idiomas-nav {
+            display: flex;
+            gap: 0.6rem;
+            align-items: center;
+        }
+        .bandera-link {
+            opacity: 0.6;
+            transition: all 0.3s ease;
+            line-height: 1;
+        }
+        .bandera-link:hover, .bandera-link.activo {
+            opacity: 1;
+            transform: scale(1.1);
+        }
+
+        .btn-cta-header {
+            background-color: var(--verde-contundente);
+            color: var(--blanco-puro);
+            padding: 0.7rem 1.2rem;
+            font-size: 0.8rem;
+            font-weight: 600;
+            border-radius: 3px;
+            letter-spacing: 0.5px;
+            white-space: nowrap;
+            box-shadow: 0 4px 10px rgba(43, 147, 72, 0.2);
+        }
+        .btn-cta-header:hover {
+            background-color: var(--verde-contundente-ho);
+            transform: translateY(-1px);
+        }
+
+        /* --- BOTÓN HAMBURGUESA CORREGIDO --- */
+        .menu-hamburguesa {
+            display: none; /* Oculto en PC */
+            flex-direction: column;
+            justify-content: space-between;
+            width: 30px;
+            height: 22px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            z-index: 1001;
+            padding: 0;
+        }
+        /* Esto es lo que faltaba: darle forma física a las 3 líneas */
+        .menu-hamburguesa span {
+            display: block;
+            width: 100%;
+            height: 3px;
+            background-color: var(--dorado-principal);
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        /* --- MEDIA QUERIES PARA ADAPTACIÓN MÓVIL CORREGIDO --- */
+        @media (max-width: 1150px) {
+            .menu-hamburguesa {
+                display: flex; /* Aparece en tablets y celulares */
+            }
+            .nav-menu {
+                display: none; /* Oculto por defecto en móvil */
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: rgba(26, 26, 26, 0.98);
+                border-bottom: 1px solid var(--gris-lineas);
+                padding: 2rem 5%;
+                gap: 1.8rem;
+                z-index: 1000;
+            }
+            /* Esta clase se activa con el JavaScript al dar clic */
+            .nav-menu.abierto {
+                display: flex; 
+            }
+            .idiomas-nav {
+                margin: 0.5rem 0;
+            }
+        }
+
+        /* --- 1. HERO SECTION --- */
+        #inicio {
+            min-height: 90vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 4rem 10%;
+            background: linear-gradient(rgba(17, 17, 17, 0.8), rgba(17, 17, 17, 0.95)), 
+                        url('https://images.unsplash.com/photo-1540555700478-4be289fbecef?q=80&w=1200') no-repeat center center/cover;
+        }
+        .hero-content {
+            max-width: 800px;
+        }
+        #inicio h1 {
+            font-size: 4rem;
+            margin-bottom: 0.5rem;
+            letter-spacing: 1px;
+            color: var(--blanco-puro);
+        }
+        #inicio h2 {
+            font-size: 1.8rem;
+            font-weight: 400;
+            color: var(--verde-contundente);
+            margin-bottom: 2.5rem;
+            letter-spacing: 1px;
+        }
+        .btn-action-hero {
+            display: inline-block;
+            border: 1px solid var(--dorado-principal);
+            color: var(--dorado-principal);
+            padding: 1rem 2.5rem;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            font-weight: 500;
+            margin-top: 1rem;
+            border-radius: 2px;
+        }
+        .btn-action-hero:hover {
+            background-color: var(--verde-contundente);
+            border-color: var(--verde-contundente);
+            color: var(--blanco-puro);
+        }
+
+        /* --- 2. SOBRE NOSOTROS --- */
+        .sobre-nosotros-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 4rem;
+            align-items: center;
+        }
+        .caracteristicas-lista {
+            margin-top: 1.5rem;
+        }
+        .caracteristicas-lista li {
+            margin-bottom: 1.5rem;
+            font-size: 1.05rem;
+            font-weight: 300;
+            color: var(--texto-gris);
+        }
+        .caracteristicas-lista strong {
+            color: var(--verde-contundente);
+        }
+
+        /* --- CARRUSEL DE IMÁGENES CSS --- */
+        .carrusel-contenedor {
+            position: relative;
+            width: 100%;
+            margin-bottom: 2rem;
+            border: 1px solid var(--gris-lineas);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+        .carrusel-track {
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            scroll-behavior: smooth;
+        }
+        .carrusel-track::-webkit-scrollbar {
+            display: none;
+        }
+        .carrusel-track {
+            -ms-overflow-style: none;  
+            scrollbar-width: none;  
+        }
+        .carrusel-slide {
+            flex: 0 0 100%;
+            width: 100%;
+            scroll-snap-align: start;
+            position: relative;
+        }
+        .carrusel-slide img {
+            width: 100%;
+            height: 280px;
+            object-fit: cover;
+            display: block;
+        }
+        .carrusel-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(26, 26, 26, 0.8);
+            backdrop-filter: blur(4px);
+            color: var(--dorado-principal);
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            border: 1px solid var(--dorado-principal);
+            z-index: 10;
+        }
+        .carrusel-nav:hover {
+            background-color: var(--verde-contundente);
+            border-color: var(--verde-contundente);
+            color: var(--blanco-puro);
+        }
+        .carrusel-prev { left: 10px; }
+        .carrusel-next { right: 10px; }
+
+        .carrusel-zonas-sociales .carrusel-slide img {
+            height: 480px;
+        }
+
+        /* --- 3. HABITACIONES Y TARIFAS --- */
+        #habitaciones {
+            background-color: var(--negro-suave);
+            border-top: 1px solid var(--gris-lineas);
+            border-bottom: 1px solid var(--gris-lineas);
+        }
+        .estandar-calidad {
+            border: 2px solid var(--verde-contundente);
+            background-color: var(--verde-contundente-trans);
+            padding: 2.5rem;
+            text-align: center;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.25rem;
+            color: var(--blanco-puro);
+            margin-bottom: 4rem;
+            border-radius: 4px;
+            box-shadow: inset 0 0 20px rgba(43, 147, 72, 0.05);
+        }
+        .habitaciones-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 4rem;
+        }
+        .habitacion-card {
+            background-color: var(--negro-profundo);
+            border: 1px solid var(--gris-lineas);
+            padding: 3rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            border-radius: 2px;
+        }
+        .habitacion-card h3 {
+            font-size: 1.8rem;
+            border-bottom: 1px solid var(--gris-lineas);
+            padding-bottom: 1rem;
+            margin-bottom: 1.5rem;
+            color: var(--blanco-puro);
+        }
+        .habitacion-detalles {
+            margin-bottom: 2rem;
+        }
+        .habitacion-detalles li {
+            margin-bottom: 0.6rem;
+            font-size: 0.95rem;
+            color: var(--texto-gris);
+            font-weight: 300;
+        }
+        .habitacion-detalles strong {
+            color: var(--verde-contundente);
+        }
+        
+        /* --- EFECTO ACORDEÓN --- */
+        .tarifas-colapsable {
+            margin-top: auto;
+            width: 100%;
+        }
+        .tarifas-summary {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 1.5rem;
+            background-color: transparent;
+            border: 1px solid var(--dorado-principal);
+            color: var(--dorado-principal);
+            font-size: 0.85rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .tarifas-summary:hover {
+            background-color: var(--dorado-principal);
+            color: var(--negro-profundo);
+        }
+        .tarifas-summary::after { content: '+'; font-size: 1.2rem; }
+        
+        .tarifas-colapsable[open] .tarifas-summary {
+            background-color: var(--dorado-principal);
+            color: var(--negro-profundo);
+            margin-bottom: 1rem;
+        }
+        .tarifas-colapsable[open] .tarifas-summary::after { content: '−'; }
+
+        .tarifas-box {
+            background-color: var(--negro-suave);
+            border: 1px solid var(--gris-lineas);
+            padding: 1.5rem;
+        }
+        .tarifas-box h4 {
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: var(--blanco-puro);
+            margin-bottom: 1rem;
+            letter-spacing: 0.5px;
+            border-bottom: 1px solid var(--gris-lineas);
+            padding-bottom: 0.5rem;
+        }
+        .tarifa-fila-cabecera {
+            display: grid;
+            grid-template-columns: 1.8fr 1.2fr 1.2fr;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            color: var(--dorado-principal);
+            padding-bottom: 0.5rem;
+            margin-bottom: 0.5rem;
+            border-bottom: 1px solid var(--gris-lineas);
+        }
+        .tarifa-item-grid {
+            display: grid;
+            grid-template-columns: 1.8fr 1.2fr 1.2fr;
+            font-size: 0.9rem;
+            padding: 0.5rem 0;
+            border-bottom: 1px dashed var(--gris-lineas);
+            align-items: center;
+        }
+        .tarifa-item-grid:last-child { border-bottom: none; }
+        .precio-col { display: flex; flex-direction: column; }
+        .precio-original { 
+    color: #A0A0A0; /* Un gris intermedio para que no compita con el dorado, pero que sea perfectamente legible */
+    text-decoration: line-through; 
+    font-size: 0.85rem; /* Lo subimos un poco de tamaño */
+    font-weight: 600; /* Lo ponemos en negrita contundente */
+}
+        .precio-descuento { color: var(--dorado-claro); font-weight: 600; }
+
+        /* --- 4. EXPERIENCIA GASTRONÓMICA --- */
+        .gastronomia-box {
+            background-color: var(--verde-contundente);
+            padding: 5rem 4rem;
+            border-radius: 4px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        .gastronomia-box h2 {
+            color: var(--blanco-puro);
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        .gastronomia-box p {
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 1.5rem;
+        }
+        
+        /* BOTÓN MENÚ DIGITAL INTERNO */
+        .btn-menu-gastronomia {
+            display: inline-block;
+            background-color: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            color: var(--blanco-puro);
+            padding: 0.8rem 2rem;
+            font-size: 0.9rem;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            border-radius: 2px;
+            margin-bottom: 1rem;
+        }
+        .btn-menu-gastronomia:hover {
+            background-color: var(--negro-profundo);
+            border-color: var(--dorado-principal);
+            color: var(--dorado-principal);
+        }
+
+        .gastronomia-lista {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2.5rem;
+            margin-top: 3rem;
+        }
+        .gastronomia-item {
+            background-color: var(--negro-profundo);
+            padding: 2.5rem 2rem;
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 2px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        .gastronomia-item h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: var(--dorado-principal);
+        }
+        .gastronomia-item p {
+            color: var(--texto-gris);
+            font-size: 0.95rem;
+            margin-bottom: 0;
+        }
+
+        /* --- 5. UBICACIÓN Y LUGARES DE INTERÉS --- */
+        .ubicacion-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: start;
+            margin-bottom: 4rem;
+        }
+        .mapa-contenedor {
+            width: 100%;
+            height: 400px;
+            border: 1px solid var(--gris-lineas);
+            border-radius: 2px;
+            overflow: hidden;
+            filter: grayscale(0.4) invert(0.08); 
+        }
+        .mapa-contenedor iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+        .ubicacion-detalles li {
+            margin-bottom: 1.5rem;
+            font-size: 1.05rem;
+            font-weight: 300;
+            color: var(--texto-gris);
+        }
+        .ubicacion-detalles strong {
+            color: var(--dorado-principal);
+        }
+        
+        .puntos-interes-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 2rem;
+            border-top: 1px solid var(--gris-lineas);
+            padding-top: 3rem;
+        }
+        .punto-interes-col h4 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            color: var(--verde-contundente);
+            margin-bottom: 1rem;
+        }
+        .punto-interes-col ul li {
+            font-size: 0.95rem;
+            font-weight: 300;
+            color: var(--texto-gris);
+            margin-bottom: 0.6rem;
+        }
+        .punto-interes-col ul li strong { color: var(--blanco-puro); }
+
+        /* --- 6. FOOTER --- */
+        footer {
+            background-color: #090a0a;
+            color: var(--blanco-puro);
+            padding: 5rem 10% 4rem 10%;
+            text-align: center;
+            border-top: 1px solid var(--gris-lineas);
+        }
+        footer h2 { font-size: 2.2rem; }
+        footer p { max-width: 600px; margin: 0 auto 3rem auto; }
+        .contacto-info { margin-bottom: 3rem; }
+        .contacto-info p { font-size: 1.2rem; color: var(--verde-contundente); margin-bottom: 0.5rem; font-weight: 500; }
+        
+        .btn-whatsapp-footer {
+            display: inline-flex;
+            align-items: center;
+            background-color: var(--verde-contundente);
+            color: var(--blanco-puro);
+            padding: 1.2rem 3rem;
+            font-size: 1.05rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            border-radius: 4px;
+            box-shadow: 0 4px 15px rgba(43, 147, 72, 0.3);
+        }
+        .btn-whatsapp-footer:hover {
+            background-color: var(--verde-contundente-ho);
+            transform: translateY(-2px);
+        }
+        .copyright {
+            margin-top: 5rem;
+            font-size: 0.8rem;
+            color: #444444;
+            border-top: 1px solid var(--gris-lineas);
+            padding-top: 2rem;
+        }
+
+        /* --- WIDGET FLOTANTE DE WHATSAPP --- */
+        .whatsapp-flotante {
+            position: fixed;
+            bottom: 40px;
+            right: 40px;
+            width: 60px;
+            height: 60px;
+            background-color: var(--verde-whatsapp);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+            z-index: 9999;
+            transition: all 0.3s ease;
+        }
+        .whatsapp-flotante:hover { transform: scale(1.1); }
+        .whatsapp-flotante svg { width: 32px; height: 32px; fill: currentColor; }
+
+        /* --- RESPONSIVIDAD --- */
+        @media (max-width: 1024px) {
+            .sobre-nosotros-grid, .ubicacion-grid, .habitaciones-grid, .gastronomia-lista, .puntos-interes-grid {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+            .gastronomia-box { padding: 3rem 2rem; }
+            .seccion-contenedor { padding: 5rem 5%; }
+            .carrusel-zonas-sociales .carrusel-slide img { height: 320px; }
+        }
+        @media (max-width: 768px) {
+            .nav-menu { display: none; }
+            #inicio h1 { font-size: 3rem; }
+            #inicio h2 { font-size: 1.4rem; }
+            .whatsapp-flotante { bottom: 20px; right: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="nav-container">
+            <div class="brand-logo-box">
+                <div class="logo-main">Be'er Sheva 113</div>
+                <div class="logo-sub">Guest House</div>
+            </div>
+            
+            <button class="menu-hamburguesa" id="btn-menu" aria-label="Open menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            
+            <nav class="nav-menu" id="menu-principal">
+                <a href="#inicio" class="nav-link">Home</a>
+                <a href="#sobre-nosotros" class="nav-link">About Us</a>
+                <a href="#habitaciones" class="nav-link">Rooms</a>
+                <a href="#gastronomia" class="nav-link">Gastronomic Experience</a>
+                <a href="#ubicacion" class="nav-link">Location & Contact</a>
+                
+                <div class="idiomas-nav">
+                    <a href="index.html" class="bandera-link" title="Español">
+                        <img src="https://flagcdn.com/w40/co.png" alt="Español" style="width: 22px; height: auto; display: inline-block; border-radius: 2px;">
+                    </a>
+                    <a href="index-en.html" class="bandera-link activo" title="English">
+                        <img src="https://flagcdn.com/w40/us.png" alt="English" style="width: 22px; height: auto; display: inline-block; border-radius: 2px;">
+                    </a>
+                    <a href="index-fr.html" class="bandera-link" title="Français">
+                        <img src="https://flagcdn.com/w40/fr.png" alt="Français" style="width: 22px; height: auto; display: inline-block; border-radius: 2px;">
+                    </a>
+                </div>
+
+                <a href="https://wa.me/573202100527" target="_blank" class="btn-cta-header">Book via WhatsApp</a>
+            </nav>
+        </div>
+    </header>
+
+    <section id="inicio">
+        <div class="hero-content">
+            <h1>Be'er Sheva 113</h1>
+            <h2 class="destaque-verde">Guest House</h2>
+            <p>Discover an exclusive guest house in the distinguished area of 113th Street and 55th in Bogotá. A secure sanctuary surrounded by trees and close to the Córdoba Wetland, where the city's chaos fades away to welcome absolute comfort, rest, and tranquility.</p>
+            <a href="#habitaciones" class="btn-action-hero">Explore our options</a>
+        </div>
+    </section>
+
+    <section id="sobre-nosotros" class="seccion-contenedor">
+        <div class="sobre-nosotros-grid" style="align-items: start;">
+            <div>
+                <h2>The Meaning of <span class="destaque-verde">Urban Rest</span></h2>
+                <p>At Be'er Sheva 113, we create a space that lives up to its name: an authentic place of tranquility in the middle of the capital. Our strategic location keeps you minutes away from the main business, medical, and gastronomic centers in northern Bogotá, while you enjoy an atmosphere so peaceful and country-like that you will forget you are in the heart of the city. Located in a high-end, maximum-security residential sector, our guest house merges the warmth of a premium home with the exact functionality you seek.</p>
+                
+                <p>At Be'er Sheva 113, we firmly believe that silence is the new luxury. To guarantee a deep rest, total disconnection from daily stress, and respect for each other's space, our house and rooms are completely TV-free. Here, the noise disappears.</p>
+                
+                <p>However, we know connectivity matters: we feature high-speed Wi-Fi in all areas so you can work comfortably from your laptop or enjoy your favorite content in total privacy.</p>
+                
+                <ul class="caracteristicas-lista">
+                   <li><strong>🌲 Wake up to the sound of birds:</strong> Surrounded by nature and trees, you will experience a true sensation of disconnection.</li>
+                    <li><strong>🗝️ Absolute freedom:</strong> We hand over your own set of keys so you can come and go with complete independence and comfort.</li>
+                </ul>
+            </div>
+            
+            <div style="position: sticky; top: 120px;">
+                <h3 style="font-size: 1.3rem; margin-bottom: 1rem; text-align: center;" class="texto-dorado">Our Social Spaces</h3>
+                <div class="carrusel-contenedor carrusel-zonas-sociales">
+                    <span class="carrusel-nav carrusel-prev" onclick="moverCarrusel(this, -1)">‹</span>
+                    <div class="carrusel-track">
+                        <div class="carrusel-slide"><img src="images/Social1.jpg" alt="Social1"></div>
+                        <div class="carrusel-slide"><img src="images/Social2.jpg" alt="Social2"></div>
+                        <div class="carrusel-slide"><img src="images/Social3.jpg" alt="Social3"></div>
+                        <div class="carrusel-slide"><img src="images/Social4.jpg" alt="Social4"></div>
+                        <div class="carrusel-slide"><img src="images/Social5.jpg" alt="Social5"></div>
+                    </div>
+                    <span class="carrusel-nav carrusel-next" onclick="moverCarrusel(this, 1)">›</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="habitaciones" class="seccion-contenedor">
+        <div class="estandar-calidad">
+            🏁 Quality Standard in Every Room: To guarantee an exceptional rest, all our options feature premium linens: thermal down duvets and fully white sheets, pristine towels, and bathrooms equipped with hand soap, shower gel, shampoo, and a hairdryer.
+        </div>
+
+        <div class="habitaciones-grid">
+            
+            <div class="habitacion-card">
+                <div>
+                    <h3>🥇 <span class="texto-dorado">Junior Suite</span></h3>
+                    
+                    <div class="carrusel-contenedor">
+                        <span class="carrusel-nav carrusel-prev" onclick="moverCarrusel(this, -1)">‹</span>
+                        <div class="carrusel-track">
+                            <div class="carrusel-slide"><img src="images/201-1.jpg" alt="201-1"></div>
+                            <div class="carrusel-slide"><img src="images/201-2.jpg" alt="201-2"></div>
+                            <div class="carrusel-slide"><img src="images/201-3.jpg" alt="201-3"></div>
+                            <div class="carrusel-slide"><img src="images/201-4.jpg" alt="201-4"></div>
+                            <div class="carrusel-slide"><img src="images/201-5.jpg" alt="201-5"></div>
+                            <div class="carrusel-slide"><img src="images/201-6.jpg" alt="201-6"></div>
+                        </div>
+                        <span class="carrusel-nav carrusel-next" onclick="moverCarrusel(this, 1)">›</span>
+                    </div>
+
+                    <p>Comfort and privacy in one place. A spacious and bright room designed for your absolute relaxation.</p>
+                    <ul class="habitacion-detalles">
+                        <li><strong>Size:</strong> Approx. 25 m2</li>
+                        <li><strong>Capacity:</strong> 1 or 2 people.</li>
+                        <li><strong>Highlights:</strong> Private terrace with views, a spacious Walk-in Closet, and a pristine private bathroom inside the room.</li>
+                        <li><strong>Amenities:</strong> Comfortable bed, sofa, soft rug, integrated work/dining desk, coffee maker with complimentary coffee, and high-speed Wi-Fi.</li>
+                    </ul>
+                </div>
+                
+                <details class="tarifas-colapsable">
+                    <summary class="tarifas-summary">View Special Rates</summary>
+                    <div class="tarifas-box">
+                        <h4>Special Rates per Night (Limited Availability):</h4>
+                        <div class="tarifa-fila-cabecera">
+                            <span>Option</span>
+                            <span>1 Guest</span>
+                            <span>Couple</span>
+                        </div>
+                        <div class="tarifa-item-grid">
+                            <span class="tarifa-nombre">Accommodation Only</span>
+                            <div class="precio-col"><span class="precio-original">$41</span><span class="precio-descuento">$35</span></div>
+                            <div class="precio-col"><span class="precio-original">$62</span><span class="precio-descuento">$53</span></div>
+                        </div>
+                        <div class="tarifa-item-grid">
+                            <span class="tarifa-nombre">With Breakfast</span>
+                            <div class="precio-col"><span class="precio-original">$45</span><span class="precio-descuento">$39</span></div>
+                            <div class="precio-col"><span class="precio-original">$67</span><span class="precio-descuento">$58</span></div>
+                        </div>
+                        <div class="tarifa-item-grid">
+                            <span class="tarifa-nombre">With Dinner</span>
+                            <div class="precio-col"><span class="precio-original">$45</span><span class="precio-descuento">$39</span></div>
+                            <div class="precio-col"><span class="precio-original">$68</span><span class="precio-descuento">$58</span></div>
+                        </div>
+                        <div class="tarifa-item-grid">
+                            <span class="tarifa-nombre">Half Board<br><small style="color: #888888; font-size: 0.75rem; font-weight: 300;">(Breakfast and Dinner)</small></span>
+                            <div class="precio-col"><span class="precio-original">$48</span><span class="precio-descuento">$41</span></div>
+                            <div class="precio-col"><span class="precio-original">$71</span><span class="precio-descuento">$62</span></div>
+                        </div>
+                    </div>
+                </details>
+            </div>
+
+            <div class="habitacion-card">
+                <div>
+                    <h3>🥇 <span class="texto-dorado">Double Executive</span></h3>
+                    
+                    <div class="carrusel-contenedor">
+                        <span class="carrusel-nav carrusel-prev" onclick="moverCarrusel(this, -1)">‹</span>
+                        <div class="carrusel-track">
+                            <div class="carrusel-slide"><img src="images/203-1.jpg" alt="203-1"></div>
+                            <div class="carrusel-slide"><img src="images/203-2.jpg" alt="203-2"></div>
+                            <div class="carrusel-slide"><img src="images/203-3.jpg" alt="203-3"></div>
+                            <div class="carrusel-slide"><img src="images/203-4.jpg" alt="203-4"></div>
+                            <div class="carrusel-slide"><img src="images/203-5.jpg" alt="203-5"></div>
+                            <div class="carrusel-slide"><img src="images/203-6.jpg" alt="203-6"></div>
+                        </div>
+                        <span class="carrusel-nav carrusel-next" onclick="moverCarrusel(this, 1)">›</span>
+                    </div>
+
+                    <p>A spacious and comfortable room, tailored for guests who prioritize space and well-being.</p>
+                    <ul class="habitacion-detalles">
+                        <li><strong>Size:</strong> Approx. 20 m2</li>
+                        <li><strong>Capacity:</strong> 1 or 2 people.</li>
+                        <li><strong>Highlights:</strong> Private terrace, large closet, integrated work/dining desk, and excellent natural lighting.</li>
+                        <li><strong>Note:</strong> Shares a full bathroom exclusively with the Confort Room.</li>
+                    </ul>
+                </div>
+                
+                <details class="tarifas-colapsable">
+                    <summary class="tarifas-summary">View Special Rates</summary>
+                    <div class="tarifas-box">
+                        <h4>Special Rates per Night (Limited Availability):</h4>
+                        <div class="tarifa-fila-cabecera">
+                            <span>Option</span>
+                            <span>1 Guest</span>
+                            <span>Couple</span>
+                        </div>
+                        <div class="tarifa-item-grid">
+                            <span class="tarifa-nombre">Accommodation Only</span>
+                            <div class="precio-col"><span class="precio-original">$36</span><span class="precio-descuento">$30</span></div>
+                            <div class="precio-col"><span class="precio-original">$55</span><span class="precio-descuento">$45</span></div>
+                        </div>
+                        <div class="tarifa-item-grid">
+                            <span class="tarifa-nombre">With Breakfast</span>
+                            <div class="precio-col"><span class="precio-original">$40</span><span class="precio-descuento">$34</span></div>
+                            <div class="precio-col"><span class="precio-original">$60</span><span class="precio-descuento">$51</span></div>
+                        </div>
+                        <div class="tarifa-item-grid">
+                            <span class="tarifa-nombre">With Dinner</span>
+                            <div class="precio-col"><span class="precio-original">$40</span><span class="precio-descuento">$34</span></div>
+                            <div class="precio-col"><span class="precio-original">$60</span><span class="precio-descuento">$51</span></div>
+                        </div>
+                        <div class="tarifa-item-grid">
+                            <span class="tarifa-nombre">Half Board<br><small style="color: #888888; font-size: 0.75rem; font-weight: 300;">(Breakfast and Dinner)</small></span>
+                            <div class="precio-col"><span class="precio-original">$43</span><span class="precio-descuento">$36</span></div>
+                            <div class="precio-col"><span class="precio-original">$64</span><span class="precio-descuento">$55</span></div>
+                        </div>
+                    </div>
+                </details>
+            </div>
+
+            <div class="habitacion-card">
+                <div>
+                    <h3>🥉 <span class="texto-dorado">Double Confort</span></h3>
+                    
+                    <div class="carrusel-contenedor">
+                        <span class="carrusel-nav carrusel-prev" onclick="moverCarrusel(this, -1)">‹</span>
+                        <div class="carrusel-track">
+                            <div class="carrusel-slide"><img src="images/202-1.jpeg" alt="202-1"></div>
+                            <div class="carrusel-slide"><img src="images/202-2.jpeg" alt="202-2"></div>
+                            <div class="carrusel-slide"><img src="images/202-3.jpeg" alt="202-3"></div>
+                            <div class="carrusel-slide"><img src="images/202-4.jpg" alt="202-4"></div>
+                            <div class="carrusel-slide"><img src="images/202-5.jpeg" alt="202-5"></div>
+                            <div class="carrusel-slide"><img src="images/202-6.jpeg" alt="202-6"></div>
+                        </div>
+                        <span class="carrusel-nav carrusel-next" onclick="moverCarrusel(this, 1)">›</span>
+                    </div>
+
+                    <p>A cozy, exceptionally bright, and highly functional choice, without losing the outdoor charm.</p>
+                    <ul class="habitacion-detalles">
+                        <li><strong>Size:</strong> Approx. 16 m2</li>
+                        <li><strong>Capacity:</strong> 1 or 2 people.</li>
+                        <li><strong>Highlights:</strong> Private terrace, closet, and dining/work desk.</li>
+                        <li><strong>Note:</strong> Shares a full bathroom exclusively with the Executive Room.</li>
+                    </ul>
+                </div>
+                
+                <details class="tarifas-colapsable">
+                    <summary class="tarifas-summary">View Special Rates</summary>
+                    <div class="tarifas-box">
+                        <h4>Special Rates per Night (Limited Availability):</h4>
+                        <div class="tarifa-fila-cabecera">
+                            <span>Option</span>
+                            <span>1 Guest</span>
+                            <span>Couple</span>
+                        </div>
+                        <div class="tarifa-item-grid">
+                            <span class="tarifa-nombre">Accommodation Only</span>
+                            <div class="precio-col"><span class="precio-original">$33</span><span class="precio-descuento">$26</span></div>
+                            <div class="precio-col"><span class="precio-original">$49</span><span class="precio-descuento">$40</span></div>
+                        </div>
+                        <div class="tarifa-item-grid">
+                            <span class="tarifa-nombre">With Breakfast</span>
+                            <div class="precio-col"><span class="precio-original">$36</span><span class="precio-descuento">$30</span></div>
+                            <div class="precio-col"><span class="precio-original">$54</span><span class="precio-descuento">$45</span></div>
+                        </div>
+                        <div class="tarifa-item-grid">
+                            <span class="tarifa-nombre">With Dinner</span>
+                            <div class="precio-col"><span class="precio-original">$36</span><span class="precio-descuento">$30</span></div>
+                            <div class="precio-col"><span class="precio-original">$55</span><span class="precio-descuento">$45</span></div>
+                        </div>
+                        <div class="tarifa-item-grid">
+                            <span class="tarifa-nombre">Half Board<br><small style="color: #888888; font-size: 0.75rem; font-weight: 300;">(Breakfast and Dinner)</small></span>
+                            <div class="precio-col"><span class="precio-original">$39</span><span class="precio-descuento">$33</span></div>
+                            <div class="precio-col"><span class="precio-original">$58</span><span class="precio-descuento">$49</span></div>
+                        </div>
+                    </div>
+                </details>
+            </div>
+
+            <div class="habitacion-card">
+                <div>
+                    <h3>💼 <span class="texto-dorado">Individual Business</span></h3>
+                    
+                    <div class="carrusel-contenedor">
+                        <span class="carrusel-nav carrusel-prev" onclick="moverCarrusel(this, -1)">‹</span>
+                        <div class="carrusel-track">
+                            <div class="carrusel-slide"><img src="images/101-1.jpg" alt="101-1"></div>
+                            <div class="carrusel-slide"><img src="images/101-2.jpg" alt="101-2"></div>
+                            <div class="carrusel-slide"><img src="images/101-3.jpg" alt="101-3"></div>
+                            <div class="carrusel-slide"><img src="images/101-4.jpg" alt="101-4"></div>
+                            <div class="carrusel-slide"><img src="images/101-5.jpg" alt="101-5"></div>
+                            <div class="carrusel-slide"><img src="images/101-6.jpg" alt="101-6"></div>
+                        </div>
+                        <span class="carrusel-nav carrusel-next" onclick="moverCarrusel(this, 1)">›</span>
+                    </div>
+
+                    <p>The perfect option for business travelers or anyone seeking tranquility and concentration in a practical space for one guest.</p>
+                    <ul class="habitacion-detalles">
+                        <li><strong>Size:</strong> Approx. 11 m2</li>
+                        <li><strong>Capacity:</strong> 1 person (Single).</li>
+                        <li><strong>Highlights:</strong> Private half-bath inside the room (toilet and sink behind closed doors for your complete privacy). Only shares the shower on the upper floor.</li>
+                        <li><strong>Amenities:</strong> Work desk, very peaceful garden views, excellent lighting, and an environment of absolute silence.</li>
+                    </ul>
+                </div>
+                
+                <details class="tarifas-colapsable">
+                    <summary class="tarifas-summary">View Special Rates</summary>
+                    <div class="tarifas-box">
+                        <h4>Special Rates per Night (Limited Availability):</h4>
+                        <div class="tarifa-fila-cabecera">
+                            <span>Option</span>
+                            <span>1 Guest</span>
+                            <span>Couple</span>
+                        </div>
+                        <div class="tarifa-item-grid">
+                            <span class="tarifa-nombre">Accommodation Only</span>
+                            <div class="precio-col"><span class="precio-original">$31</span><span class="precio-descuento">$25</span></div>
+                            <span style="color: #444444; font-size: 0.85rem; text-align: center; font-weight: 300;">N/A</span>
+                        </div>
+                        <div class="tarifa-item-grid">
+                            <span class="tarifa-nombre">With Breakfast</span>
+                            <div class="precio-col"><span class="precio-original">$34</span><span class="precio-descuento">$28</span></div>
+                            <span style="color: #444444; font-size: 0.85rem; text-align: center; font-weight: 300;">N/A</span>
+                        </div>
+                        <div class="tarifa-item-grid">
+                            <span class="tarifa-nombre">With Dinner</span>
+                            <div class="precio-col"><span class="precio-original">$35</span><span class="precio-descuento">$28</span></div>
+                            <span style="color: #444444; font-size: 0.85rem; text-align: center; font-weight: 300;">N/A</span>
+                        </div>
+                        <div class="tarifa-item-grid">
+                            <span class="tarifa-nombre">Half Board<br><small style="color: #888888; font-size: 0.75rem; font-weight: 300;">(Breakfast and Dinner)</small></span>
+                            <div class="precio-col"><span class="precio-original">$37</span><span class="precio-descuento">$31</span></div>
+                            <span style="color: #444444; font-size: 0.85rem; text-align: center; font-weight: 300;">N/A</span>
+                        </div>
+                    </div>
+                </details>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="gastronomia" class="seccion-contenedor">
+        <div class="gastronomia-box">
+            <h2>Flavors that <span class="texto-dorado">complement</span> your Stay</h2>
+            <p>We want you to enjoy your stay without worries, which is why we adapt to your rhythm with flexible rates:</p>
+            
+            <a href="menu-en.html" class="btn-menu-gastronomia">View our digital menu</a>
+            
+            <div class="gastronomia-lista">
+                <div class="gastronomia-item">
+                    <h3>🍳 Accommodation Options</h3>
+                    <p>Choose your plan: Room Only, Breakfast Included, Dinner Included, or Half Board (Breakfast & Dinner).</p>
+                </div>
+                <div class="gastronomia-item">
+                    <h3>☕ Room Service</h3>
+                    <p>We deliver breakfast directly to your private terrace, so you can start your day with comfort, fresh air, and a peaceful view of the local trees.</p>
+                </div>
+                <div class="gastronomia-item">
+                    <h3>🍽️ Signature Cuisine</h3>
+                    <p>We offer an exclusive signature menu, allowing you to choose your meals whenever you need without having to leave the house.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+   <section id="ubicacion" class="seccion-contenedor">
+        <div class="ubicacion-grid">
+            <div>
+                <h2>Strategic <span class="destaque-verde">Location</span></h2>
+                <p>Our guest house is located in one of the most peaceful, secure, and exclusive residential neighborhoods in northern Bogotá:</p>
+                <ul class="ubicacion-detalles">
+                    <li><strong>📍 Exact Address:</strong> Calle 113 # 55-84, Barrio Puente Largo, Bogotá, Colombia.</li>
+                    <li><strong>🛡️ Neighborhood Profile:</strong> Privileged location in a secure and monitored high-end residential area (classified as Stratum 5). A peaceful neighborhood surrounded by lush greenery and nature.</li>
+                    <li><strong>🌿 Nearby Natural Attraction:</strong> Just a few steps from the Córdoba Wetland (Humedal Córdoba), an ecological sanctuary ideal for walking, breathing fresh air, and fully disconnecting from urban noise without leaving the city.</li>
+                </ul>
+            </div>
+            <div class="mapa-contenedor">
+                <iframe src="https://maps.google.com/maps?q=Calle%20113%20%23%2055-84,%20Bogota&t=&z=15&ie=UTF8&iwloc=&output=embed" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+        </div>
+        
+        <div class="puntos-interes-grid">
+            <div class="punto-interes-col">
+                <h4>🚇 Connectivity and Transport</h4>
+                <ul>
+                    <li>• <strong>TransMilenio:</strong> Just a two-block walk, offering fast and easy mobility throughout the city's main transit network.</li>
+                    <li>• <strong>Calle 100:</strong> One of the most important corporate and transit avenues in northern Bogotá, located just a few minutes away.</li>
+                    <li>• <strong>Autopista Norte:</strong> Immediate highway access to quickly connect from south to north.</li>
+                </ul>
+            </div>
+            <div class="punto-interes-col">
+                <h4>🛍️ Shopping Malls & Business</h4>
+                <ul>
+                    <li>• <strong>Iserra 100 Mall:</strong> Ideal for daily errands, restaurants, and banking services within walking distance.</li>
+                    <li>• <strong>Bulevar Niza Mall:</strong> Very quick and direct access by car or public transit.</li>
+                    <li>• <strong>Unicentro Mall:</strong> The commercial heart of the north, just a 15-minute drive away.</li>
+                    <li>• <strong>Hacienda Santa Bárbara:</strong> An exclusive corporate and colonial-style environment easily accessible by car.</li>
+                </ul>
+            </div>
+            <div class="punto-interes-col">
+                <h4>✨ Nearby Areas of Interest</h4>
+                <ul>
+                    <li>• <strong>Zona Rosa (Zona T):</strong> The epicentre of fine dining, luxury boutiques, and premium nightlife, located very close by.</li>
+                    <li>• <strong>Prestigious Medical Hub:</strong> Very close to major institutional medical complexes and world-class hospitals, such as the Fundación Santa Fe de Bogotá.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+   <footer>
+        <h2>Plan your <span class="destaque-verde">Stay</span></h2>
+        <p>We personally attend to all your requests, plan bookings, and dining preferences.</p>
+        
+        <div class="contacto-info">
+            <p>📍 Address: Calle 113 # 55-84, Barrio Puente Largo, Bogotá, Colombia</p>
+            <p>📲 Booking WhatsApp: +57 320 210 0527</p>
+        </div>
+
+        <a href="https://wa.me/573202100527" target="_blank" class="btn-whatsapp-footer">
+            Start Conversation on WhatsApp
+        </a>
+
+        <div class="copyright">
+            © 2026 Be'er Sheva 113 Guest House. All rights reserved. | Designed for relaxation and mindful disconnection.
+        </div>
+    </footer>
+
+    <a href="https://wa.me/573202100527" class="whatsapp-flotante" target="_blank" title="Chatea con nosotros">
+        <svg viewBox="0 0 32 32">
+            <path d="M16 2a13 13 0 0 0-11.27 19.46L3 29l7.76-2A13 13 0 1 0 16 2zm6.65 18.57c-.29.83-1.42 1.52-2.33 1.63s-1.89.06-3-.38a11.16 11.16 0 0 1-4.38-2.92 12.3 12.3 0 0 1-2.65-3.92 3.65 3.65 0 0 1-.09-2.58c.2-.29.43-.6.65-.86s.29-.43.43-.71a.88.88 0 0 0 0-.83c-.06-.14-.54-1.31-.74-1.8s-.39-1-.54-1h-.54a1.73 1.73 0 0 0-1.23.54c-.43.46-1.63 1.59-1.63 3.87a7.6 7.6 0 0 0 1.57 4.07A16.82 16.82 0 0 0 12 21.05a18.25 18.25 0 0 0 2.45 1.54c.74.34 1.43.31 2 .23a3.19 3.19 0 0 0 2.1-1.48 2.61 2.61 0 0 0 .17-1.48c-.08-.11-.28-.2-.57-.34z"/>
+        </svg>
+    </a>
+
+    <script>
+        // --- FUNCIÓN DEL CARRUSEL DE FOTOS (YA LO TENÍAS) ---
+        function moverCarrusel(boton, direccion) {
+            const contenedor = boton.parentElement.querySelector('.carrusel-track');
+            const anchoSlide = contenedor.querySelector('.carrusel-slide').clientWidth;
+            const posicionActual = contenedor.scrollLeft;
+            const scrollMaximo = contenedor.scrollWidth - contenedor.clientWidth;
+            let nuevaPosicion = posicionActual + (anchoSlide * direccion);
+            
+            if (nuevaPosicion > scrollMaximo + 10) {
+                nuevaPosicion = 0;
+            } else if (nuevaPosicion < -10) {
+                scrollMaximo;
+            }
+            contenedor.scrollTo({ left: nuevaPosicion, behavior: 'smooth' });
+        }
+
+        // --- CONTROL DEL MENÚ HAMBURGUESA (REVISE QUE ESTÉ ASÍ) ---
+        const btnMenu = document.getElementById('btn-menu');
+        const menuPrincipal = document.getElementById('menu-principal');
+        const enlacesMenu = document.querySelectorAll('.nav-link, .btn-cta-header, .bandera-link');
+
+        // Alternar menú al hacer clic en las tres líneas
+        btnMenu.addEventListener('click', () => {
+            menuPrincipal.classList.toggle('abierto');
+        });
+
+        // Cerrar el menú automáticamente cuando se hace clic en cualquier enlace
+        enlacesMenu.forEach(enlace => {
+            enlace.addEventListener('click', () => {
+                menuPrincipal.classList.remove('abierto');
+            });
+        });
+    </script>
+
+</body>
+</html>

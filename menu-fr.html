@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu Numérique - Be'er Sheva 113</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- CONSTANTES DE DISEÑO IDÉNTICAS AL INDEX --- */
+        :root {
+            --negro-profundo: #111111;
+            --negro-suave: #1A1A1A;
+            --dorado-principal: #D4AF37;
+            --dorado-claro: #F3E5AB;
+            --verde-contundente: #2B9348;
+            --verde-contundente-ho: #227539;
+            --blanco-puro: #FFFFFF;
+            --texto-gris: #CCCCCC;
+            --gris-lineas: #2A2A2A;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--negro-profundo);
+            color: var(--texto-gris);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* --- HEADER SIMPLIFICADO --- */
+        header {
+            background-color: rgba(17, 17, 17, 0.95);
+            border-bottom: 1px solid var(--gris-lineas);
+            width: 100%;
+        }
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        .brand-logo-box {
+            display: flex;
+            flex-direction: column;
+        }
+        .logo-main {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            color: var(--dorado-principal);
+            line-height: 1.2;
+        }
+        .logo-sub {
+            font-size: 0.7rem;
+            font-weight: 400;
+            letter-spacing: 1.5px;
+            color: var(--texto-gris);
+            text-transform: uppercase;
+            margin-top: 2px;
+        }
+
+        /* --- ALINEACIÓN DEL GRUPO DERECHO (IDIOMAS + CTA) --- */
+        .header-right-group {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .idiomas-nav {
+            display: flex;
+            gap: 0.7rem;
+            align-items: center;
+        }
+
+        .flag-img {
+            width: 24px;
+            height: auto;
+            display: block;
+            border-radius: 2px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+        }
+
+        .bandera-link {
+            text-decoration: none;
+            opacity: 0.6;
+            transition: opacity 0.3s ease;
+            line-height: 1;
+        }
+
+        .bandera-link:hover, 
+        .bandera-link.activa {
+            opacity: 1;
+        }
+
+        /* Indicador dorado para la bandera de EE.UU. activa en esta página */
+        .bandera-link.activa .flag-img {
+            outline: 1px solid var(--dorado-principal);
+            outline-offset: 2px;
+        }
+
+        /* --- ACABADO DE LUJO PARA EL BOTÓN VOLVER (INGLÉS) --- */
+        .btn-volver-home {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--dorado-principal);
+            border: 1px solid var(--dorado-principal);
+            padding: 0.65rem 1.4rem;
+            border-radius: 2px;
+            background: transparent;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .btn-volver-home:hover {
+            background-color: var(--verde-contundente);
+            border-color: var(--verde-contundente);
+            color: var(--blanco-puro);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(43, 147, 72, 0.3);
+        }
+
+        .btn-volver-home span {
+            transition: transform 0.3s ease;
+            font-size: 0.9rem;
+            line-height: 1;
+        }
+
+        .btn-volver-home:hover span {
+            transform: translateX(-4px);
+        }
+
+        /* --- SECCIÓN DE EXPECTATIVA (HERO) --- */
+        .expectativa-container {
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 4rem 10%;
+            text-align: center;
+            background: linear-gradient(rgba(17, 17, 17, 0.85), rgba(17, 17, 17, 0.98)), 
+                        url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=1200') no-repeat center center/cover;
+        }
+
+        .contenido-box {
+            max-width: 750px;
+            background-color: rgba(26, 26, 26, 0.6);
+            padding: 4rem 3rem;
+            border: 1px solid var(--gris-lineas);
+            border-radius: 4px;
+            backdrop-filter: blur(8px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+        }
+
+        .tag-premium {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--dorado-principal);
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            display: inline-block;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            color: var(--blanco-puro);
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
+        .resaltado-verde {
+            color: var(--verde-contundente);
+        }
+
+        p {
+            font-weight: 300;
+            font-size: 1.15rem;
+            line-height: 1.8;
+            margin-bottom: 2.5rem;
+            color: var(--texto-gris);
+        }
+
+        .btn-regresar {
+            display: inline-block;
+            text-decoration: none;
+            background-color: var(--verde-contundente);
+            color: var(--blanco-puro);
+            padding: 1rem 2.5rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            border-radius: 3px;
+            box-shadow: 0 4px 15px rgba(43, 147, 72, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .btn-regresar:hover {
+            background-color: var(--verde-contundente-ho);
+            transform: translateY(-2px);
+        }
+
+        /* --- FOOTER SIMPLIFICADO --- */
+        footer {
+            background-color: #090a0a;
+            color: #444444;
+            padding: 2rem 5%;
+            text-align: center;
+            font-size: 0.8rem;
+            border-top: 1px solid var(--gris-lineas);
+        }
+
+        /* --- RESPONSIVIDAD --- */
+        @media (max-width: 768px) {
+            h1 { font-size: 2.2rem; }
+            p { font-size: 1rem; }
+            .contenido-box { padding: 2.5rem 1.5rem; }
+            .header-right-group { gap: 1rem; }
+            .btn-volver-home {
+                padding: 0.5rem 1rem;
+                font-size: 0.7rem;
+                letter-spacing: 1px;
+            }
+        }
+        @media (max-width: 480px) {
+            .nav-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+</style>
+</head>
+<body>
+
+    <header>
+        <div class="nav-container">
+            <div class="brand-logo-box">
+                <div class="logo-main">Be'er Sheva 113</div>
+                <div class="logo-sub">Maison d'Hôtes</div>
+            </div>
+            
+            <div class="header-right-group">
+                <div class="idiomas-nav">
+                    <a href="menu.html" class="bandera-link" title="Español">
+                        <img src="https://flagcdn.com/w40/co.png" alt="Español" class="flag-img">
+                    </a>
+                    <a href="menu-en.html" class="bandera-link" title="English">
+                        <img src="https://flagcdn.com/w40/us.png" alt="English" class="flag-img">
+                    </a>
+                    <a href="menu-fr.html" class="bandera-link activa" title="Français">
+                        <img src="https://flagcdn.com/w40/fr.png" alt="Français" class="flag-img">
+                    </a>
+                </div>
+
+                <a href="index-fr.html" class="btn-volver-home">
+                    <span>←</span> Retour à l'accueil
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="expectativa-container">
+        <div class="contenido-box">
+            <span class="tag-premium">Expérience Gastronomique</span>
+            <h1>Quelque chose d'extraordinaire se <span class="resaltado-verde">prépare</span></h1>
+            <p>Très bientôt, nous mettrons en ligne notre menu numérique exclusif afin que vous puissiez découvrir notre cuisine d'auteur. Nous perfectionnons chaque recette et sélectionnons les meilleurs ingrédients locaux pour vous proposer des plats uniques qui compléteront parfaitement le repos et la tranquillité de votre séjour.</p>
+            <a href="index.html" class="btn-regresar">Explorer la Maison d'Hôtes</a>
+        </div>
+    </main>
+
+    <footer>
+        © 2026 Be'er Sheva 113 Maison d'Hôtes. Tous droits réservés. | Saveurs en évolution.
+    </footer>
+
+</body>
+</html>
