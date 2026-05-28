@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Menú Digital - Be'er Sheva 113</title>
+    <title>Digital Menu - Be'er Sheva 113</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -39,7 +39,7 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        /* --- HEADER SIMPLIFICADO --- */
+        /* --- HEADER SIMPLIFICADO Y CORREGIDO --- */
         header {
             background-color: rgba(17, 17, 17, 0.95);
             border-bottom: 1px solid var(--gris-lineas);
@@ -73,19 +73,85 @@
             text-transform: uppercase;
             margin-top: 2px;
         }
-        .btn-volver-alta {
-            font-size: 0.85rem;
-            text-decoration: none;
-            color: var(--texto-gris);
-            border: 1px solid var(--gris-lineas);
-            padding: 0.6rem 1.2rem;
+
+        /* --- ALINEACIÓN DEL GRUPO DERECHO (IDIOMAS + CTA) --- */
+        .header-right-group {
+            display: flex;
+            align-items: center;
+            gap: 2rem; /* Espaciado elegante entre banderas y botón */
+        }
+
+        .idiomas-nav {
+            display: flex;
+            gap: 0.7rem;
+            align-items: center;
+        }
+
+        .flag-img {
+            width: 24px;
+            height: auto;
+            display: block;
             border-radius: 2px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
             transition: all 0.3s ease;
         }
-        .btn-volver-alta:hover {
-            color: var(--blanco-puro);
-            border-color: var(--dorado-principal);
+
+        .bandera-link {
+            text-decoration: none;
+            opacity: 0.6;
+            transition: opacity 0.3s ease;
+            line-height: 1;
         }
+
+        .bandera-link:hover, 
+        .bandera-link.activo {
+            opacity: 1;
+        }
+
+        .bandera-link.activo .flag-img {
+            outline: 1px solid var(--dorado-principal);
+            outline-offset: 2px;
+        }
+
+        /* --- NUEVO ACABADO DE LUJO PARA EL BOTÓN VOLVER --- */
+        .btn-volver-home {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1.5px; /* Estilo de marca de lujo */
+            color: var(--dorado-principal);
+            border: 1px solid var(--dorado-principal);
+            padding: 0.65rem 1.4rem;
+            border-radius: 2px;
+            background: transparent;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        /* Animación fluida al pasar el mouse */
+        .btn-volver-home:hover {
+            background-color: var(--verde-contundente);
+            border-color: var(--verde-contundente);
+            color: var(--blanco-puro);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(43, 147, 72, 0.3); /* Sutil brillo verde */
+        }
+
+        /* Animación de la flecha incorporada */
+        .btn-volver-home span {
+            transition: transform 0.3s ease;
+            font-size: 0.9rem;
+            line-height: 1;
+        }
+
+        .btn-volver-home:hover span {
+            transform: translateX(-4px); /* La flecha se mueve sutilmente a la izquierda */
+        }
+
 
         /* --- SECCIÓN DE EXPECTATIVA (HERO) --- */
         .expectativa-container {
@@ -139,7 +205,7 @@
             color: var(--texto-gris);
         }
 
-        /* BOTÓN PRINCIPAL DE REGRESO */
+        /* BOTÓN PRINCIPAL DE REGRESO EN EL CONTENIDO */
         .btn-regresar {
             display: inline-block;
             text-decoration: none;
@@ -169,13 +235,25 @@
             border-top: 1px solid var(--gris-lineas);
         }
 
-        /* RESPONSIVIDAD */
+        /* --- RESPONSIVIDAD --- */
         @media (max-width: 768px) {
             h1 { font-size: 2.2rem; }
             p { font-size: 1rem; }
             .contenido-box { padding: 2.5rem 1.5rem; }
+            .header-right-group { gap: 1rem; }
+            .btn-volver-home {
+                padding: 0.5rem 1rem;
+                font-size: 0.7rem;
+                letter-spacing: 1px;
+            }
         }
-    </style>
+        @media (max-width: 480px) {
+            .nav-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+</style>
 </head>
 <body>
 
@@ -183,23 +261,40 @@
         <div class="nav-container">
             <div class="brand-logo-box">
                 <div class="logo-main">Be'er Sheva 113</div>
-                <div class="logo-sub">Casa de Huéspedes</div>
+                <div class="logo-sub">Guest House</div>
             </div>
-            <a href="index.html" class="btn-volver-alta">← Volver al Inicio</a>
+            
+            <div class="header-right-group">
+                <div class="idiomas-nav">
+                    <a href="menu.html" class="bandera-link" title="Español">
+                        <img src="https://flagcdn.com/w40/co.png" alt="Español" class="flag-img">
+                    </a>
+                    <a href="menu-en.html" class="bandera-link activa" title="English">
+                        <img src="https://flagcdn.com/w40/us.png" alt="English" class="flag-img">
+                    </a>
+                    <a href="menu-fr.html" class="bandera-link" title="Français">
+                        <img src="https://flagcdn.com/w40/fr.png" alt="Français" class="flag-img">
+                    </a>
+                </div>
+
+                <a href="index-en.html" class="btn-volver-home">
+                    <span>←</span> Back to home
+                </a>
+            </div>
         </div>
     </header>
 
     <main class="expectativa-container">
         <div class="contenido-box">
-            <span class="tag-premium">Experiencia Gastronómica</span>
-            <h1>Algo extraordinario se está <span class="resaltado-verde">cocinando</span></h1>
-            <p>Muy pronto subiremos nuestro exclusivo menú digital para que conozcas la propuesta de nuestra cocina de autor. Estamos perfeccionando cada receta y seleccionando los mejores ingredientes locales para ofrecerte platos únicos que complementarán perfectamente el descanso y la tranquilidad de tu estancia.</p>
-            <a href="index.html" class="btn-regresar">Explorar la Casa de Huéspedes</a>
+            <span class="tag-premium">Gastronomic Experience</span>
+            <h1>Something extraordinary is <span class="resaltado-verde">cooking</span></h1>
+            <p>Very soon we will upload our exclusive digital menu so you can discover our signature cuisine. We are perfecting every recipe and selecting the finest local ingredients to offer you unique dishes that will perfectly complement the rest and tranquility of your stay.</p>
+            <a href="index.html" class="btn-regresar">Explore the Guest House</a>
         </div>
     </main>
 
     <footer>
-        © 2026 Be'er Sheva 113 Casa de Huéspedes. Todos los derechos reservados. | Sabores en evolución.
+        © 2026 Be'er Sheva 113 Guest House. All rights reserved. | Flavors in evolution.
     </footer>
 
 </body>
