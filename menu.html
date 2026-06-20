@@ -680,61 +680,101 @@
         .seccion-menu:not(.colapsado) .paso-flecha {
             transform: rotate(180deg);
             color: var(--verde-contundente);
-        }
+        }/* --- ESTILOS RESPONSIVOS --- */
+/* --- ESTILOS RESPONSIVOS --- */
+
+/* Ocultar el grupo móvil por defecto */
+.header-actions-mobile {
+    display: none; 
+}
+
+/* En pantallas pequeñas (Móvil) */
+@media (max-width: 992px) {
+    /* Mostrar el grupo móvil y ocultar las banderas del menú principal */
+    .header-actions-mobile {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
+    .desktop-only { 
+        display: none !important; 
+    }
+}
+
+/* En pantallas grandes (PC) */
+@media (min-width: 993px) {
+    /* Ocultar el botón hamburguesa y el grupo móvil */
+    .header-actions-mobile { 
+        display: none !important; 
+    }
+    
+    /* Asegurar que las banderas de escritorio se vean */
+    .desktop-only { 
+        display: flex !important; 
+        gap: 10px; 
+        align-items: center; 
+    }
+}
+
+/* Ajustes adicionales para las imágenes de banderas */
+.flag-img {
+    width: 22px;
+    height: auto;
+    border-radius: 2px;
+    display: block;
+}
     </style>
 </head>
 <body>
 
     <header>
-        <div style="background: rgba(212, 175, 55, 0.08); border-bottom: 1px solid rgba(212, 175, 55, 0.3); text-align: center; padding: 10px 5%; font-size: 0.75rem; color: var(--dorado-claro); letter-spacing: 1px; font-weight: 300;">
+    <div style="background: rgba(212, 175, 55, 0.08); border-bottom: 1px solid rgba(212, 175, 55, 0.3); text-align: center; padding: 10px 5%; font-size: 0.75rem; color: var(--dorado-claro); letter-spacing: 1px; font-weight: 300;">
         <span style="font-size: 0.9rem; margin-right: 5px;">✨</span> 
         <strong style="font-family: 'Playfair Display', serif; font-size: 0.85rem; color: var(--dorado-principal); font-weight: 600;">Nota importante:</strong> 
         El descuento del 30% aplica únicamente si tu reserva tiene <span style="border-bottom: 1px solid var(--dorado-principal); padding-bottom: 1px;">Plan de alimentación incluido</span>.
     </div>
+
     <div class="nav-container">
-        <!-- Columna Izquierda: Logo -->
         <div class="brand-logo-box">
             <div class="logo-main">Be'er Sheva 113</div>
             <div class="logo-sub">Casa de Huéspedes Boutique</div>
         </div>
-        
-        <!-- BOTÓN HAMBURGUESA (Nuevo) -->
-        <div class="hamburger-menu" id="hamburgerBtn">
-            <span></span>
-            <span></span>
-            <span></span>
+
+        <div class="header-actions-mobile">
+            <div class="idiomas-nav">
+                <a href="menu.html" class="bandera-link activo" title="Español"><img src="https://flagcdn.com/w40/co.png" alt="Español" class="flag-img"></a>
+                <a href="menu-en.html" class="bandera-link" title="English"><img src="https://flagcdn.com/w40/us.png" alt="English" class="flag-img"></a>
+                <a href="menu-fr.html" class="bandera-link" title="Français"><img src="https://flagcdn.com/w40/fr.png" alt="Français" class="flag-img"></a>
+            </div>
+
+            <div class="hamburger-menu" id="hamburgerBtn">
+                <span></span><span></span><span></span>
+            </div>
         </div>
         
-        <!-- CONTENEDOR DESPLEGABLE (Modificado para móvil) -->
         <div class="nav-menu-wrapper" id="navMenuWrapper">
             <nav class="menu-categorias-nav">
-                <a href="#combos-ganadores" onclick="abrirSeccionCombos(event)" style="display: inline-flex; align-items: center; gap: 8px; font-family: 'Montserrat', sans-serif; font-size: 0.75rem; font-weight: 600; color: var(--dorado-principal); text-transform: uppercase; letter-spacing: 1px; text-decoration: none; border: 1px solid var(--dorado-principal); padding: 8px 14px; border-radius: 2px; background: rgba(212, 175, 55, 0.05); transition: all 0.3s;" onmouseover="this.style.background='var(--dorado-principal)'; this.style.color='#111';" onmouseout="this.style.background='rgba(212, 175, 55, 0.05)'; this.style.color='var(--dorado-principal)';">
-    ✨ Combos Sugeridos
-</a>
-    <a href="#bases" onclick="abrirSeccionMenu(event, 'bases')" class="cat-link">Bases</a>
-    <a href="#proteinas" onclick="abrirSeccionMenu(event, 'proteinas')" class="cat-link">Proteínas</a>
-    <a href="#salsas" onclick="abrirSeccionMenu(event, 'salsas')" class="cat-link">Salsas</a>
-    <a href="#acompanamientos" onclick="abrirSeccionMenu(event, 'acompanamientos')" class="cat-link">Acompañamientos</a>
-    <a href="#bebidas" onclick="abrirSeccionMenu(event, 'bebidas')" class="cat-link">Bebidas</a>
-</nav>
-                
-            <div class="header-right-group">
-                <div class="idiomas-nav">
-                    <a href="menu.html" class="bandera-link activo" title="Español">
-                        <img src="https://flagcdn.com/w40/co.png" alt="Español" class="flag-img">
-                    </a>
-                    <a href="menu-en.html" class="bandera-link" title="English">
-                        <img src="https://flagcdn.com/w40/us.png" alt="English" class="flag-img">
-                    </a>
-                    <a href="menu-fr.html" class="bandera-link" title="Français">
-                        <img src="https://flagcdn.com/w40/fr.png" alt="Français" class="flag-img">
-                    </a>
-                </div>
-
-                <a href="index.html" class="btn-volver-home">
-                    <span>←</span> Volver al inicio
+                <a href="#combos-ganadores" onclick="abrirSeccionCombos(event)" style="display: inline-flex; align-items: center; gap: 8px; font-family: 'Montserrat', sans-serif; font-size: 0.75rem; font-weight: 600; color: var(--dorado-principal); text-transform: uppercase; letter-spacing: 1px; text-decoration: none; border: 1px solid var(--dorado-principal); padding: 8px 14px; border-radius: 2px; background: rgba(212, 175, 55, 0.05);">
+                    ✨ Combos Sugeridos
                 </a>
-            </div>
+                <a href="#bases" onclick="abrirSeccionMenu(event, 'bases')" class="cat-link">Bases</a>
+                <a href="#proteinas" onclick="abrirSeccionMenu(event, 'proteinas')" class="cat-link">Proteínas</a>
+                <a href="#salsas" onclick="abrirSeccionMenu(event, 'salsas')" class="cat-link">Salsas</a>
+                <a href="#acompanamientos" onclick="abrirSeccionMenu(event, 'acompanamientos')" class="cat-link">Acompañamientos</a>
+                <a href="#bebidas" onclick="abrirSeccionMenu(event, 'bebidas')" class="cat-link">Bebidas</a>
+            </nav>
+            
+            <div class="header-right-group">
+    <div class="idiomas-nav desktop-only">
+        <a href="menu.html" class="bandera-link activo" title="Español"><img src="https://flagcdn.com/w40/co.png" alt="Español" class="flag-img"></a>
+        <a href="menu-en.html" class="bandera-link" title="English"><img src="https://flagcdn.com/w40/us.png" alt="English" class="flag-img"></a>
+        <a href="menu-fr.html" class="bandera-link" title="Français"><img src="https://flagcdn.com/w40/fr.png" alt="Français" class="flag-img"></a>
+    </div>
+
+    <a href="index.html" class="btn-volver-home">
+        <span>←</span> Volver al inicio
+    </a>
+</div>
         </div>
     </div>
 </header>
@@ -758,7 +798,7 @@
             <div style="background: rgba(26, 26, 26, 0.9); border: 1px solid var(--gris-lineas); border-radius: 6px; overflow: hidden; display: flex; flex-direction: column; justify-content: space-between;">
                 <div>
                     <div style="width: 100%; height: 180px; overflow: hidden; background: #222; border-bottom: 1px solid var(--gris-lineas); position: relative;">
-                        <img src="images/carta/Combo1.png" alt="Crepe con pechuga al grill y chicharrón" style="width: 100%; height: 100%; object-fit: cover; opacity: 0.9; transition: opacity 0.3s;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.9">
+                        <img src="images/carta/combo1.png" alt="Crepe con pechuga al grill y chicharrón" style="width: 100%; height: 100%; object-fit: cover; opacity: 0.9; transition: opacity 0.3s;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.9">
                     </div>
                     <div style="padding: 15px;">
                         <h4 style="font-family: 'Playfair Display', serif; color: var(--dorado-principal); font-size: 1.15rem; margin-bottom: 6px;">1. Crepe de la Casa Especial</h4>
@@ -787,7 +827,7 @@
             <div style="background: rgba(26, 26, 26, 0.9); border: 1px solid var(--gris-lineas); border-radius: 6px; overflow: hidden; display: flex; flex-direction: column; justify-content: space-between;">
                 <div>
                     <div style="width: 100%; height: 180px; overflow: hidden; background: #222; border-bottom: 1px solid var(--gris-lineas); position: relative;">
-                        <img src="images/carta/Combo2.png" alt="Pancakes Esponjosos Especiales de la Casa" style="width: 100%; height: 100%; object-fit: cover; opacity: 0.9; transition: opacity 0.3s;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.9">
+                        <img src="images/carta/combo2.png" alt="Pancakes Esponjosos Especiales de la Casa" style="width: 100%; height: 100%; object-fit: cover; opacity: 0.9; transition: opacity 0.3s;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.9">
                     </div>
                     <div style="padding: 15px;">
                         <h4 style="font-family: 'Playfair Display', serif; color: var(--dorado-principal); font-size: 1.15rem; margin-bottom: 6px;">2. Brunch Pancakes Deluxe</h4>
@@ -816,7 +856,7 @@
             <div style="background: rgba(26, 26, 26, 0.9); border: 1px solid var(--gris-lineas); border-radius: 6px; overflow: hidden; display: flex; flex-direction: column; justify-content: space-between;">
                 <div>
                     <div style="width: 100%; height: 180px; overflow: hidden; background: #222; border-bottom: 1px solid var(--gris-lineas); position: relative;">
-                        <img src="images/carta/Combo3.png" alt="Spaghetti Boloñesa Gourmet" style="width: 100%; height: 100%; object-fit: cover; opacity: 0.9; transition: opacity 0.3s;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.9">
+                        <img src="images/carta/combo3.png" alt="Spaghetti Boloñesa Gourmet" style="width: 100%; height: 100%; object-fit: cover; opacity: 0.9; transition: opacity 0.3s;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.9">
                     </div>
                     <div style="padding: 15px;">
                         <h4 style="font-family: 'Playfair Display', serif; color: var(--dorado-principal); font-size: 1.15rem; margin-bottom: 6px;">3. Spaghetti Italiano Clásico</h4>
@@ -845,7 +885,7 @@
             <div style="background: rgba(26, 26, 26, 0.9); border: 1px solid var(--gris-lineas); border-radius: 6px; overflow: hidden; display: flex; flex-direction: column; justify-content: space-between;">
                 <div>
                     <div style="width: 100%; height: 180px; overflow: hidden; background: #222; border-bottom: 1px solid var(--gris-lineas); position: relative;">
-                        <img src="images/carta/Combo4.png" alt="Papas Belgas Crujientes con Toppings" style="width: 100%; height: 100%; object-fit: cover; opacity: 0.9; transition: opacity 0.3s;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.9">
+                        <img src="images/carta/combo4.png" alt="Papas Belgas Crujientes con Toppings" style="width: 100%; height: 100%; object-fit: cover; opacity: 0.9; transition: opacity 0.3s;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.9">
                     </div>
                     <div style="padding: 15px;">
                         <h4 style="font-family: 'Playfair Display', serif; color: var(--dorado-principal); font-size: 1.15rem; margin-bottom: 6px;">4. Papas Belgas con Toppings</h4>
@@ -2168,6 +2208,7 @@ const activosEnPantalla = document.querySelectorAll('input[name="base"]:checked,
         
         window.open(url, '_blank');
     }
+
 </script>
 </body>
 </html>
