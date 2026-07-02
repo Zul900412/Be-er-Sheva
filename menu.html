@@ -1759,7 +1759,7 @@
     function obtenerNombreDeInput(inputElement) {
         if (!inputElement) return "";
         
-        // Excepciones para selectores dinámicos
+        // --- 1. Excepciones para selectores dinámicos ---
         if (inputElement.id === 'chk-jugo-agua') {
             const sabor = document.getElementById('opt-jugo-agua') ? document.getElementById('opt-jugo-agua').value : "Mora";
             return `Jugo en Agua (${sabor})`;
@@ -1776,13 +1776,32 @@
             const opcion = document.getElementById('opt-acomp-patacones') ? document.getElementById('opt-acomp-patacones').value : "";
             return `Patacones (${opcion})`;
         }
+        
+        // ¡NUEVO! Aquí agregamos las bebidas que faltaban para que capture si es Caliente/Frío
+        if (inputElement.id === 'chk-bebida-chocolate') {
+            const opcion = document.getElementById('opt-bebida-chocolate') ? document.getElementById('opt-bebida-chocolate').value : "";
+            return `Chocolate Espumoso (${opcion})`;
+        }
+        if (inputElement.id === 'chk-bebida-matcha') {
+            const opcion = document.getElementById('opt-bebida-matcha') ? document.getElementById('opt-bebida-matcha').value : "";
+            return `Matcha Latte (${opcion})`;
+        }
+        if (inputElement.id === 'chk-bebida-infusion') {
+            const opcion = document.getElementById('opt-bebida-infusion') ? document.getElementById('opt-bebida-infusion').value : "";
+            return `Infusión Aromática (${opcion})`;
+        }
 
-        // Búsqueda de nombre estándar
+        // --- 2. Búsqueda de nombre estándar ---
         const cabecera = inputElement.closest('.plato-cabecera-interactiva') || inputElement.parentElement;
         if (cabecera) {
-            const tagNombre = cabecera.querySelector('.plato-nombre') || cabecera.querySelector('span[style*="font-weight: 600"]');
+            // ¡CORRECCIÓN! Ahora busca tanto en <span> como en <label>
+            const tagNombre = cabecera.querySelector('.plato-nombre') || 
+                              cabecera.querySelector('span[style*="font-weight: 600"]') ||
+                              cabecera.querySelector('label[style*="font-weight: 600"]'); 
             if (tagNombre) return tagNombre.innerText.trim();
         }
+        
+        // --- 3. Respaldo final ---
         return inputElement.value;
     }
 
