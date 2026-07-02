@@ -1614,32 +1614,49 @@
     }
 
     function obtenerNombreDeInput(inputElement) {
-        if (!inputElement) return "";
-        
-        if (inputElement.id === 'chk-jugo-agua') {
-            const sabor = document.getElementById('opt-jugo-agua') ? document.getElementById('opt-jugo-agua').value : "Mûre";
-            return `Jus à l'Eau (${sabor})`;
-        }
-        if (inputElement.id === 'chk-jugo-leche') {
-            const sabor = document.getElementById('opt-jugo-leche') ? document.getElementById('opt-jugo-leche').value : "Mûre";
-            return `Jus au Lait (${sabor})`;
-        }
-        if (inputElement.id === 'chk-acomp-ensalada') {
-            const opcion = document.getElementById('opt-acomp-ensalada') ? document.getElementById('opt-acomp-ensalada').value : "";
-            return `Salade Maison (${opcion})`;
-        }
-        if (inputElement.id === 'chk-acomp-patacones') {
-            const opcion = document.getElementById('opt-acomp-patacones') ? document.getElementById('opt-acomp-patacones').value : "";
-            return `Patacones (${opcion})`;
-        }
-
-        const cabecera = inputElement.closest('.plato-cabecera-interactiva') || inputElement.parentElement;
-        if (cabecera) {
-            const tagNombre = cabecera.querySelector('.plato-nombre') || cabecera.querySelector('span[style*="font-weight: 600"]');
-            if (tagNombre) return tagNombre.innerText.trim();
-        }
-        return inputElement.value;
+    if (!inputElement) return "";
+    
+    if (inputElement.id === 'chk-jugo-agua') {
+        const sabor = document.getElementById('opt-jugo-agua') ? document.getElementById('opt-jugo-agua').value : "Mûre";
+        return `Jus à l'Eau (${sabor})`;
     }
+    if (inputElement.id === 'chk-jugo-leche') {
+        const sabor = document.getElementById('opt-jugo-leche') ? document.getElementById('opt-jugo-leche').value : "Mûre";
+        return `Jus au Lait (${sabor})`;
+    }
+    if (inputElement.id === 'chk-acomp-ensalada') {
+        const opcion = document.getElementById('opt-acomp-ensalada') ? document.getElementById('opt-acomp-ensalada').value : "";
+        return `Salade Maison (${opcion})`;
+    }
+    if (inputElement.id === 'chk-acomp-patacones') {
+        const opcion = document.getElementById('opt-acomp-patacones') ? document.getElementById('opt-acomp-patacones').value : "";
+        return `Patacones (${opcion})`;
+    }
+    
+    // --- EXCEPCIONES AÑADIDAS PARA BEBIDAS EN FRANCÉS ---
+    if (inputElement.id === 'chk-bebida-chocolate') {
+        const opcion = document.getElementById('opt-bebida-chocolate') ? document.getElementById('opt-bebida-chocolate').value : "";
+        return `Chocolat Mousseux (${opcion})`;
+    }
+    if (inputElement.id === 'chk-bebida-matcha') {
+        const opcion = document.getElementById('opt-bebida-matcha') ? document.getElementById('opt-bebida-matcha').value : "";
+        return `Matcha Latte (${opcion})`;
+    }
+    if (inputElement.id === 'chk-bebida-infusion') {
+        const opcion = document.getElementById('opt-bebida-infusion') ? document.getElementById('opt-bebida-infusion').value : "";
+        return `Infusion Aromatique (${opcion})`;
+    }
+
+    const cabecera = inputElement.closest('.plato-cabecera-interactiva') || inputElement.parentElement;
+    if (cabecera) {
+        // --- CORRECCIÓN AÑADIDA PARA LEER <label> ---
+        const tagNombre = cabecera.querySelector('.plato-nombre') || 
+                          cabecera.querySelector('span[style*="font-weight: 600"]') ||
+                          cabecera.querySelector('label[style*="font-weight: 600"]');
+        if (tagNombre) return tagNombre.innerText.trim();
+    }
+    return inputElement.value;
+}
 
     function updateEnsaladaDesc(val) {
         const descMap = {
