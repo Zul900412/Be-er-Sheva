@@ -1639,34 +1639,51 @@
     }
 
     function obtenerNombreDeInput(inputElement) {
-        if (!inputElement) return "";
-        
-        // Excepciones para selectores dinámicos
-        if (inputElement.id === 'chk-jugo-agua') {
-            const sabor = document.getElementById('opt-jugo-agua') ? document.getElementById('opt-jugo-agua').value : "Blackberry";
-            return `Juice in Water (${sabor})`;
-        }
-        if (inputElement.id === 'chk-jugo-leche') {
-            const sabor = document.getElementById('opt-jugo-leche') ? document.getElementById('opt-jugo-leche').value : "Blackberry";
-            return `Juice in Milk (${sabor})`;
-        }
-        if (inputElement.id === 'chk-acomp-ensalada') {
-            const opcion = document.getElementById('opt-acomp-ensalada') ? document.getElementById('opt-acomp-ensalada').value : "";
-            return `House Salad (${opcion})`;
-        }
-        if (inputElement.id === 'chk-acomp-patacones') {
-            const opcion = document.getElementById('opt-acomp-patacones') ? document.getElementById('opt-acomp-patacones').value : "";
-            return `Fried Green Plantains (${opcion})`;
-        }
-
-        // Búsqueda de nombre estándar
-        const cabecera = inputElement.closest('.plato-cabecera-interactiva') || inputElement.parentElement;
-        if (cabecera) {
-            const tagNombre = cabecera.querySelector('.plato-nombre') || cabecera.querySelector('span[style*="font-weight: 600"]');
-            if (tagNombre) return tagNombre.innerText.trim();
-        }
-        return inputElement.value;
+    if (!inputElement) return "";
+    
+    // Excepciones para selectores dinámicos
+    if (inputElement.id === 'chk-jugo-agua') {
+        const sabor = document.getElementById('opt-jugo-agua') ? document.getElementById('opt-jugo-agua').value : "Blackberry";
+        return `Juice in Water (${sabor})`;
     }
+    if (inputElement.id === 'chk-jugo-leche') {
+        const sabor = document.getElementById('opt-jugo-leche') ? document.getElementById('opt-jugo-leche').value : "Blackberry";
+        return `Juice in Milk (${sabor})`;
+    }
+    if (inputElement.id === 'chk-acomp-ensalada') {
+        const opcion = document.getElementById('opt-acomp-ensalada') ? document.getElementById('opt-acomp-ensalada').value : "";
+        return `House Salad (${opcion})`;
+    }
+    if (inputElement.id === 'chk-acomp-patacones') {
+        const opcion = document.getElementById('opt-acomp-patacones') ? document.getElementById('opt-acomp-patacones').value : "";
+        return `Fried Green Plantains (${opcion})`;
+    }
+    
+    // --- EXCEPCIONES AÑADIDAS PARA BEBIDAS EN INGLÉS ---
+    if (inputElement.id === 'chk-bebida-chocolate') {
+        const opcion = document.getElementById('opt-bebida-chocolate') ? document.getElementById('opt-bebida-chocolate').value : "";
+        return `Frothy Chocolate (${opcion})`;
+    }
+    if (inputElement.id === 'chk-bebida-matcha') {
+        const opcion = document.getElementById('opt-bebida-matcha') ? document.getElementById('opt-bebida-matcha').value : "";
+        return `Matcha Latte (${opcion})`;
+    }
+    if (inputElement.id === 'chk-bebida-infusion') {
+        const opcion = document.getElementById('opt-bebida-infusion') ? document.getElementById('opt-bebida-infusion').value : "";
+        return `Aromatic Infusion (${opcion})`;
+    }
+
+    // Búsqueda de nombre estándar
+    const cabecera = inputElement.closest('.plato-cabecera-interactiva') || inputElement.parentElement;
+    if (cabecera) {
+        // --- CORRECCIÓN AÑADIDA PARA LEER <label> ---
+        const tagNombre = cabecera.querySelector('.plato-nombre') || 
+                          cabecera.querySelector('span[style*="font-weight: 600"]') ||
+                          cabecera.querySelector('label[style*="font-weight: 600"]');
+        if (tagNombre) return tagNombre.innerText.trim();
+    }
+    return inputElement.value;
+}
 
     function updateEnsaladaDesc(val) {
         const descMap = {
