@@ -514,24 +514,30 @@
             margin-bottom: 1.5rem;
         }
         
-        /* BOTÓN MENÚ DIGITAL INTERNO */
-        .btn-menu-gastronomia {
-            display: inline-block;
-            background-color: transparent;
-            border: 1px solid rgba(255, 255, 255, 0.4);
-            color: var(--blanco-puro);
-            padding: 0.8rem 2rem;
-            font-size: 0.9rem;
-            font-weight: 500;
-            letter-spacing: 0.5px;
-            border-radius: 2px;
-            margin-bottom: 1rem;
-        }
-        .btn-menu-gastronomia:hover {
-            background-color: var(--negro-profundo);
-            border-color: var(--dorado-principal);
-            color: var(--dorado-principal);
-        }
+        /* BOTÓN MENÚ DIGITAL INTERNO - ESTILO LLAMATIVO */
+.btn-menu-gastronomia {
+    display: inline-block;
+    background-color: var(--dorado-principal); /* Fondo sólido dorado */
+    border: 2px solid var(--dorado-principal);
+    color: var(--negro-profundo); /* Letra oscura para máximo contraste */
+    padding: 1rem 2.5rem; /* Un poco más de área clicable */
+    font-size: 1rem;
+    font-weight: 700; /* Texto más grueso (Bold) */
+    text-transform: uppercase; /* Mayúsculas para darle más jerarquía */
+    letter-spacing: 1px;
+    border-radius: 4px;
+    margin-bottom: 2rem;
+    box-shadow: 0 6px 15px rgba(212, 175, 55, 0.3); /* Sombra dorada sutil */
+    transition: all 0.3s ease;
+}
+
+.btn-menu-gastronomia:hover {
+    background-color: var(--blanco-puro);
+    border-color: var(--blanco-puro);
+    color: var(--negro-profundo);
+    transform: translateY(-3px); /* Efecto de elevación al pasar el mouse */
+    box-shadow: 0 8px 20px rgba(255, 255, 255, 0.4);
+}
 
         .gastronomia-lista {
             display: grid;
