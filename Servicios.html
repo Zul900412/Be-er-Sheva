@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solicitud de Servicios | Be'er Sheva 113</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Playfair+Display:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --negro-profundo: #111111;
+            --negro-suave: #1A1A1A;
+            --dorado-principal: #D4AF37;
+            --verde-contundente: #395740;
+            --blanco-puro: #FFFFFF;
+            --texto-gris: #CCCCCC;
+            --gris-lineas: #2A2A2A;
+        }
+
+        body { font-family: 'Montserrat', sans-serif; background-color: var(--negro-profundo); color: var(--texto-gris); line-height: 1.6; }
+        .seccion-contenedor { max-width: 600px; margin: 40px auto; padding: 40px; border: 1px solid var(--gris-lineas); background-color: var(--negro-suave); border-radius: 4px; }
+        
+        /* Selector de idiomas elegante */
+        .idiomas-tabs { display: flex; justify-content: center; gap: 15px; margin-bottom: 25px; }
+        .tab-btn { background: none; border: 1px solid var(--dorado-principal); color: var(--dorado-principal); padding: 5px 15px; cursor: pointer; border-radius: 3px; font-size: 0.8rem; transition: 0.3s; }
+        .tab-btn.activo { background: var(--dorado-principal); color: var(--negro-profundo); }
+
+        .idioma-contenido { display: none; }
+        .idioma-contenido.activo { display: block; animation: fadeIn 0.5s; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        h2 { font-family: 'Playfair Display', serif; color: var(--dorado-principal); text-align: center; margin-bottom: 2rem; }
+        .grupo-servicio { margin-bottom: 25px; border-bottom: 1px solid var(--gris-lineas); padding-bottom: 15px; }
+        .grupo-servicio strong { color: var(--blanco-puro); display: block; margin-bottom: 10px; }
+        label { display: flex; align-items: center; margin: 8px 0; cursor: pointer; color: var(--texto-gris); }
+        input[type="checkbox"] { margin-right: 10px; accent-color: var(--verde-contundente); }
+        
+        .btn-enviar { width: 100%; padding: 15px; background: var(--verde-contundente); border: none; color: var(--blanco-puro); font-weight: 600; cursor: pointer; border-radius: 2px; margin-top: 20px; }
+    </style>
+</head>
+<body>
+
+<section class="seccion-contenedor">
+    <div class="idiomas-tabs">
+        <button class="tab-btn activo" onclick="cambiarIdioma('es')">Español</button>
+        <button class="tab-btn" onclick="cambiarIdioma('en')">English</button>
+        <button class="tab-btn" onclick="cambiarIdioma('fr')">Français</button>
+    </div>
+
+    <div id="es" class="idioma-contenido activo">
+        <h2>Solicitud de Servicios</h2>
+        <div class="grupo-servicio">
+            <strong>Limpieza y Lencería:</strong>
+            <label><input type="checkbox" name="servicio" value="Servicio de Aseo"> Servicio de Aseo</label>
+            <label><input type="checkbox" name="servicio" value="Cambio de toallas"> Cambio de toallas</label>
+            <label><input type="checkbox" name="servicio" value="Cambio de sábanas"> Cambio de sábanas</label>
+        </div>
+        <div class="grupo-servicio">
+            <strong>Amenidades y Café:</strong>
+            <label><input type="checkbox" name="insumo" value="Agua para hervidora"> Agua para hervidora</label>
+            <label><input type="checkbox" name="insumo" value="Café adicional"> Café adicional</label>
+        </div>
+    </div>
+
+    <div id="en" class="idioma-contenido">
+        <h2>Service Request</h2>
+        <div class="grupo-servicio">
+            <strong>Cleaning & Linens:</strong>
+            <label><input type="checkbox" name="servicio" value="Housekeeping service"> Housekeeping service</label>
+            <label><input type="checkbox" name="servicio" value="Towel change"> Towel change</label>
+            <label><input type="checkbox" name="servicio" value="Bed sheets change"> Bed sheets change</label>
+        </div>
+        <div class="grupo-servicio">
+            <strong>Amenities & Coffee:</strong>
+            <label><input type="checkbox" name="insumo" value="Water for kettle"> Water for kettle</label>
+            <label><input type="checkbox" name="insumo" value="Additional coffee"> Additional coffee</label>
+        </div>
+    </div>
+
+    <div id="fr" class="idioma-contenido">
+        <h2>Demande de Services</h2>
+        <div class="grupo-servicio">
+            <strong>Entretien et Linge :</strong>
+            <label><input type="checkbox" name="servicio" value="Service de ménage"> Service de ménage</label>
+            <label><input type="checkbox" name="servicio" value="Changement de serviettes"> Changement de serviettes</label>
+            <label><input type="checkbox" name="servicio" value="Changement de draps"> Changement de draps</label>
+        </div>
+        <div class="grupo-servicio">
+            <strong>Commodités et Café :</strong>
+            <label><input type="checkbox" name="insumo" value="Eau pour la bouilloire"> Eau pour la bouilloire</label>
+            <label><input type="checkbox" name="insumo" value="Café supplémentaire"> Café supplémentaire</label>
+        </div>
+    </div>
+
+    <button type="button" class="btn-enviar" onclick="enviarSolicitud()">Enviar Solicitud / Send Request / Envoyer</button>
+</section>
+
+<script>
+    function cambiarIdioma(lang) {
+        document.querySelectorAll('.idioma-contenido').forEach(div => div.classList.remove('activo'));
+        document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('activo'));
+        document.getElementById(lang).classList.add('activo');
+        event.currentTarget.classList.add('activo');
+    }
+
+    function enviarSolicitud() {
+        // Busca solo el bloque que está activo actualmente
+        const contenedorActivo = document.querySelector('.idioma-contenido.activo');
+        let seleccionados = [];
+        contenedorActivo.querySelectorAll('input:checked').forEach(input => {
+            seleccionados.push("- " + input.value);
+        });
+
+        if (seleccionados.length === 0) {
+            alert("Por favor seleccione un servicio.");
+            return;
+        }
+
+        let mensaje = "Hola, solicito los siguientes servicios:%0A%0A" + seleccionados.join("%0A");
+        window.open(`https://wa.me/573202100527?text=${mensaje}`, '_blank');
+    }
+</script>
+
+</body>
+</html>
