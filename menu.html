@@ -2108,7 +2108,7 @@
 
     // ==========================================
     // ==========================================
-    // 7. COMBOS GANADORES
+    // 4. COMBOS GANADORES
     // ==========================================
     function cargarComboGanador(idCombo) {
         limpiarSeleccionActual();
@@ -2120,16 +2120,13 @@
             if(document.getElementById('opt-jugo-agua')) document.getElementById('opt-jugo-agua').value = "Mora";
             
         } else if (idCombo === 2) {
-            // CORRECCIÓN: Faltaba la Reducción de Frutos Rojos ('chk-salsa-frutos')
             IDsSeleccionados = ['chk-base-pancakes', 'chk-prot-huevos', 'chk-prot-chorizo', 'chk-prot-mozzarella', 'chk-salsa-yogurt', 'chk-salsa-frutos', 'chk-acomp-fruta', 'chk-bebida-chocolate'];
             
         } else if (idCombo === 3) {
             IDsSeleccionados = ['chk-base-pasta', 'chk-salsa-bolognesa', 'chk-acomp-francesa', 'chk-bebida-infusion'];
-            // CORRECCIÓN: Forzar que la infusión sea fría según la descripción
             if(document.getElementById('opt-bebida-infusion')) document.getElementById('opt-bebida-infusion').value = "Frío";
             
         } else if (idCombo === 4) {
-            // CORRECCIÓN: El ID correcto es 'chk-base-papasbelgas', no 'chk-acomp-belgas'
             IDsSeleccionados = ['chk-base-papasbelgas', 'chk-prot-cerdo', 'chk-prot-chicharron', 'chk-salsa-quesos', 'chk-bebida-limonada'];
         }
 
