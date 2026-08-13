@@ -824,7 +824,7 @@
                             <span style="font-size: 0.65rem; color: #a2d2ff; font-weight: 500; background: rgba(162, 210, 255, 0.12); padding: 2px 6px; border-radius: 2px;">*30% Off Si tu reserva incluye alimentación</span>
                         </div>
                         <p style="font-size: 0.78rem; line-height: 1.5; color: var(--texto-gris); font-weight: 300; margin-top: 8px;">
-                            ✨ Crepe francés artesanal relleno de Pechuga al Grill y dados de Chicharrón Premium, bañado en Salsa Cremosa de Champiñones. Acompañado de Cascos de Papa crujientes, Ensalada de la Casa y Jugo de Mora en agua.
+                            ✨ Crepe francés artesanal relleno de Pechuga al Grill, bañado en Salsa Cremosa de Champiñones. Acompañado de Cascos de Papa crujientes, Ensalada de la Casa y Agua de Jamaica.
                         </p>
                     </div>
                 </div>
@@ -2056,7 +2056,7 @@
         let IDsSeleccionados = [];
         
         if (idCombo === 1) {
-            IDsSeleccionados = ['chk-base-crepe', 'chk-prot-pollo', 'chk-prot-chicharron', 'chk-salsa-champinon', 'chk-acomp-cascos', 'chk-acomp-ensalada', 'chk-jugo-agua'];
+            IDsSeleccionados = ['chk-base-crepe', 'chk-prot-pollo', 'chk-salsa-champinon', 'chk-acomp-cascos', 'chk-acomp-ensalada', 'chk-jugo-agua'];
             if(document.getElementById('opt-jugo-agua')) document.getElementById('opt-jugo-agua').value = "Mora";
             
         } else if (idCombo === 2) {
@@ -2068,7 +2068,11 @@
             
         } else if (idCombo === 4) {
             IDsSeleccionados = ['chk-base-papasbelgas', 'chk-prot-cerdo', 'chk-prot-chicharron', 'chk-salsa-quesos', 'chk-bebida-limonada'];
+        }else if (idCombo === 5) {
+            IDsSeleccionados = ['chk-base-papasbelgas', 'chk-prot-cerdo', 'chk-prot-chicharron', 'chk-salsa-quesos', 'chk-bebida-limonada'];
         }
+
+        
 
         IDsSeleccionados.forEach(id => {
             const elemento = document.getElementById(id);
