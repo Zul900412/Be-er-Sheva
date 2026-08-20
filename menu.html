@@ -735,6 +735,30 @@
     border-radius: 2px;
     display: block;
 }
+
+        .selector-moneda {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin: 1rem auto 0;
+            max-width: 1550px;
+            padding: 0 5%;
+            color: var(--texto-gris);
+            font-size: 0.75rem;
+        }
+
+        .selector-moneda select {
+            background: var(--negro-suave);
+            color: var(--dorado-claro);
+            border: 1px solid var(--gris-lineas);
+            border-radius: 3px;
+            padding: 0.35rem 0.5rem;
+            font: inherit;
+        }
+
+        .selector-moneda small {
+            color: #888;
+        }
     </style>
 </head>
 <body>
@@ -754,9 +778,9 @@
 
         <div class="header-actions-mobile">
             <div class="idiomas-nav">
-                <a href="menu.html" class="bandera-link activo" title="Español"><img src="https://flagcdn.com/w40/co.png" alt="Español" class="flag-img"></a>
-                <a href="menu-en.html" class="bandera-link" title="English"><img src="https://flagcdn.com/w40/us.png" alt="English" class="flag-img"></a>
-                <a href="menu-fr.html" class="bandera-link" title="Français"><img src="https://flagcdn.com/w40/fr.png" alt="Français" class="flag-img"></a>
+                <a href="#" data-idioma="es" class="bandera-link activo" title="Español"><img src="https://flagcdn.com/w40/co.png" alt="Español" class="flag-img"></a>
+                <a href="#" data-idioma="en" class="bandera-link" title="English"><img src="https://flagcdn.com/w40/us.png" alt="English" class="flag-img"></a>
+                <a href="#" data-idioma="fr" class="bandera-link" title="Français"><img src="https://flagcdn.com/w40/fr.png" alt="Français" class="flag-img"></a>
             </div>
 
             <div class="hamburger-menu" id="hamburgerBtn">
@@ -778,9 +802,9 @@
             
             <div class="header-right-group">
     <div class="idiomas-nav desktop-only">
-        <a href="menu.html" class="bandera-link activo" title="Español"><img src="https://flagcdn.com/w40/co.png" alt="Español" class="flag-img"></a>
-        <a href="menu-en.html" class="bandera-link" title="English"><img src="https://flagcdn.com/w40/us.png" alt="English" class="flag-img"></a>
-        <a href="menu-fr.html" class="bandera-link" title="Français"><img src="https://flagcdn.com/w40/fr.png" alt="Français" class="flag-img"></a>
+        <a href="#" data-idioma="es" class="bandera-link activo" title="Español"><img src="https://flagcdn.com/w40/co.png" alt="Español" class="flag-img"></a>
+        <a href="#" data-idioma="en" class="bandera-link" title="English"><img src="https://flagcdn.com/w40/us.png" alt="English" class="flag-img"></a>
+        <a href="#" data-idioma="fr" class="bandera-link" title="Français"><img src="https://flagcdn.com/w40/fr.png" alt="Français" class="flag-img"></a>
     </div>
 
     <a href="index.html" class="btn-volver-home">
@@ -791,7 +815,16 @@
     </div>
 </header>
 
-   
+<div class="selector-moneda">
+    <label for="selector-moneda">Moneda:</label>
+    <select id="selector-moneda" aria-label="Seleccionar moneda">
+        <option value="COP">COP - Peso colombiano</option>
+        <option value="USD">USD - Dólar estadounidense</option>
+        <option value="EUR">EUR - Euro</option>
+    </select>
+    <small id="texto-tasa-cambio">Tasas manuales</small>
+</div>
+
  <main class="menu-dinamico-container">
     
     <!-- --- SECCIÓN DE COMBINACIONES GANADORAS (AHORA COLAPSABLE) --- -->
@@ -1577,12 +1610,278 @@
     var arrayPlatosGuardados = [];
     var indiceEdicionActivo = -1; 
     var numeroDestinoRecepcion = "573202100527"; 
+    var monedaActual = localStorage.getItem('monedaMenu') || 'COP';
+    var idiomaActual = localStorage.getItem('idiomaMenu') || 'es';
+    var preciosVisibles = [];
+    const tasasCambio = {
+        COP: 1,
+        USD: 3200,
+        EUR: 3700
+    };
+
+    const traduccionesInterfaz = {
+        es: {
+            moneda: 'Moneda:',
+            combos: '✨ Combos Sugeridos',
+            bases: 'Bases',
+            proteinas: 'Proteínas',
+            salsas: 'Salsas',
+            acompanamientos: 'Acompañamientos',
+            bebidas: 'Bebidas',
+            volver: 'Volver al inicio',
+            comboTitulo: '✨ Combinaciones Ganadoras',
+            comboTexto: 'Selecciones sugeridas por nuestro chef listas para ordenar en un solo clic',
+            baseTexto: 'Selecciona el cimiento de tu plato gourmet',
+            proteinaTexto: 'Carnes premium y huevos preparados a tu gusto (125g por porción)',
+            salsaTexto: 'El toque secreto de humedad y sabor para tu combinación',
+            acompTexto: 'Quesos artesanales, ensaladas selectas, sopas calientes y complementos',
+            bebidaTexto: 'Cafetería de origen, bebidas tradicionales y jugos de fruta natural',
+            precioRegular: 'Precio regular:',
+            seleccionarCombo: '➕ Seleccionar Combo',
+            paso1: '🍳 Paso 1: Elige tu Base',
+            paso2: '🥩 Paso 2: Elige tus Proteínas',
+            paso3: '🥫 Paso 3: Elige tus Salsas',
+            paso4: '🥗 Paso 4: Elige tus Acompañamientos',
+            paso5: '☕ Paso 5: Elige tus Bebidas',
+            total: 'Total:',
+            totalDescuento: 'Total con descuento:',
+            platos: 'Platos',
+            seleccionarIngredientes: 'Selecciona ingredientes...',
+            hora: '🕒 Hora:',
+            horario: 'Selecciona el horario de entrega...',
+            agregar: '➕ Añadir',
+            enviar: '🚀 Enviar',
+            limpiar: '🧹 Limpiar Plato Actual',
+            listaPedido: 'Platos en este pedido:',
+            notaTitulo: 'Nota importante:',
+            notaTexto: 'El descuento del 30% aplica únicamente si tu reserva tiene',
+            notaPlan: 'Plan de alimentación incluido',
+            bloqueDesayuno: '🌅 Bloque de Desayuno',
+            bloqueCena: '🌌 Bloque de Cena',
+            opcionesDesayuno: ['Desayuno: 07:00 AM - 08:00 AM', 'Desayuno: 08:00 AM - 09:00 AM', 'Desayuno: 09:00 AM - 10:00 AM'],
+            opcionesCena: ['Cena: 06:30 PM - 07:30 PM', 'Cena: 07:30 PM - 08:30 PM', 'Cena: 08:30 PM - 09:30 PM']
+        },
+        en: {
+            moneda: 'Currency:',
+            combos: '✨ Suggested Combos',
+            bases: 'Bases',
+            proteinas: 'Proteins',
+            salsas: 'Sauces',
+            acompanamientos: 'Side Dishes',
+            bebidas: 'Drinks',
+            volver: 'Back to home',
+            comboTitulo: '✨ Winning Combos',
+            comboTexto: 'Chef-selected combinations ready to order in one click',
+            baseTexto: 'Choose the foundation of your gourmet dish',
+            proteinaTexto: 'Premium meats and eggs prepared to your taste (125 g per serving)',
+            salsaTexto: 'The secret touch of moisture and flavor for your combination',
+            acompTexto: 'Artisan cheeses, selected salads, hot soups, and sides',
+            bebidaTexto: 'Specialty coffee, traditional drinks, and fresh fruit juices',
+            precioRegular: 'Regular price:',
+            seleccionarCombo: '➕ Select Combo',
+            paso1: '🍳 Step 1: Choose your Base',
+            paso2: '🥩 Step 2: Choose your Proteins',
+            paso3: '🥫 Step 3: Choose your Sauces',
+            paso4: '🥗 Step 4: Choose your Side Dishes',
+            paso5: '☕ Step 5: Choose your Drinks',
+            total: 'Total:',
+            totalDescuento: 'Discounted total:',
+            platos: 'Dishes',
+            seleccionarIngredientes: 'Select ingredients...',
+            hora: '🕒 Time:',
+            horario: 'Select delivery time...',
+            agregar: '➕ Add',
+            enviar: '🚀 Send',
+            limpiar: '🧹 Clear Current Dish',
+            listaPedido: 'Dishes in this order:',
+            notaTitulo: 'Important note:',
+            notaTexto: 'The 30% discount applies only if your reservation includes',
+            notaPlan: 'Meal plan included',
+            bloqueDesayuno: '🌅 Breakfast Block',
+            bloqueCena: '🌌 Dinner Block',
+            opcionesDesayuno: ['Breakfast: 07:00 AM - 08:00 AM', 'Breakfast: 08:00 AM - 09:00 AM', 'Breakfast: 09:00 AM - 10:00 AM'],
+            opcionesCena: ['Dinner: 06:30 PM - 07:30 PM', 'Dinner: 07:30 PM - 08:30 PM', 'Dinner: 08:30 PM - 09:30 PM']
+        },
+        fr: {
+            moneda: 'Devise :',
+            combos: '✨ Combinaisons suggérées',
+            bases: 'Bases',
+            proteinas: 'Protéines',
+            salsas: 'Sauces',
+            acompanamientos: 'Accompagnements',
+            bebidas: 'Boissons',
+            volver: "Retour à l'accueil",
+            comboTitulo: '✨ Combinaisons gagnantes',
+            comboTexto: 'Sélections de notre chef prêtes à commander en un clic',
+            baseTexto: 'Choisissez la base de votre plat gastronomique',
+            proteinaTexto: 'Viandes premium et oeufs préparés selon vos goûts (125 g par portion)',
+            salsaTexto: 'La touche secrète d’humidité et de saveur de votre combinaison',
+            acompTexto: 'Fromages artisanaux, salades sélectionnées, soupes chaudes et accompagnements',
+            bebidaTexto: 'Café de spécialité, boissons traditionnelles et jus de fruits frais',
+            precioRegular: 'Prix régulier :',
+            seleccionarCombo: '➕ Choisir la combinaison',
+            paso1: '🍳 Étape 1 : Choisissez votre base',
+            paso2: '🥩 Étape 2 : Choisissez vos protéines',
+            paso3: '🥫 Étape 3 : Choisissez vos sauces',
+            paso4: '🥗 Étape 4 : Choisissez vos accompagnements',
+            paso5: '☕ Étape 5 : Choisissez vos boissons',
+            total: 'Total :',
+            totalDescuento: 'Total avec réduction :',
+            platos: 'Plats',
+            seleccionarIngredientes: 'Sélectionnez les ingrédients...',
+            hora: '🕒 Heure :',
+            horario: 'Sélectionnez l’heure de livraison...',
+            agregar: '➕ Ajouter',
+            enviar: '🚀 Envoyer',
+            limpiar: '🧹 Effacer le plat actuel',
+            listaPedido: 'Plats dans cette commande :',
+            notaTitulo: 'Note importante :',
+            notaTexto: 'La réduction de 30 % s’applique uniquement si votre réservation comprend',
+            notaPlan: 'un plan alimentaire inclus',
+            bloqueDesayuno: '🌅 Créneau du petit-déjeuner',
+            bloqueCena: '🌌 Créneau du dîner',
+            opcionesDesayuno: ['Petit-déjeuner : 07:00 AM - 08:00 AM', 'Petit-déjeuner : 08:00 AM - 09:00 AM', 'Petit-déjeuner : 09:00 AM - 10:00 AM'],
+            opcionesCena: ['Dîner : 06:30 PM - 07:30 PM', 'Dîner : 07:30 PM - 08:30 PM', 'Dîner : 08:30 PM - 09:30 PM']
+        }
+    };
+
+    const nombresPlatos = {
+        'chk-base-arroz': ['House Spiced Rice', 'Riz épicé de la maison'],
+        'chk-base-crepe': ['French Artisan Crepe', 'Crêpe artisanal français'],
+        'chk-base-pasta': ['Al Dente Long Pasta', 'Pâtes longues al dente'],
+        'chk-base-papasbelgas': ['Belgian Potatoes', 'Pommes de terre belges'],
+        'chk-base-arepa': ['Antioquian Arepa (2 pcs)', 'Arepa antioquienne (2 pièces)'],
+        'chk-base-panmadre': ['Sourdough Bread', 'Pain au levain'],
+        'chk-base-omelette': ['House Omelette', 'Omelette de la maison'],
+        'chk-base-pancakes': ['Fluffy Pancakes', 'Pancakes moelleux'],
+        'chk-base-waffles': ['Artisan Waffles', 'Gaufres artisanales'],
+        'chk-prot-lomo': ['Diced Beef Tenderloin', 'Dés de filet de boeuf'],
+        'chk-prot-pollo': ['Grilled Chicken Breast', 'Blanc de poulet grillé'],
+        'chk-prot-cerdo': ['Pork Strips', 'Émincé de porc'],
+        'chk-salsa-bolognesa': ['House Bolognese', 'Bolognaise de la maison'],
+        'chk-prot-huevos': ['Fried Eggs', 'Oeufs au plat'],
+        'chk-prot-revueltos': ['Soft Scrambled Eggs', 'Oeufs brouillés moelleux'],
+        'chk-prot-salchicha': ['Eggs with Sausage', 'Oeufs avec saucisse'],
+        'chk-prot-maiz': ['Eggs with Sweet Corn', 'Oeufs au maïs doux'],
+        'chk-prot-poche': ['Poached Eggs', 'Oeufs pochés'],
+        'chk-salsa-pomodoro': ['Neapolitan Pomodoro', 'Pomodoro napolitaine'],
+        'chk-salsa-champinon': ['Creamy Mushroom Sauce', 'Sauce crémeuse aux champignons'],
+        'chk-salsa-quesos': ['Melted Cheese Sauce', 'Sauce de fromages fondus'],
+        'chk-salsa-hogao': ['Hogao / Creole Sauce', 'Hogao / sauce créole'],
+        'chk-salsa-yogurt': ['Natural Greek Yogurt', 'Yaourt grec nature'],
+        'chk-salsa-frutos': ['Red Berry Reduction', 'Réduction de fruits rouges'],
+        'chk-acomp-campesino': ['Fresh Cheese Portion', 'Portion de fromage frais'],
+        'chk-prot-mozzarella': ['Mozzarella Portion', 'Portion de mozzarella'],
+        'chk-prot-chorizo': ['Pork Chorizo Slices', 'Tranches de chorizo de porc'],
+        'chk-acomp-ensalada': ['House Salad', 'Salade de la maison'],
+        'chk-acomp-pantostado': ['Toasted Bread Slices', 'Tranches de pain grillé'],
+        'chk-acomp-tocineta': ['Crispy Bacon', 'Bacon croustillant'],
+        'chk-acomp-fruta': ['Seasonal Fruit Portion', 'Portion de fruits de saison'],
+        'chk-acomp-criollas': ['Fried Creole Potatoes', 'Pommes de terre créoles frites'],
+        'chk-acomp-cascos': ['Fried Potato Wedges', 'Quartiers de pommes de terre frits'],
+        'chk-acomp-francesa': ['Classic French Fries', 'Frites classiques'],
+        'chk-acomp-pure': ['Velvety Mashed Potatoes', 'Purée de pommes de terre veloutée'],
+        'chk-acomp-sabaneras': ['Roasted Sabanera Potato Slices', 'Tranches de pommes de terre sabanera rôties'],
+        'chk-acomp-caldo': ['Chicken Broth', 'Bouillon de poulet'],
+        'chk-acomp-cremapollo': ['Chicken and Mushroom Cream Soup', 'Crème de poulet et champignons'],
+        'chk-acomp-bowl': ['Healthy Bowl', 'Bowl santé'],
+        'chk-bebida-cafe': ['Black Coffee', 'Café noir'],
+        'chk-bebida-chocolate': ['Frothy Chocolate', 'Chocolat mousseux'],
+        'chk-bebida-panela': ['Traditional Panela Water', 'Eau de panela traditionnelle'],
+        'chk-bebida-latte': ['Latte Coffee', 'Café latte'],
+        'chk-bebida-chai': ['Aromatic Chai Latte', 'Chai latte aromatique'],
+        'chk-bebida-matcha': ['Matcha Latte', 'Matcha latte'],
+        'chk-bebida-cocoa': ['Creamy Cocoa', 'Cacao crémeux'],
+        'chk-bebida-infusion': ['Aromatic Infusions', 'Infusions aromatiques'],
+        'chk-bebida-limonada': ['Natural Citrus Lemonade', 'Limonade naturelle aux agrumes'],
+        'chk-bebida-jamaica': ['Hibiscus Water', 'Eau d’hibiscus'],
+        'chk-bebida-jugoagua': ['Fresh Juice with Water', 'Jus frais à l’eau'],
+        'chk-bebida-jugoleche': ['Fresh Juice with Milk', 'Jus frais au lait']
+    };
+
+    const descripcionesPlatos = {
+        'chk-base-arroz': ['Loose rice cooked with olive oil and fine herbs.', 'Riz fondant cuit à l’huile d’olive et aux fines herbes.'],
+        'chk-base-crepe': ['Thin golden crepe batter with butter.', 'Fine pâte à crêpe dorée au beurre.'],
+        'chk-base-pasta': ['Traditional Italian pasta cooked just right.', 'Pâtes italiennes traditionnelles cuites à point.'],
+        'chk-base-papasbelgas': ['Double serving of fried potato wedges seasoned with oregano.', 'Double portion de quartiers de pommes de terre frits à l’origan.'],
+        'chk-base-arepa': ['Thin roasted white corn arepas.', 'Fines arepas de maïs blanc grillées.'],
+        'chk-base-panmadre': ['Slices of toasted sourdough bread.', 'Tranches de pain au levain grillées.'],
+        'chk-base-omelette': ['Egg omelet freshly beaten to order.', 'Omelette d’œufs battus à la minute.'],
+        'chk-base-pancakes': ['Fluffy pancakes with a hint of vanilla.', 'Pancakes moelleux parfumés à la vanille.'],
+        'chk-base-waffles': ['Golden and crisp waffles.', 'Gaufres dorées et croustillantes.'],
+        'chk-prot-lomo': ['Quarter-pound tenderloin cubes, juicy and sauteed with a touch of pepper.', 'Dés de filet de bœuf juteux sautés avec une touche de poivre.'],
+        'chk-prot-pollo': ['Quarter-pound chicken breast, marinated and grilled.', 'Blanc de poulet mariné et grillé.'],
+        'chk-prot-cerdo': ['Tender quarter-pound pork loin strips sauteed al dente.', 'Fines lanières de filet de porc tendres, sautées al dente.'],
+        'chk-salsa-bolognesa': ['Quarter-pound handcrafted ground beef with tomato, onion, carrot, and balsamic notes.', 'Viande hachée artisanale avec tomate, oignon, carotte et notes balsamiques.'],
+        'chk-prot-huevos': ['Two perfect fried eggs with soft yolks.', 'Deux œufs au plat parfaits au jaune coulant.'],
+        'chk-prot-revueltos': ['Soft scrambled eggs with a light, fluffy texture.', 'Œufs brouillés moelleux à la texture légère.'],
+        'chk-prot-salchicha': ['Scrambled eggs with sauteed sausage slices.', 'Œufs brouillés avec des rondelles de saucisse sautées.'],
+        'chk-prot-maiz': ['Scrambled eggs combined with sweet corn.', 'Œufs brouillés au maïs doux.'],
+        'chk-prot-poche': ['Poached eggs with runny yolks and firm whites.', 'Œufs pochés au jaune coulant et au blanc ferme.'],
+        'chk-salsa-pomodoro': ['Homemade sauce with ripe tomatoes, oregano, and olive oil.', 'Sauce maison aux tomates mûres, origan et huile d’olive.'],
+        'chk-salsa-champinon': ['Cream sauce with mushrooms and chorizo pieces.', 'Crème aux champignons et morceaux de chorizo.'],
+        'chk-salsa-quesos': ['Silky sauce made from a blend of cheeses.', 'Sauce soyeuse à base d’un mélange de fromages.'],
+        'chk-salsa-hogao': ['Traditional Colombian onion and tomato sofrito.', 'Sofrito colombien traditionnel à l’oignon et à la tomate.'],
+        'chk-salsa-yogurt': ['Natural Greek yogurt with no added sugar.', 'Yaourt grec nature sans sucre ajouté.'],
+        'chk-salsa-frutos': ['Homemade artisanal sauce slowly cooked.', 'Sauce artisanale maison cuite lentement.'],
+        'chk-acomp-campesino': ['Fresh, low-salt white cheese cubes.', 'Dés de fromage blanc frais peu salé.'],
+        'chk-prot-mozzarella': ['Quality mozzarella cheese.', 'Mozzarella de qualité.'],
+        'chk-prot-chorizo': ['Lean pork chorizo.', 'Chorizo de porc dégraissé.'],
+        'chk-acomp-pantostado': ['Two toasted bread slices with a touch of olive oil.', 'Deux tranches de pain grillé avec une touche d’huile d’olive.'],
+        'chk-acomp-tocineta': ['Smoked bacon strips, fried and crisp.', 'Lanières de bacon fumé, frites et croustillantes.'],
+        'chk-acomp-fruta': ['Fresh seasonal fruit pieces.', 'Morceaux de fruits frais de saison.'],
+        'chk-acomp-criollas': ['Fried creole potatoes seasoned with sea salt.', 'Pommes de terre créoles frites et assaisonnées au sel marin.'],
+        'chk-acomp-cascos': ['Rustic potato wedges fried with their skins.', 'Quartiers de pommes de terre rustiques frits avec leur peau.'],
+        'chk-acomp-francesa': ['Thin-cut classic French fries.', 'Frites classiques coupées fines.'],
+        'chk-acomp-pure': ['Smooth mashed potatoes with butter, cream, and a touch of chorizo.', 'Purée de pommes de terre au beurre, à la crème et avec une touche de chorizo.'],
+        'chk-acomp-sabaneras': ['Sabanera potato slices roasted with olive oil and rosemary.', 'Tranches de pommes de terre sabanera rôties à l’huile d’olive et au romarin.'],
+        'chk-acomp-caldo': ['Seasoned traditional broth with shredded chicken breast and potatoes.', 'Bouillon traditionnel assaisonné avec poulet effiloché et pommes de terre.'],
+        'chk-acomp-cremapollo': ['House cream soup with shredded chicken breast.', 'Crème maison avec blanc de poulet effiloché.'],
+        'chk-acomp-bowl': ['House natural yogurt with fruit and granola.', 'Yaourt nature maison accompagné de fruits et de granola.'],
+        'chk-bebida-cafe': ['House black coffee to start the day.', 'Café noir de la maison pour commencer la journée.'],
+        'chk-bebida-chocolate': ['Traditional handcrafted whipped chocolate.', 'Chocolat artisanal traditionnel fouetté.'],
+        'chk-bebida-panela': ['Typical drink made with pure concentrated panela.', 'Boisson typique à base de panela pure concentrée.'],
+        'chk-bebida-latte': ['Espresso combined with steamed milk.', 'Espresso accompagné de lait fouetté.'],
+        'chk-bebida-chai': ['Black tea with oriental spices and milk.', 'Thé noir aux épices orientales et au lait.'],
+        'chk-bebida-matcha': ['Premium matcha green tea whisked with milk.', 'Thé vert matcha premium fouetté avec du lait.'],
+        'chk-bebida-cocoa': ['Artisanal creamy drink made with pure cocoa.', 'Boisson crémeuse artisanale au cacao pur.'],
+        'chk-bebida-infusion': ['Aromatic infusion served hot or cold.', 'Infusion aromatique servie chaude ou froide.'],
+        'chk-bebida-limonada': ['Freshly squeezed lemon juice.', 'Jus de citron frais pressé à la minute.'],
+        'chk-bebida-jamaica': ['Chilled hibiscus infusion with clove.', 'Infusion froide d’hibiscus avec clou de girofle.'],
+        'chk-bebida-jugoagua': ['Fresh fruit prepared with pure water.', 'Fruits préparés avec de l’eau pure.'],
+        'chk-bebida-jugoleche': ['Fresh fruit blended with milk.', 'Fruits mixés avec du lait.']
+    };
+
+    const descripcionesCombos = [
+        [
+            '✨ French artisan crepe filled with grilled chicken and creamy mushroom sauce. Served with crispy potato wedges, house salad, and hibiscus water.',
+            '✨ Crêpe français artisanal farci de poulet grillé et de sauce crémeuse aux champignons. Servi avec quartiers de pommes de terre croustillants, salade maison et eau d’hibiscus.'
+        ],
+        [
+            '✨ Fluffy pancakes with Greek yogurt and red berry reduction, served with fried eggs, artisan chorizo, melted mozzarella, fresh fruit, and traditional hot chocolate.',
+            '✨ Pancakes moelleux au yaourt grec et à la réduction de fruits rouges, servis avec œufs au plat, chorizo artisanal, mozzarella fondue, fruits frais et chocolat chaud traditionnel.'
+        ],
+        [
+            '✨ Al dente pasta with artisanal Bolognese sauce, served with traditional French fries and a chilled aromatic infusion.',
+            '✨ Pâtes al dente à la sauce bolognaise artisanale, servies avec frites traditionnelles et infusion aromatique froide.'
+        ],
+        [
+            '✨ Crispy Belgian potatoes with pork strips, bacon, cheese sauce, lean chorizo slices, and freshly squeezed lemonade.',
+            '✨ Pommes de terre belges croustillantes avec émincé de porc, bacon, sauce au fromage, tranches de chorizo dégraissé et limonade fraîchement pressée.'
+        ],
+        [
+            '✨ House omelet with grilled chicken, lean chorizo slices, mozzarella, and a hot latte coffee.',
+            '✨ Omelette de la maison avec poulet grillé, tranches de chorizo dégraissé, mozzarella et café latte chaud.'
+        ]
+    ];
 
     // ==========================================
     // 2. INICIALIZACIÓN (DOM Content Loaded)
     // ==========================================
     document.addEventListener('DOMContentLoaded', () => {
         const form = document.getElementById('menu-interactivo-form');
+
+        inicializarIdioma();
 
         // --- Menú Hamburguesa ---
         const hamburgerBtn = document.getElementById('hamburgerBtn');
@@ -1644,12 +1943,137 @@
             form.addEventListener('change', calcularPlato);
         }
 
+        inicializarPreciosVisibles();
+        const selectorMoneda = document.getElementById('selector-moneda');
+        if (selectorMoneda) {
+            selectorMoneda.value = monedaActual;
+            selectorMoneda.addEventListener('change', () => {
+                monedaActual = selectorMoneda.value;
+                localStorage.setItem('monedaMenu', monedaActual);
+                actualizarPreciosVisibles();
+                actualizarTextoTasa();
+                calcularPlato();
+                actualizarInterfazLista();
+            });
+        }
+        actualizarPreciosVisibles();
+        actualizarTextoTasa();
         calcularPlato();
     });
 
     // ==========================================
     // 3. NAVEGACIÓN Y APERTURA DE SECCIONES
     // ==========================================
+    function inicializarIdioma() {
+        document.querySelectorAll('.bandera-link[data-idioma]').forEach(bandera => {
+            bandera.addEventListener('click', event => {
+                event.preventDefault();
+                idiomaActual = bandera.dataset.idioma;
+                localStorage.setItem('idiomaMenu', idiomaActual);
+                aplicarIdioma();
+            });
+        });
+
+        aplicarIdioma();
+    }
+
+    function aplicarIdioma() {
+        const textos = traduccionesInterfaz[idiomaActual] || traduccionesInterfaz.es;
+        document.documentElement.lang = idiomaActual;
+        document.title = idiomaActual === 'en'
+            ? "Digital Menu - Be'er Sheva 113"
+            : idiomaActual === 'fr'
+                ? "Menu numérique - Be'er Sheva 113"
+                : "Menú Digital - Be'er Sheva 113";
+
+        const nota = document.querySelector('header > div:first-child');
+        if (nota) {
+            nota.innerHTML = `<span style="font-size: 0.9rem; margin-right: 5px;">✨</span><strong style="font-family: 'Playfair Display', serif; font-size: 0.85rem; color: var(--dorado-principal); font-weight: 600;">${textos.notaTitulo}</strong> ${textos.notaTexto} <span style="border-bottom: 1px solid var(--dorado-principal); padding-bottom: 1px;">${textos.notaPlan}</span>.`;
+        }
+
+        const categorias = document.querySelectorAll('.menu-categorias-nav > a');
+        if (categorias.length >= 6) {
+            [textos.combos, textos.bases, textos.proteinas, textos.salsas, textos.acompanamientos, textos.bebidas]
+                .forEach((texto, indice) => categorias[indice].textContent = texto);
+        }
+
+        const selectorMoneda = document.querySelector('label[for="selector-moneda"]');
+        const volver = document.querySelector('.btn-volver-home');
+        const comboTitulo = document.querySelector('#combos-ganadores h3');
+        const comboTexto = document.querySelector('#combos-ganadores .paso-trigger-header p');
+        if (selectorMoneda) selectorMoneda.textContent = textos.moneda;
+        if (volver) volver.lastChild.textContent = ` ${textos.volver}`;
+        if (comboTitulo) comboTitulo.textContent = textos.comboTitulo;
+        if (comboTexto) comboTexto.textContent = textos.comboTexto;
+
+        const pasos = ['paso1', 'paso2', 'paso3', 'paso4', 'paso5'];
+        ['bases', 'proteinas', 'salsas', 'acompanamientos', 'bebidas'].forEach((id, indice) => {
+            const titulo = document.querySelector(`#${id} .paso-trigger-header h3`);
+            const descripcion = document.querySelector(`#${id} .paso-trigger-header p`);
+            if (titulo) titulo.textContent = textos[pasos[indice]];
+            if (descripcion) descripcion.textContent = [textos.baseTexto, textos.proteinaTexto, textos.salsaTexto, textos.acompTexto, textos.bebidaTexto][indice];
+        });
+
+        document.querySelectorAll('#combos-ganadores span').forEach(elemento => {
+            if (elemento.textContent.trim() === 'Precio regular:') elemento.textContent = textos.precioRegular;
+        });
+        document.querySelectorAll('#combos-ganadores button').forEach(boton => boton.textContent = textos.seleccionarCombo);
+        document.querySelectorAll('#combos-ganadores h4').forEach((titulo, indice) => {
+            const descripcion = titulo.parentElement.querySelector('p');
+            const traduccionCombo = descripcionesCombos[indice];
+            if (descripcion && !descripcion.dataset.descripcionEs) descripcion.dataset.descripcionEs = descripcion.textContent;
+            if (descripcion && traduccionCombo) descripcion.textContent = idiomaActual === 'es' ? descripcion.dataset.descripcionEs : traduccionCombo[idiomaActual === 'en' ? 0 : 1];
+        });
+
+        const total = document.querySelector('#precio-carta')?.parentElement;
+        const descuento = document.querySelector('#precio-descuento')?.parentElement;
+        if (total) total.firstChild.textContent = ` ${textos.total} `;
+        if (descuento) descuento.firstChild.textContent = ` ${textos.totalDescuento} `;
+
+        const listaTitulo = document.querySelector('#bloque-desplegable-platos h4');
+        const contador = document.querySelector('#btn-desplegar-lista');
+        const resumen = document.getElementById('contenedor-resumen');
+        const hora = document.querySelector('label[for="selector-hora"]');
+        const opcionHora = document.querySelector('#selector-hora option[value=""]');
+        const agregar = document.getElementById('btn-add-mod');
+        const enviar = document.querySelector('button[onclick="enviarTodoWhatsApp();"]');
+        const limpiar = document.querySelector('button[onclick="limpiarSeleccionActual()"]');
+        if (listaTitulo) listaTitulo.textContent = textos.listaPedido;
+        if (contador) contador.innerHTML = `📋 <span id="badge-contador-num">0</span> ${textos.platos} <span id="flecha-lista">▲</span>`;
+        if (resumen && !resumen.title) resumen.textContent = textos.seleccionarIngredientes;
+        if (hora) hora.textContent = textos.hora;
+        if (opcionHora) opcionHora.textContent = textos.horario;
+        const bloquesHora = document.querySelectorAll('#selector-hora optgroup');
+        if (bloquesHora.length >= 2) {
+            bloquesHora[0].label = textos.bloqueDesayuno || textos.bloqueDesayuno;
+            bloquesHora[1].label = textos.bloqueCena || textos.bloqueCena;
+            bloquesHora[0].querySelectorAll('option').forEach((opcion, indice) => opcion.textContent = textos.opcionesDesayuno[indice]);
+            bloquesHora[1].querySelectorAll('option').forEach((opcion, indice) => opcion.textContent = textos.opcionesCena[indice]);
+        }
+        if (agregar) agregar.textContent = textos.agregar;
+        if (enviar) enviar.textContent = textos.enviar;
+        if (limpiar) limpiar.textContent = textos.limpiar;
+
+        document.querySelectorAll('#menu-interactivo-form input[type="checkbox"]').forEach(input => {
+            const traduccion = nombresPlatos[input.id];
+            const contenedor = input.closest('label') || input.parentElement;
+            const nombre = contenedor?.querySelector(`label[for="${input.id}"]`) || contenedor?.querySelector(':scope > div span:first-child');
+            const descripcion = contenedor?.querySelector(':scope > div span:nth-child(2)') || contenedor?.querySelector(':scope > div > span');
+            if (nombre && !nombre.dataset.nombreEs) nombre.dataset.nombreEs = nombre.textContent;
+            if (traduccion && nombre) nombre.textContent = idiomaActual === 'es' ? nombre.dataset.nombreEs : traduccion[idiomaActual === 'en' ? 0 : 1];
+            const descripcionTraduccion = descripcionesPlatos[input.id];
+            if (descripcion && !descripcion.dataset.descripcionEs) descripcion.dataset.descripcionEs = descripcion.textContent;
+            if (descripcionTraduccion && descripcion) descripcion.textContent = idiomaActual === 'es' ? descripcion.dataset.descripcionEs : descripcionTraduccion[idiomaActual === 'en' ? 0 : 1];
+        });
+
+        document.querySelectorAll('.bandera-link[data-idioma]').forEach(bandera => {
+            bandera.classList.toggle('activo', bandera.dataset.idioma === idiomaActual);
+        });
+        const ensalada = document.getElementById('opt-acomp-ensalada');
+        if (ensalada) updateEnsaladaDesc(ensalada.value);
+        actualizarTextoTasa();
+    }
+
     function abrirSeccionMenu(event, idSeccion) {
         if(event) event.preventDefault();
         
@@ -1684,8 +2108,78 @@
     // ==========================================
     // 4. UTILIDADES Y EXTRACCIÓN DE DATOS
     // ==========================================
+    function convertirDesdeCop(valorCop) {
+        return valorCop / tasasCambio[monedaActual];
+    }
+
     function formatMoneda(v) {
-        return '$' + Math.round(v).toLocaleString('es-CO');
+        const fracciones = monedaActual === 'COP' ? 0 : 2;
+        return new Intl.NumberFormat('es-CO', {
+            style: 'currency',
+            currency: monedaActual,
+            minimumFractionDigits: fracciones,
+            maximumFractionDigits: fracciones
+        }).format(convertirDesdeCop(v));
+    }
+
+    function obtenerNombreEspanolDeInput(inputElement) {
+        if (!inputElement) return '';
+
+        if (inputElement.id === 'chk-jugo-agua') {
+            const sabor = document.getElementById('opt-jugo-agua')?.value || 'Mora';
+            return `Jugo en Agua (${sabor})`;
+        }
+        if (inputElement.id === 'chk-jugo-leche') {
+            const sabor = document.getElementById('opt-jugo-leche')?.value || 'Mora';
+            return `Jugo en Leche (${sabor})`;
+        }
+        if (inputElement.id === 'chk-acomp-ensalada') {
+            const opcion = document.getElementById('opt-acomp-ensalada')?.value || '';
+            return `Ensalada de la Casa (${opcion})`;
+        }
+        if (inputElement.id === 'chk-bebida-chocolate') {
+            const opcion = document.getElementById('opt-bebida-chocolate')?.value || '';
+            return `Chocolate Espumoso (${opcion})`;
+        }
+        if (inputElement.id === 'chk-bebida-matcha') {
+            const opcion = document.getElementById('opt-bebida-matcha')?.value || '';
+            return `Matcha Latte (${opcion})`;
+        }
+        if (inputElement.id === 'chk-bebida-infusion') {
+            const opcion = document.getElementById('opt-bebida-infusion')?.value || '';
+            return `Infusión Aromática (${opcion})`;
+        }
+
+        const contenedor = inputElement.closest('label') || inputElement.parentElement;
+        const nombre = contenedor?.querySelector(`label[for="${inputElement.id}"]`) || contenedor?.querySelector(':scope > div span:first-child');
+        return nombre?.dataset.nombreEs || inputElement.value;
+    }
+
+    function inicializarPreciosVisibles() {
+        preciosVisibles = Array.from(document.querySelectorAll('span'))
+            .filter(elemento => elemento.children.length === 0 && /^\$\s*[\d.]+$/.test(elemento.textContent.trim()))
+            .map(elemento => ({
+                elemento,
+                precioCop: Number(elemento.textContent.replace(/[^\d]/g, ''))
+            }));
+    }
+
+    function actualizarPreciosVisibles() {
+        preciosVisibles.forEach(({ elemento, precioCop }) => {
+            elemento.textContent = formatMoneda(precioCop);
+        });
+    }
+
+    function actualizarTextoTasa() {
+        const textoTasa = document.getElementById('texto-tasa-cambio');
+        if (!textoTasa) return;
+
+        if (monedaActual === 'COP') {
+            textoTasa.textContent = 'Moneda base';
+            return;
+        }
+
+        textoTasa.textContent = `1 ${monedaActual} = ${tasasCambio[monedaActual].toLocaleString('es-CO')} COP`;
     }
     function redondearA100(valor) {
         return Math.round(valor / 100) * 100;
@@ -1738,16 +2232,16 @@
 
     function updateEnsaladaDesc(val) {
         const descMap = {
-            "Rústica de Tomate y Aceitunas": "Tomate en cubos firmes, cebolla en plumas delgadas, aceitunas tajadas y un toque de orégano seco.",
-            "Crunchy de Arvejas y Maní": "Arvejas verdes al dente, semillas de soya, cebolla picada fina y trozos de maní tostado.",
-            "Griega Expresa": "Mezcla fresca de tomate en cubos, pepino cohombro en rodajas, aceitunas y orégano con aderezo de yogurt griego natural.",
-            "Oriental de Soya y Maní": "Combinación crocante de semillas de soya, arvejas verdes, zanahoria rallada y maní tostado.",
-            "Zanahoria, Pasas y Semillas": "Opción agridulce de zanahoria rallada, uvas pasas y semillas de girasol con un toque de limón.",
-            "Campestre de Arvejas y Queso": "Granos de arveja verde, maíz dulce, dados de queso campesino fresco y un toque sutil de cebolla."
+            "Rústica de Tomate y Aceitunas": ["Tomate en cubos firmes, cebolla en plumas delgadas, aceitunas tajadas y un toque de orégano seco.", "Firm tomato cubes, thinly sliced onion, sliced olives, and a touch of dried oregano.", "Dés de tomate ferme, oignon finement émincé, olives tranchées et une touche d’origan séché."],
+            "Crunchy de Arvejas y Maní": ["Arvejas verdes al dente, semillas de soya, cebolla picada fina y trozos de maní tostado.", "Al dente green peas, soy seeds, finely chopped onion, and toasted peanuts.", "Petits pois verts al dente, graines de soja, oignon finement haché et cacahuètes grillées."],
+            "Griega Expresa": ["Mezcla fresca de tomate en cubos, pepino cohombro en rodajas, aceitunas y orégano con aderezo de yogurt griego natural.", "Fresh diced tomato, cucumber slices, olives, and oregano with natural Greek yogurt dressing.", "Tomate frais en dés, rondelles de concombre, olives et origan avec une sauce au yaourt grec nature."],
+            "Oriental de Soya y Maní": ["Combinación crocante de semillas de soya, arvejas verdes, zanahoria rallada y maní tostado.", "Crunchy combination of soy seeds, green peas, shredded carrot, and toasted peanuts.", "Mélange croquant de graines de soja, petits pois verts, carotte râpée et cacahuètes grillées."],
+            "Zanahoria, Pasas y Semillas": ["Opción agridulce de zanahoria rallada, uvas pasas y semillas de girasol con un toque de limón.", "Sweet-and-sour mix of shredded carrot, raisins, sunflower seeds, and a touch of lemon.", "Mélange aigre-doux de carotte râpée, raisins secs, graines de tournesol et une touche de citron."],
+            "Campestre de Arvejas y Queso": ["Granos de arveja verde, maíz dulce, dados de queso campesino fresco y un toque sutil de cebolla.", "Green peas, sweet corn, fresh farmer cheese cubes, and a subtle touch of onion.", "Petits pois verts, maïs doux, dés de fromage frais fermier et une légère touche d’oignon."]
         };
         
         const descElem = document.getElementById('desc-ensalada');
-        if (descElem) descElem.innerText = descMap[val] || "";
+        if (descElem) descElem.innerText = descMap[val] ? descMap[val][idiomaActual === 'es' ? 0 : idiomaActual === 'en' ? 1 : 2] : "";
     }
 
     // ==========================================
@@ -1943,11 +2437,13 @@
         }
 
         let elementosPlato = [];
+        let elementosPlatoEspanol = [];
         let idsCheckboxes = [];
         let costoPlato = 0;
 
         activos.forEach(cb => {
             elementosPlato.push(obtenerNombreDeInput(cb));
+            elementosPlatoEspanol.push(obtenerNombreEspanolDeInput(cb));
             idsCheckboxes.push({ id: cb.id, name: cb.name, value: cb.value });
             costoPlato += parseFloat(cb.getAttribute('data-precio') || 0);
         });
@@ -1955,6 +2451,7 @@
         if (indiceEdicionActivo !== -1) {
             arrayPlatosGuardados[indiceEdicionActivo] = {
                 items: elementosPlato,
+                itemsEspanol: elementosPlatoEspanol,
                 configCheckboxes: idsCheckboxes,
                 precio: costoPlato,
                 hora: horaDefinitiva
@@ -1962,6 +2459,7 @@
         } else {
             arrayPlatosGuardados.push({
                 items: elementosPlato,
+                itemsEspanol: elementosPlatoEspanol,
                 configCheckboxes: idsCheckboxes,
                 precio: costoPlato,
                 hora: horaDefinitiva
@@ -2108,17 +2606,20 @@ const activosEnPantalla = document.querySelectorAll('input[name="base"]:checked,
             if (selectHora) {
                 let horaDefinitiva = (selectHora === 'otra') ? txtManual + " (Sujeto a disp.)" : selectHora;
                 let elementosPlato = [];
+                let elementosPlatoEspanol = [];
                 let idsCheckboxes = [];
                 let costoPlato = 0;
 
                 activosEnPantalla.forEach(cb => {
                     elementosPlato.push(obtenerNombreDeInput(cb));
+                    elementosPlatoEspanol.push(obtenerNombreEspanolDeInput(cb));
                     idsCheckboxes.push({ id: cb.id, name: cb.name, value: cb.value });
                     costoPlato += parseFloat(cb.getAttribute('data-precio') || 0);
                 });
 
                 arrayPlatosGuardados.push({
                     items: elementosPlato,
+                    itemsEspanol: elementosPlatoEspanol,
                     configCheckboxes: idsCheckboxes,
                     precio: costoPlato,
                     hora: horaDefinitiva
@@ -2138,7 +2639,7 @@ const activosEnPantalla = document.querySelectorAll('input[name="base"]:checked,
 
         arrayPlatosGuardados.forEach((plato, i) => {
             msj += `🍽️ *PLATO #${i + 1}* (🕒 Hora: ${plato.hora})\n`;
-            plato.items.forEach(item => {
+            (plato.itemsEspanol || plato.items).forEach(item => {
                 msj += `    • ${item}\n`;
             });
             msj += `    _Valor base: $${plato.precio.toLocaleString('es-CO')}_\n\n`;
