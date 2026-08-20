@@ -1611,7 +1611,10 @@
     var indiceEdicionActivo = -1; 
     var numeroDestinoRecepcion = "573202100527"; 
     var monedaActual = localStorage.getItem('monedaMenu') || 'COP';
-    var idiomaActual = localStorage.getItem('idiomaMenu') || 'es';
+    var idiomaDesdeUrl = new URLSearchParams(window.location.search).get('lang');
+    var idiomaActual = ['es', 'en', 'fr'].includes(idiomaDesdeUrl)
+        ? idiomaDesdeUrl
+        : localStorage.getItem('idiomaMenu') || 'es';
     var preciosVisibles = [];
     const tasasCambio = {
         COP: 1,
@@ -1991,6 +1994,9 @@
             nota.innerHTML = `<span style="font-size: 0.9rem; margin-right: 5px;">✨</span><strong style="font-family: 'Playfair Display', serif; font-size: 0.85rem; color: var(--dorado-principal); font-weight: 600;">${textos.notaTitulo}</strong> ${textos.notaTexto} <span style="border-bottom: 1px solid var(--dorado-principal); padding-bottom: 1px;">${textos.notaPlan}</span>.`;
         }
 
+        const volver = document.querySelector('.btn-volver-home');
+        if (volver) volver.href = idiomaActual === 'en' ? 'index-en.html' : idiomaActual === 'fr' ? 'index-fr.html' : 'index.html';
+
         const categorias = document.querySelectorAll('.menu-categorias-nav > a');
         if (categorias.length >= 6) {
             [textos.combos, textos.bases, textos.proteinas, textos.salsas, textos.acompanamientos, textos.bebidas]
@@ -1998,7 +2004,6 @@
         }
 
         const selectorMoneda = document.querySelector('label[for="selector-moneda"]');
-        const volver = document.querySelector('.btn-volver-home');
         const comboTitulo = document.querySelector('#combos-ganadores h3');
         const comboTexto = document.querySelector('#combos-ganadores .paso-trigger-header p');
         if (selectorMoneda) selectorMoneda.textContent = textos.moneda;
