@@ -19,6 +19,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="menu-data.js"></script>
     
     <style>
         /* --- CONSTANTES DE DISEÑO IDÉNTICAS AL INDEX --- */
@@ -1885,6 +1886,8 @@
         const form = document.getElementById('menu-interactivo-form');
 
         inicializarIdioma();
+        Object.assign(tasasCambio, window.menuData?.settings?.rates || {});
+        aplicarDatosAdministrados();
 
         // --- Menú Hamburguesa ---
         const hamburgerBtn = document.getElementById('hamburgerBtn');
@@ -1980,6 +1983,99 @@
         aplicarIdioma();
     }
 
+    function aplicarDatosAdministrados() {
+        const items = window.menuData?.items || [];
+        const datosAntiguosTodosOcultos = items.length > 0 && items.every(item => item.active === false);
+        const categorias = {
+            base: 'bases',
+            proteina: 'proteinas',
+            salsa: 'salsas',
+            acompanamiento: 'acompanamientos',
+            bebida: 'bebidas'
+        };
+
+        items.forEach(item => {
+            let input = document.getElementById(item.id);
+            if (!input) {
+                const grid = document.querySelector(`#${categorias[item.category]} .paso-trigger-header + div > div`);
+                if (!grid) return;
+
+                const card = document.createElement('label');
+                card.style.cssText = 'background: rgba(20,20,20,0.6); border: 1px solid var(--gris-lineas); padding: 15px; border-radius: 4px; display: flex; align-items: flex-start; gap: 12px; cursor: pointer;';
+                card.innerHTML = `<input type="checkbox" id="${item.id}" name="${item.category}" value="${item.name?.es || ''}" data-precio="${item.price || 0}" style="margin-top: 4px;"><div><span style="font-weight: 600; color: var(--blanco-puro); display: block;"></span><span style="font-size: 0.75rem; color: var(--texto-gris); display: block; margin: 4px 0;"></span><span style="font-size: 0.85rem; color: var(--dorado-claro); font-weight: 600;"></span></div>`;
+                grid.appendChild(card);
+                input = card.querySelector('input');
+            }
+
+            const card = input.closest('label') || input.parentElement;
+            const nameElement = card.querySelector('label[for]') || card.querySelector(':scope > div span:first-child');
+            const descriptionElement = card.querySelector(':scope > div span:nth-child(2)');
+            const priceElement = card.querySelector(':scope > div span:last-child');
+            input.dataset.precio = item.price || 0;
+            input.value = item.name?.es || input.value;
+            input.checked = false;
+            card.style.display = item.active === false && !datosAntiguosTodosOcultos ? 'none' : '';
+            if (nameElement) {
+                nameElement.dataset.nombreEs = item.name?.es || nameElement.textContent;
+                if (item.name?.en) nameElement.dataset.nombreEn = item.name.en;
+                if (item.name?.fr) nameElement.dataset.nombreFr = item.name.fr;
+                nameElement.textContent = nameElement.dataset.nombreEs;
+            }
+            if (descriptionElement) {
+                descriptionElement.dataset.descripcionEs = item.description?.es || descriptionElement.textContent;
+                if (item.description?.en) descriptionElement.dataset.descripcionEn = item.description.en;
+                if (item.description?.fr) descriptionElement.dataset.descripcionFr = item.description.fr;
+                descriptionElement.textContent = descriptionElement.dataset.descripcionEs;
+            }
+            if (priceElement) priceElement.textContent = formatMoneda(Number(item.price) || 0);
+            input.addEventListener('change', calcularPlato);
+        });
+
+        aplicarCombosAdministrados();
+
+        aplicarIdioma();
+    }
+
+    function aplicarCombosAdministrados() {
+        const cards = [...document.querySelectorAll('#combos-ganadores .lista-combos > div > div')];
+        cards.forEach((card, index) => card.dataset.comboId = `combo-${index + 1}`);
+
+        (window.menuData?.combos || []).forEach(combo => {
+            let card = document.querySelector(`[data-combo-id="${combo.id}"]`);
+            if (!card) {
+                const grid = document.querySelector('#combos-ganadores .lista-combos > div');
+                if (!grid) return;
+                card = document.createElement('div');
+                card.dataset.comboId = combo.id;
+                card.style.cssText = 'background: rgba(26, 26, 26, 0.9); border: 1px solid var(--gris-lineas); border-radius: 6px; overflow: hidden; display: flex; flex-direction: column; justify-content: space-between;';
+                card.innerHTML = `<div><div style="padding: 18px"><h4 style="font-family: 'Playfair Display', serif; color: var(--dorado-principal); font-size: 1.15rem; margin-bottom: 6px;"></h4><div><span>Precio regular:</span> <span data-precio-cop="${combo.regularPrice || 0}"></span></div><div><span data-precio-cop="${combo.discountPrice || 0}"></span></div><p style="font-size: 0.78rem; line-height: 1.5; color: var(--texto-gris); margin-top: 8px;"></p></div></div><div style="padding: 15px"><button type="button" onclick="cargarComboGanador('${combo.id}')" style="width: 100%; background: var(--verde-contundente); border: none; color: #fff; padding: 10px; cursor: pointer;">➕ Seleccionar Combo</button></div>`;
+                grid.appendChild(card);
+            }
+            const title = card.querySelector('h4');
+            const description = card.querySelector('p');
+            const prices = card.querySelectorAll('span');
+            if (title) {
+                title.dataset.nombreEs = combo.name?.es || title.textContent;
+                title.dataset.nombreEn = combo.name?.en || title.textContent;
+                title.dataset.nombreFr = combo.name?.fr || title.textContent;
+            }
+            if (description) {
+                description.dataset.descripcionEs = combo.description?.es || description.textContent;
+                description.dataset.descripcionEn = combo.description?.en || description.textContent;
+                description.dataset.descripcionFr = combo.description?.fr || description.textContent;
+            }
+            if (prices[1] && combo.regularPrice) {
+                prices[1].dataset.precioCop = combo.regularPrice;
+                prices[1].textContent = formatMoneda(combo.regularPrice);
+            }
+            if (prices[2] && combo.discountPrice) {
+                prices[2].dataset.precioCop = combo.discountPrice;
+                prices[2].textContent = formatMoneda(combo.discountPrice);
+            }
+            card.style.display = combo.active === false ? 'none' : '';
+        });
+    }
+
     function aplicarIdioma() {
         const textos = traduccionesInterfaz[idiomaActual] || traduccionesInterfaz.es;
         document.documentElement.lang = idiomaActual;
@@ -2026,8 +2122,13 @@
         document.querySelectorAll('#combos-ganadores h4').forEach((titulo, indice) => {
             const descripcion = titulo.parentElement.querySelector('p');
             const traduccionCombo = descripcionesCombos[indice];
+            const nombreCombo = idiomaActual === 'en' ? titulo.dataset.nombreEn : idiomaActual === 'fr' ? titulo.dataset.nombreFr : titulo.dataset.nombreEs;
+            if (nombreCombo) titulo.textContent = nombreCombo;
             if (descripcion && !descripcion.dataset.descripcionEs) descripcion.dataset.descripcionEs = descripcion.textContent;
-            if (descripcion && traduccionCombo) descripcion.textContent = idiomaActual === 'es' ? descripcion.dataset.descripcionEs : traduccionCombo[idiomaActual === 'en' ? 0 : 1];
+            if (descripcion) {
+                const descripcionAdministrada = idiomaActual === 'en' ? descripcion.dataset.descripcionEn : idiomaActual === 'fr' ? descripcion.dataset.descripcionFr : descripcion.dataset.descripcionEs;
+                descripcion.textContent = descripcionAdministrada || (traduccionCombo ? traduccionCombo[idiomaActual === 'en' ? 0 : 1] : descripcion.dataset.descripcionEs);
+            }
         });
 
         const total = document.querySelector('#precio-carta')?.parentElement;
@@ -2065,10 +2166,16 @@
             const nombre = contenedor?.querySelector(`label[for="${input.id}"]`) || contenedor?.querySelector(':scope > div span:first-child');
             const descripcion = contenedor?.querySelector(':scope > div span:nth-child(2)') || contenedor?.querySelector(':scope > div > span');
             if (nombre && !nombre.dataset.nombreEs) nombre.dataset.nombreEs = nombre.textContent;
-            if (traduccion && nombre) nombre.textContent = idiomaActual === 'es' ? nombre.dataset.nombreEs : traduccion[idiomaActual === 'en' ? 0 : 1];
+            if (nombre) {
+                const nombreAdministrado = idiomaActual === 'en' ? nombre.dataset.nombreEn : idiomaActual === 'fr' ? nombre.dataset.nombreFr : nombre.dataset.nombreEs;
+                nombre.textContent = nombreAdministrado || (traduccion ? traduccion[idiomaActual === 'en' ? 0 : 1] : nombre.dataset.nombreEs);
+            }
             const descripcionTraduccion = descripcionesPlatos[input.id];
             if (descripcion && !descripcion.dataset.descripcionEs) descripcion.dataset.descripcionEs = descripcion.textContent;
-            if (descripcionTraduccion && descripcion) descripcion.textContent = idiomaActual === 'es' ? descripcion.dataset.descripcionEs : descripcionTraduccion[idiomaActual === 'en' ? 0 : 1];
+            if (descripcion) {
+                const descripcionAdministrada = idiomaActual === 'en' ? descripcion.dataset.descripcionEn : idiomaActual === 'fr' ? descripcion.dataset.descripcionFr : descripcion.dataset.descripcionEs;
+                descripcion.textContent = descripcionAdministrada || (descripcionTraduccion ? descripcionTraduccion[idiomaActual === 'en' ? 0 : 1] : descripcion.dataset.descripcionEs);
+            }
         });
 
         document.querySelectorAll('.bandera-link[data-idioma]').forEach(bandera => {
@@ -2557,6 +2664,11 @@
         limpiarSeleccionActual();
         
         let IDsSeleccionados = [];
+
+        if (typeof idCombo === 'string') {
+            const comboAdministrado = (window.menuData?.combos || []).find(combo => combo.id === idCombo);
+            IDsSeleccionados = comboAdministrado?.items || [];
+        }
         
         if (idCombo === 1) {
             IDsSeleccionados = ['chk-base-crepe', 'chk-prot-pollo', 'chk-salsa-champinon', 'chk-acomp-cascos', 'chk-acomp-ensalada', 'chk-bebida-jamaica'];
