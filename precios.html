@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Panel de precios | Be'er Sheva 113</title>
+<script src="room-prices-data.js"></script>
+<style>
+:root{--bg:#111;--panel:#1a1a1a;--line:#303030;--gold:#d4af37;--green:#395740;--text:#eee;--muted:#aaa;--danger:#ff9a9a}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:14px Arial,sans-serif}header{border-bottom:1px solid var(--line);padding:20px max(20px,calc((100vw - 1300px)/2));display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap}.brand{color:var(--gold);font:24px Georgia,serif}main{max-width:1300px;margin:auto;padding:24px}.panel{background:var(--panel);border:1px solid var(--line);padding:18px;border-radius:4px;margin-bottom:18px}h1,h2,h3{font-family:Georgia,serif;font-weight:500}h1{margin-top:0}h2{font-size:21px}.muted,.hint{color:var(--muted);line-height:1.55}.hint{font-size:13px}.fields{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px}.platforms{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}.platform{border:1px solid var(--line);padding:14px;border-radius:4px}.discount-row{display:grid;grid-template-columns:minmax(0,1fr) 120px auto;gap:10px;align-items:end;margin-top:8px}.discount-row label{margin-top:0}label{display:block;color:var(--muted);margin:10px 0 5px}input,select{width:100%;background:#101010;color:var(--text);border:1px solid var(--line);padding:10px;border-radius:3px;font:inherit}input:focus,select:focus{outline:1px solid var(--gold)}input[type=checkbox]{width:auto;accent-color:var(--gold)}.editor-rooms{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px}.editor-room{border:1px solid var(--line);border-radius:4px;padding:14px}.editor-room h3{margin:0 0 10px;color:var(--gold);font:20px Georgia,serif}.editor-room-fields{display:grid;grid-template-columns:1fr 1fr;gap:12px}.editor-room-fields label{font-size:12px}.room{margin-top:18px}.room h3{margin:0 0 10px;color:var(--gold)}.table-wrap{overflow-x:auto}table{width:100%;border-collapse:collapse;min-width:760px}th,td{border-bottom:1px solid var(--line);padding:9px 8px;text-align:left;vertical-align:top}th{color:var(--muted);font-weight:500}.plan{min-width:120px}.guest{min-width:145px}.result{min-width:220px;color:var(--text);line-height:1.55}.result strong{color:var(--gold)}.actions{display:flex;gap:10px;flex-wrap:wrap}button,.button{border:1px solid var(--gold);background:transparent;color:var(--gold);padding:10px 14px;cursor:pointer;border-radius:3px;text-decoration:none}button.primary{background:var(--green);border-color:var(--green);color:white}.status{min-height:20px;color:var(--gold)}.error{color:var(--danger)}.notice{border-left:3px solid var(--gold);padding:10px 13px;background:#151515}.small{font-size:12px;color:var(--muted)}@media(max-width:600px){main{padding:14px}.panel{padding:14px}header{padding:16px}.discount-row{grid-template-columns:minmax(0,1fr) 90px auto}}
+</style>
+</head>
+<body>
+<header>
+    <div><div class="brand">Be'er Sheva 113</div><div>Panel de precios de habitaciones</div></div>
+    <div class="actions"><a class="button" href="index.html#habitaciones">Ver la web</a><button class="primary" id="exportar" type="button">Exportar precios para la web</button></div>
+</header>
+<main>
+    <h1>Precios y plataformas</h1>
+    <p class="muted">Edita el precio con descuento del plan con desayuno en COP. El panel calcula automáticamente las demás modalidades y los precios base, convierte las tarifas y recomienda los precios para Booking y Airbnb.</p>
+    <p class="notice hint">Los cambios se guardan en este navegador, pero no se publican automáticamente. Al terminar, exporta <strong>room-prices-data.js</strong>, reemplaza el archivo de ese nombre en tu sitio y publícalo. Las tarifas promocionales de Booking y Airbnb se consideran un único descuento efectivo; si aplicas promociones acumuladas, introduce aquí el porcentaje total equivalente.</p>
+    <p class="status" id="estado" role="status"></p>
+
+    <section class="panel">
+        <h2>Tasas de cambio y referencia</h2>
+        <div class="fields">
+            <div><label for="usd">COP por 1 USD</label><input id="usd" type="number" min="0.01" step="0.01"></div>
+            <div><label for="eur">COP por 1 EUR</label><input id="eur" type="number" min="0.01" step="0.01"></div>
+        </div>
+        <p class="hint">Valores iniciales basados en la tasa publicada el 31/10/2026. La conversión a USD se redondea hacia arriba al dólar entero. La conversión a EUR incluye el margen de seguridad del 5 % y se redondea hacia arriba al euro entero.</p>
+    </section>
+
+    <section class="panel">
+        <h2>Booking y Airbnb</h2>
+        <div class="fields">
+            <div><label for="iva">IVA sobre comisión para Airbnb (%)</label><input id="iva" type="number" min="0" max="100" step="0.1"></div>
+            <div><label for="objetivo-neto">Neto objetivo sobre el precio promocional de mi web (%)</label><input id="objetivo-neto" type="number" min="1" max="300" step="0.1"></div>
+        </div>
+        <div class="platforms">
+            <div class="platform">
+                <h3>Booking</h3>
+                <label for="booking-comision">Comisión (%)</label><input id="booking-comision" type="number" min="0" max="100" step="0.1">
+                <label for="booking-genius">Descuento fijo Genius (%)</label><input id="booking-genius" type="number" min="0" max="100" step="0.1">
+                <label for="booking-iva-huesped">IVA que Booking agrega al huésped (%)</label><input id="booking-iva-huesped" type="number" min="0" max="100" step="0.1">
+                <div id="booking-descuentos-adicionales"></div>
+                <button id="agregar-descuento-booking" type="button" style="margin-top:10px">Agregar otro descuento</button>
+            </div>
+            <div class="platform">
+                <h3>Airbnb</h3>
+                <label for="airbnb-comision">Comisión (%)</label><input id="airbnb-comision" type="number" min="0" max="100" step="0.1">
+                <label for="airbnb-descuento">Descuento efectivo del portal (%)</label><input id="airbnb-descuento" type="number" min="0" max="100" step="0.1">
+            </div>
+        </div>
+        <p class="hint">Los descuentos configurados para Booking se suman entre sí. Genius es fijo y puedes agregar o quitar otros, como móvil o reserva anticipada. Para Booking, el IVA configurado se agrega a la tarifa promocional que ve el huésped y no se resta de tu ingreso. La comisión de Booking sí se descuenta de la tarifa antes de ese IVA. Para Airbnb, el cálculo mantiene el IVA sobre la comisión indicado arriba. Confirma los conceptos e importes que aplica tu cuenta con la plataforma o tu asesor.</p>
+        <p class="notice hint">En ambas plataformas, el ingreso neto estimado después del descuento y de la comisión debe alcanzar el porcentaje objetivo que configures sobre el precio con descuento de tu web. En Booking, el IVA que se añade al huésped se muestra por separado y no se considera ingreso ni se descuenta de tu neto. El precio base se redondea hacia arriba al siguiente múltiplo de $1.000 COP.</p>
+    </section>
+
+    <section class="panel">
+        <h2>Precios promocionales con desayuno</h2>
+        <p class="hint">Edita directamente todas las habitaciones y ocupaciones en esta sección. Las demás modalidades y sus precios base se calculan automáticamente.</p>
+        <div id="habitaciones"></div>
+    </section>
+
+    <section class="panel">
+        <h2>Resumen de precios de la habitación</h2>
+        <p class="hint">Selecciona una habitación para consultar en una sola tabla todas sus modalidades, ocupaciones y precios. Desde aquí también puedes activar o desactivar cada promoción.</p>
+        <div class="fields">
+            <div><label for="resumen-habitacion">Habitación</label><select id="resumen-habitacion"></select></div>
+        </div>
+        <div id="resumen-precios"></div>
+    </section>
+
+    <section class="panel">
+        <h2>Recomendación de precio base por plataforma</h2>
+        <p class="hint">Elige una ocupación y un plan para comparar las cuatro habitaciones en una sola vista. La Individual Business solo admite una persona.</p>
+        <div class="fields">
+            <div><label for="recomendacion-ocupacion">Ocupación</label><select id="recomendacion-ocupacion"><option value="0">1 persona</option><option value="1">2 personas</option></select></div>
+            <div><label for="recomendacion-plan">Tipo de plan</label><select id="recomendacion-plan"></select></div>
+        </div>
+        <p class="hint">Para Booking verás la tarifa base recomendada, el IVA separado, el total que pagaría el huésped y tu neto estimado tras la comisión. Para Airbnb se muestra el precio base, el pago del huésped tras el descuento y el neto estimado.</p>
+        <div id="recomendaciones"></div>
+    </section>
+</main>
+<script>
+(() => {
+    "use strict";
+    const STORAGE_KEY = "beersheva-room-prices-draft";
+    const guestLabels = ["1 persona", "2 personas"];
+    const planLabels = ["Solo hospedaje", "Con desayuno", "Con cena", "Media pensión"];
+    const status = document.getElementById("estado");
+    const copy = value => JSON.parse(JSON.stringify(value));
+    let data = copy(window.roomPriceData);
+    let summaryRoomIndex = 0;
+    let recommendationGuestIndex = 0;
+    let recommendationPlanIndex = 0;
+    const copFormat = value => `$${Math.ceil(value).toLocaleString("es-CO")}`;
+    const field = (id, value) => {
+        document.getElementById(id).value = value;
+    };
+    const numericInput = (id, getter, maxValue = 100) => {
+        const rawValue = document.getElementById(id).value;
+        if (rawValue.trim() === "") {
+            throw new Error(`El campo "${document.querySelector(`label[for="${id}"]`).textContent}" no puede quedar vacío.`);
+        }
+        const value = Number(rawValue);
+        if (!Number.isFinite(value) || value < 0 || value > maxValue && id !== "usd" && id !== "eur") {
+            throw new Error(`Revisa el valor ingresado en "${document.querySelector(`label[for="${id}"]`).textContent}".`);
+        }
+        if ((id === "usd" || id === "eur") && value <= 0) {
+            throw new Error("Las tasas de cambio deben ser mayores que cero.");
+        }
+        getter(value);
+    };
+
+    function loadFields() {
+        field("usd", data.rates.copPerUsd);
+        field("eur", data.rates.copPerEur);
+        field("iva", data.platformSettings.commissionVatPercent);
+        field("objetivo-neto", data.platformSettings.targetNetPercent);
+        field("booking-genius", data.platformSettings.booking.geniusDiscountPercent);
+        field("booking-iva-huesped", data.platformSettings.booking.guestVatPercent);
+        for (const platform of ["booking", "airbnb"]) {
+            field(`${platform}-comision`, data.platformSettings[platform].commissionPercent);
+        }
+        field("airbnb-descuento", data.platformSettings.airbnb.discountPercent);
+        renderBookingDiscounts();
+        document.getElementById("resumen-habitacion").innerHTML = data.rooms
+            .map((room, index) => `<option value="${index}">${room.name}</option>`).join("");
+        document.getElementById("recomendacion-plan").innerHTML = planLabels
+            .map((label, index) => `<option value="${index}">${label}</option>`).join("");
+        renderRooms();
+        renderPriceSummary();
+        renderRecommendations();
+    }
+
+    function renderBookingDiscounts() {
+        const container = document.getElementById("booking-descuentos-adicionales");
+        container.innerHTML = data.platformSettings.booking.additionalDiscounts.map((discount, index) => `
+            <div class="discount-row">
+                <div><label for="booking-descuento-nombre-${index}">Descuento adicional ${index + 1}</label><input id="booking-descuento-nombre-${index}" data-booking-discount-name="${index}" type="text" maxlength="60" value="${escapeHtml(discount.name)}" placeholder="Ej. Móvil"></div>
+                <div><label for="booking-descuento-porcentaje-${index}">Porcentaje (%)</label><input id="booking-descuento-porcentaje-${index}" data-booking-discount-percent="${index}" type="number" min="0" max="100" step="0.1" value="${discount.percent}"></div>
+                <button type="button" data-remove-booking-discount="${index}" aria-label="Eliminar descuento ${escapeHtml(discount.name)}">Quitar</button>
+            </div>`).join("");
+    }
+
+    function escapeHtml(value) {
+        return String(value).replace(/[&<>"']/g, character => ({
+            "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+        })[character]);
+    }
+
+    function readBookingDiscounts(excludedIndex = -1) {
+        return [...document.querySelectorAll("[data-booking-discount-name]")]
+            .map((nameInput, index) => {
+                if (index === excludedIndex) return null;
+                const name = nameInput.value.trim();
+                const percentInput = document.querySelector(`[data-booking-discount-percent="${index}"]`);
+                const percent = Number(percentInput.value);
+                if (!name) throw new Error(`Escribe un nombre para el descuento adicional ${index + 1} de Booking.`);
+                if (!percentInput.value.trim() || !Number.isFinite(percent) || percent < 0 || percent > 100) {
+                    throw new Error(`Ingresa un porcentaje válido para el descuento adicional ${index + 1} de Booking.`);
+                }
+                return { name, percent };
+            })
+            .filter(discount => discount !== null);
+    }
+
+    function renderRooms() {
+        data.rooms.forEach(syncRoomPrices);
+        document.getElementById("habitaciones").innerHTML = `
+            <div class="editor-rooms">${data.rooms.map((room, roomIndex) => `
+                <section class="editor-room">
+                    <h3>${room.name}</h3>
+                    <div class="editor-room-fields">${room.plans[1].discountCop.map((price, guestIndex) => `
+                        <div>
+                            <label for="breakfast-${roomIndex}-${guestIndex}">${guestLabels[guestIndex]} · COP</label>
+                            <input id="breakfast-${roomIndex}-${guestIndex}" data-breakfast-price data-room-index="${roomIndex}" data-guest-index="${guestIndex}" type="number" min="1" step="1000" value="${price}" aria-label="${room.name}, ${guestLabels[guestIndex]}, precio promocional con desayuno en COP">
+                        </div>`).join("")}</div>
+                </section>`).join("")}</div>`;
+    }
+
+    function syncRoomPrices(room) {
+        const breakfastPlan = room.plans[1];
+        const discountOffsetsPerGuest = [-10000, 0, 2000, 10000];
+        room.plans.forEach((plan, planIndex) => {
+            plan.discountEnabled = plan.discountCop.map((_, guestIndex) => plan.discountEnabled?.[guestIndex] !== false);
+            plan.discountCop = breakfastPlan.discountCop.map((breakfastPrice, guestIndex) => {
+                const guestCount = guestIndex + 1;
+                return breakfastPrice + discountOffsetsPerGuest[planIndex] * guestCount;
+            });
+            plan.baseCop = plan.discountCop.map(price => Math.ceil(price * 1.3 / 1000) * 1000);
+        });
+    }
+
+    function refreshDerivedPrices() {
+        renderPriceSummary();
+    }
+
+    function renderPriceSummary() {
+        const room = data.rooms[summaryRoomIndex];
+        syncRoomPrices(room);
+        document.getElementById("resumen-precios").innerHTML = `
+            <h3 class="room">${room.name}</h3>
+            <div class="table-wrap"><table>
+                <thead><tr><th>Plan</th><th>Ocupación</th><th>Precio base COP</th><th>Precio promo COP</th><th>Promoción activa</th></tr></thead>
+                <tbody>${room.plans.map((plan, planIndex) => plan.discountCop.map((discountPrice, guestIndex) => `
+                    <tr>
+                        <td>${planLabels[planIndex]}</td>
+                        <td>${guestLabels[guestIndex]}</td>
+                        <td>${copFormat(plan.baseCop[guestIndex])}</td>
+                        <td>${copFormat(discountPrice)}</td>
+                        <td><label class="small" for="summary-discount-${summaryRoomIndex}-${planIndex}-${guestIndex}">Mostrar promoción</label><input id="summary-discount-${summaryRoomIndex}-${planIndex}-${guestIndex}" data-summary-discount="${planIndex}-${guestIndex}" type="checkbox" ${plan.discountEnabled[guestIndex] ? "checked" : ""}></td>
+                    </tr>`).join("")).join("")}
+                </tbody>
+            </table></div>`;
+    }
+
+    function readFields() {
+        numericInput("usd", value => data.rates.copPerUsd = value);
+        numericInput("eur", value => data.rates.copPerEur = value);
+        numericInput("iva", value => data.platformSettings.commissionVatPercent = value);
+        numericInput("objetivo-neto", value => data.platformSettings.targetNetPercent = value, 300);
+        if (data.platformSettings.targetNetPercent <= 0) {
+            throw new Error("El neto objetivo debe ser mayor que cero.");
+        }
+        numericInput("booking-genius", value => data.platformSettings.booking.geniusDiscountPercent = value);
+        numericInput("booking-iva-huesped", value => data.platformSettings.booking.guestVatPercent = value);
+        numericInput("booking-comision", value => data.platformSettings.booking.commissionPercent = value);
+        numericInput("airbnb-comision", value => data.platformSettings.airbnb.commissionPercent = value);
+        numericInput("airbnb-descuento", value => data.platformSettings.airbnb.discountPercent = value);
+        const additionalDiscounts = readBookingDiscounts();
+        const bookingDiscountTotal = data.platformSettings.booking.geniusDiscountPercent
+            + additionalDiscounts.reduce((sum, discount) => sum + discount.percent, 0);
+        if (bookingDiscountTotal >= 100) {
+            throw new Error("La suma de los descuentos de Booking debe ser menor al 100 %.");
+        }
+        data.platformSettings.booking.additionalDiscounts = additionalDiscounts;
+        document.querySelectorAll("[data-breakfast-price]").forEach(input => {
+            const roomIndex = Number(input.dataset.roomIndex);
+            const guestIndex = Number(input.dataset.guestIndex);
+            const breakfastPrice = Number(input.value);
+            if (!input.value.trim() || !Number.isFinite(breakfastPrice) || breakfastPrice <= 0) {
+                throw new Error(`El precio con desayuno de ${data.rooms[roomIndex].name} (${guestLabels[guestIndex]}) debe ser un número mayor que cero.`);
+            }
+            data.rooms[roomIndex].plans[1].discountCop[guestIndex] = Math.round(breakfastPrice);
+        });
+        document.querySelectorAll("[data-summary-discount]").forEach(toggle => {
+            const [planIndex, guestIndex] = toggle.dataset.summaryDiscount.split("-").map(Number);
+            data.rooms[summaryRoomIndex].plans[planIndex].discountEnabled[guestIndex] = toggle.checked;
+        });
+        data.rooms.forEach(syncRoomPrices);
+        return data;
+    }
+
+    function calculateRecommendation(webPrice, platform) {
+        const settings = data.platformSettings[platform];
+        const discountPercent = platform === "booking"
+            ? settings.geniusDiscountPercent + settings.additionalDiscounts.reduce((sum, discount) => sum + discount.percent, 0)
+            : settings.discountPercent;
+        const promoFactor = 1 - discountPercent / 100;
+        if (platform === "booking") {
+            const commissionFactor = 1 - settings.commissionPercent / 100;
+            if (promoFactor <= 0 || commissionFactor <= 0) {
+                throw new Error("El descuento y la comisión de Booking deben ser menores al 100 %.");
+            }
+            const targetNet = webPrice * data.platformSettings.targetNetPercent / 100;
+            const basePrice = Math.ceil(targetNet / (promoFactor * commissionFactor) / 1000) * 1000;
+            const guestFare = basePrice * promoFactor;
+            const guestVat = guestFare * settings.guestVatPercent / 100;
+            const guestTotal = guestFare + guestVat;
+            const netIncome = guestFare * commissionFactor;
+            return { basePrice, guestFare, guestVat, guestTotal, netIncome };
+        }
+        const feeFactor = 1 - settings.commissionPercent / 100 * (1 + data.platformSettings.commissionVatPercent / 100);
+        if (promoFactor <= 0 || feeFactor <= 0) {
+            throw new Error(`La comisión, su IVA y el descuento de ${platform} dejan un ingreso neto igual o menor que cero.`);
+        }
+        const targetNet = webPrice * data.platformSettings.targetNetPercent / 100;
+        const basePrice = Math.ceil(targetNet / (promoFactor * feeFactor) / 1000) * 1000;
+        const guestPays = basePrice * promoFactor;
+        const netIncome = guestPays * feeFactor;
+        return { basePrice, guestPays, netIncome };
+    }
+
+    function renderRecommendations() {
+        const planLabel = planLabels[recommendationPlanIndex];
+        document.getElementById("recomendaciones").innerHTML = `
+            <div class="table-wrap"><table>
+                <thead><tr><th>Habitación</th><th>Plan</th><th>Precio web vigente</th><th>Booking: base y desglose</th><th>Airbnb: base / paga huésped / neto</th></tr></thead>
+                <tbody>${data.rooms.map(room => {
+                    const plan = room.plans[recommendationPlanIndex];
+                    if (recommendationGuestIndex >= plan.discountCop.length) {
+                        return `<tr><td>${room.name}</td><td>${planLabel}</td><td colspan="3">No disponible para 2 personas</td></tr>`;
+                    }
+                    const hasDiscount = plan.discountEnabled[recommendationGuestIndex];
+                    const webPrice = hasDiscount ? plan.discountCop[recommendationGuestIndex] : plan.baseCop[recommendationGuestIndex];
+                    const booking = calculateRecommendation(webPrice, "booking");
+                    const airbnb = calculateRecommendation(webPrice, "airbnb");
+                    return `<tr><td>${room.name}</td><td>${planLabel}</td><td>${copFormat(webPrice)}${hasDiscount ? " (con descuento)" : " (sin descuento)"}</td><td class="result"><strong>Base: ${copFormat(booking.basePrice)}</strong><br>Tarifa con descuento: ${copFormat(booking.guestFare)}<br>IVA huésped: ${copFormat(booking.guestVat)}<br>Total huésped: ${copFormat(booking.guestTotal)}<br>Neto tras comisión: ${copFormat(booking.netIncome)}</td><td class="result"><strong>${copFormat(airbnb.basePrice)}</strong><br>Huésped: ${copFormat(airbnb.guestPays)}<br>Neto: ${copFormat(airbnb.netIncome)}</td></tr>`;
+                }).join("")}</tbody>
+            </table></div>`;
+    }
+
+    function update() {
+        try {
+            readFields();
+            refreshDerivedPrices();
+            renderRecommendations();
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+            status.className = "status";
+            status.textContent = "Borrador guardado en este navegador. Exporta el archivo para aplicar los cambios a la web.";
+        } catch (error) {
+            status.className = "status error";
+            status.textContent = error.message;
+        }
+    }
+
+    try {
+        const draft = localStorage.getItem(STORAGE_KEY);
+        if (draft) {
+            data = JSON.parse(draft);
+            if (typeof data.platformSettings.booking.geniusDiscountPercent !== "number") {
+                data.platformSettings.booking.geniusDiscountPercent = data.platformSettings.booking.discountPercent || 0;
+            }
+            if (!Array.isArray(data.platformSettings.booking.additionalDiscounts)) {
+                data.platformSettings.booking.additionalDiscounts = [];
+            }
+            delete data.platformSettings.booking.discountPercent;
+            const currentRoomNames = new Map(window.roomPriceData.rooms.map(room => [room.id, room.name]));
+            data.rooms.forEach(room => {
+                const currentName = currentRoomNames.get(room.id);
+                if (currentName) room.name = currentName;
+                room.plans.forEach(plan => {
+                    if (!Array.isArray(plan.discountEnabled)) {
+                        plan.discountEnabled = plan.discountCop.map(() => true);
+                    }
+                });
+                syncRoomPrices(room);
+            });
+            if (typeof data.platformSettings.booking.guestVatPercent !== "number") {
+                data.platformSettings.booking.guestVatPercent = 19;
+            }
+        }
+    } catch (error) {
+        status.className = "status error";
+        status.textContent = `No se pudo leer el borrador guardado: ${error.message}`;
+    }
+
+    loadFields();
+    document.addEventListener("input", event => {
+        if (event.target.matches("input")) update();
+    });
+    document.getElementById("agregar-descuento-booking").addEventListener("click", () => {
+        try {
+            readFields();
+            data.platformSettings.booking.additionalDiscounts.push({ name: "", percent: 0 });
+            renderBookingDiscounts();
+            renderRecommendations();
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+            document.getElementById(`booking-descuento-nombre-${data.platformSettings.booking.additionalDiscounts.length - 1}`).focus();
+            status.className = "status";
+            status.textContent = "Descuento agregado. Completa el nombre y el porcentaje.";
+        } catch (error) {
+            status.className = "status error";
+            status.textContent = error.message;
+        }
+    });
+    document.getElementById("booking-descuentos-adicionales").addEventListener("click", event => {
+        const button = event.target.closest("[data-remove-booking-discount]");
+        if (!button) return;
+        try {
+            data.platformSettings.booking.additionalDiscounts = readBookingDiscounts(Number(button.dataset.removeBookingDiscount));
+            renderBookingDiscounts();
+            renderRecommendations();
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+            status.className = "status";
+            status.textContent = "Descuento eliminado.";
+        } catch (error) {
+            status.className = "status error";
+            status.textContent = error.message;
+        }
+    });
+    document.getElementById("resumen-habitacion").addEventListener("change", event => {
+        summaryRoomIndex = Number(event.target.value);
+        renderPriceSummary();
+    });
+    document.getElementById("resumen-precios").addEventListener("change", event => {
+        if (event.target.matches("[data-summary-discount]")) update();
+    });
+    document.getElementById("recomendacion-ocupacion").addEventListener("change", event => {
+        recommendationGuestIndex = Number(event.target.value);
+        renderRecommendations();
+    });
+    document.getElementById("recomendacion-plan").addEventListener("change", event => {
+        recommendationPlanIndex = Number(event.target.value);
+        renderRecommendations();
+    });
+    document.getElementById("exportar").addEventListener("click", () => {
+        try {
+            readFields();
+            renderRecommendations();
+            const source = `window.roomPriceData = ${JSON.stringify(data, null, 4)};\n`;
+            const blob = new Blob([source], { type: "text/javascript;charset=utf-8" });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement("a");
+            link.href = url;
+            link.download = "room-prices-data.js";
+            link.click();
+            setTimeout(() => URL.revokeObjectURL(url), 1000);
+            status.className = "status";
+            status.textContent = "Archivo exportado. Reemplaza room-prices-data.js en tu sitio y publícalo.";
+        } catch (error) {
+            status.className = "status error";
+            status.textContent = error.message;
+        }
+    });
+})();
+</script>
+</body>
+</html>
