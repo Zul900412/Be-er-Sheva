@@ -6,6 +6,7 @@ window.roomPriceData = {
         eurBufferPercent: 5,
         updatedAt: "2026-10-31"
     },
+    baseIncreasePercent: 30,
     platformSettings: {
         commissionVatPercent: 19,
         targetNetPercent: 90,

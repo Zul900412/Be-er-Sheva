@@ -37,9 +37,10 @@
 
             cells.forEach((cell, guestIndex) => {
                 const hasDiscount = plan.discountEnabled?.[guestIndex] !== false;
+                const basePrice = Math.ceil(plan.discountCop[guestIndex] * (1 + data.baseIncreasePercent / 100) / 1000) * 1000;
                 cell.innerHTML = hasDiscount
-                    ? `<span class="precio-original">${formatPrice(plan.baseCop[guestIndex])}</span><span class="precio-descuento">${formatPrice(plan.discountCop[guestIndex])}</span>`
-                    : `<span class="precio-descuento">${formatPrice(plan.baseCop[guestIndex])}</span>`;
+                    ? `<span class="precio-original">${formatPrice(basePrice)}</span><span class="precio-descuento">${formatPrice(plan.discountCop[guestIndex])}</span>`
+                    : `<span class="precio-descuento">${formatPrice(basePrice)}</span>`;
             });
         });
     });
