@@ -8,6 +8,20 @@
 
     const language = document.documentElement.lang.toLowerCase();
     const formatter = new Intl.NumberFormat("es-CO", { maximumFractionDigits: 0 });
+    const bookingSettings = data.platformSettings.booking;
+    const bookingDiscountPercent = bookingSettings.geniusDiscountPercent
+        + bookingSettings.additionalDiscounts.reduce((sum, discount) => sum + discount.percent, 0);
+    const bookingPromoFactor = 1 - bookingDiscountPercent / 100;
+    const bookingCommissionFactor = 1 - bookingSettings.commissionPercent / 100;
+    if (bookingPromoFactor <= 0 || bookingCommissionFactor <= 0 || data.platformSettings.targetNetPercent <= 0) {
+        throw new Error("La configuración de Booking no permite calcular un precio base válido.");
+    }
+
+    const calculateBookingBasePrice = promoPrice => {
+        const bookingTargetNet = promoPrice * data.platformSettings.targetNetPercent / 100;
+        return Math.ceil(bookingTargetNet / (bookingPromoFactor * bookingCommissionFactor) / 1000) * 1000;
+    };
+
     const formatPrice = value => {
         if (language.startsWith("es")) return `$${formatter.format(value)}`;
         if (language.startsWith("fr")) {
@@ -37,7 +51,11 @@
 
             cells.forEach((cell, guestIndex) => {
                 const hasDiscount = plan.discountEnabled?.[guestIndex] !== false;
-                const basePrice = Math.ceil(plan.discountCop[guestIndex] * (1 + data.baseIncreasePercent / 100) / 1000) * 1000;
+                const bookingBasePrice = Array.isArray(plan.bookingBaseCop)
+                    && Number.isFinite(plan.bookingBaseCop[guestIndex])
+                    ? plan.bookingBaseCop[guestIndex]
+                    : calculateBookingBasePrice(plan.discountCop[guestIndex]);
+                const basePrice = Math.ceil(bookingBasePrice * data.platformSettings.targetNetPercent / 100 / 1000) * 1000;
                 cell.innerHTML = hasDiscount
                     ? `<span class="precio-original">${formatPrice(basePrice)}</span><span class="precio-descuento">${formatPrice(plan.discountCop[guestIndex])}</span>`
                     : `<span class="precio-descuento">${formatPrice(basePrice)}</span>`;

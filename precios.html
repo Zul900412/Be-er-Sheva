@@ -34,7 +34,7 @@
         <h2>Booking y Airbnb</h2>
         <div class="fields">
             <div><label for="iva">IVA sobre comisión para Airbnb (%)</label><input id="iva" type="number" min="0" max="100" step="0.1"></div>
-            <div><label for="objetivo-neto">Neto objetivo sobre el precio promocional de mi web (%)</label><input id="objetivo-neto" type="number" min="1" max="300" step="0.1"></div>
+            <div><label for="objetivo-neto">Porcentaje objetivo (%)</label><input id="objetivo-neto" type="number" min="1" max="300" step="0.1"></div>
         </div>
         <div class="platforms">
             <div class="platform">
@@ -52,16 +52,12 @@
             </div>
         </div>
         <p class="hint">Los descuentos configurados para Booking se suman entre sí. Genius es fijo y puedes agregar o quitar otros, como móvil o reserva anticipada. Para Booking, el IVA configurado se agrega a la tarifa promocional que ve el huésped y no se resta de tu ingreso. La comisión de Booking sí se descuenta de la tarifa antes de ese IVA. Para Airbnb, el cálculo mantiene el IVA sobre la comisión indicado arriba. Confirma los conceptos e importes que aplica tu cuenta con la plataforma o tu asesor.</p>
-        <p class="notice hint">En ambas plataformas, el ingreso neto estimado después del descuento y de la comisión debe alcanzar el porcentaje objetivo que configures sobre el precio con descuento de tu web. En Booking, el IVA que se añade al huésped se muestra por separado y no se considera ingreso ni se descuenta de tu neto. El precio base se redondea hacia arriba al siguiente múltiplo de $1.000 COP.</p>
+        <p class="notice hint">El porcentaje objetivo determina el neto buscado en las plataformas sobre el precio vigente de tu web y el precio base de tu web como proporción de la base recomendada por Booking. Por ejemplo, con 82 %, la base web será el 82 % de la base de Booking. En Booking, el IVA que se añade al huésped se muestra por separado y no se considera ingreso ni se descuenta de tu neto. Los precios se redondean hacia arriba al siguiente múltiplo de $1.000 COP.</p>
     </section>
 
     <section class="panel">
         <h2>Precios promocionales con desayuno</h2>
-        <p class="hint">Edita directamente todas las habitaciones y ocupaciones en esta sección. Las demás modalidades y sus precios base se calculan automáticamente.</p>
-        <div class="fields">
-            <div><label for="aumento-precio-base">Aumento para el precio base (%)</label><input id="aumento-precio-base" type="number" min="0" max="300" step="0.1"></div>
-        </div>
-        <p class="hint">El precio base de cada modalidad se calcula aplicando este porcentaje a su precio promocional y redondeando hacia arriba al siguiente múltiplo de $1.000 COP.</p>
+        <p class="hint">Edita directamente todas las habitaciones y ocupaciones en esta sección. Las demás modalidades se calculan desde el precio promocional con desayuno. Para cada tarifa, el panel toma la cifra «Base» recomendada por Booking y calcula el precio base web como el porcentaje configurado arriba de esa cifra.</p>
         <div id="habitaciones"></div>
     </section>
 
@@ -121,7 +117,6 @@
         field("eur", data.rates.copPerEur);
         field("iva", data.platformSettings.commissionVatPercent);
         field("objetivo-neto", data.platformSettings.targetNetPercent);
-        field("aumento-precio-base", data.baseIncreasePercent);
         field("booking-genius", data.platformSettings.booking.geniusDiscountPercent);
         field("booking-iva-huesped", data.platformSettings.booking.guestVatPercent);
         for (const platform of ["booking", "airbnb"]) {
@@ -193,7 +188,10 @@
                 const guestCount = guestIndex + 1;
                 return breakfastPrice + discountOffsetsPerGuest[planIndex] * guestCount;
             });
-            plan.baseCop = plan.discountCop.map(price => Math.ceil(price * (1 + data.baseIncreasePercent / 100) / 1000) * 1000);
+            plan.bookingBaseCop = plan.discountCop.map(price => calculateRecommendation(price, "booking").basePrice);
+            plan.baseCop = plan.bookingBaseCop.map(bookingBasePrice =>
+                Math.ceil(bookingBasePrice * data.platformSettings.targetNetPercent / 100 / 1000) * 1000
+            );
         });
     }
 
@@ -207,11 +205,12 @@
         document.getElementById("resumen-precios").innerHTML = `
             <h3 class="room">${room.name}</h3>
             <div class="table-wrap"><table>
-                <thead><tr><th>Plan</th><th>Ocupación</th><th>Precio base COP</th><th>Precio promo COP</th><th>Promoción activa</th></tr></thead>
+                <thead><tr><th>Plan</th><th>Ocupación</th><th>Base recomendada Booking COP</th><th>Precio base web COP (${data.platformSettings.targetNetPercent} % de Booking)</th><th>Precio promo COP</th><th>Promoción activa</th></tr></thead>
                 <tbody>${room.plans.map((plan, planIndex) => plan.discountCop.map((discountPrice, guestIndex) => `
                     <tr>
                         <td>${planLabels[planIndex]}</td>
                         <td>${guestLabels[guestIndex]}</td>
+                        <td>${copFormat(plan.bookingBaseCop[guestIndex])}</td>
                         <td>${copFormat(plan.baseCop[guestIndex])}</td>
                         <td>${copFormat(discountPrice)}</td>
                         <td><label class="small" for="summary-discount-${summaryRoomIndex}-${planIndex}-${guestIndex}">Mostrar promoción</label><input id="summary-discount-${summaryRoomIndex}-${planIndex}-${guestIndex}" data-summary-discount="${planIndex}-${guestIndex}" type="checkbox" ${plan.discountEnabled[guestIndex] ? "checked" : ""}></td>
@@ -225,7 +224,6 @@
         numericInput("eur", value => data.rates.copPerEur = value);
         numericInput("iva", value => data.platformSettings.commissionVatPercent = value);
         numericInput("objetivo-neto", value => data.platformSettings.targetNetPercent = value, 300);
-        numericInput("aumento-precio-base", value => data.baseIncreasePercent = value, 300);
         if (data.platformSettings.targetNetPercent <= 0) {
             throw new Error("El neto objetivo debe ser mayor que cero.");
         }
@@ -274,7 +272,7 @@
             const guestFare = basePrice * promoFactor;
             const guestVat = guestFare * settings.guestVatPercent / 100;
             const guestTotal = guestFare + guestVat;
-            const netIncome = guestFare * commissionFactor;
+            const netIncome = guestFare * (1 - settings.commissionPercent / 100);
             return { basePrice, guestFare, guestVat, guestTotal, netIncome };
         }
         const feeFactor = 1 - settings.commissionPercent / 100 * (1 + data.platformSettings.commissionVatPercent / 100);
@@ -332,9 +330,6 @@
                 data.platformSettings.booking.additionalDiscounts = [];
             }
             delete data.platformSettings.booking.discountPercent;
-            if (typeof data.baseIncreasePercent !== "number") {
-                data.baseIncreasePercent = window.roomPriceData.baseIncreasePercent ?? 30;
-            }
             const currentRoomNames = new Map(window.roomPriceData.rooms.map(room => [room.id, room.name]));
             data.rooms.forEach(room => {
                 const currentName = currentRoomNames.get(room.id);
@@ -355,6 +350,7 @@
         status.textContent = `No se pudo leer el borrador guardado: ${error.message}`;
     }
 
+    delete data.baseIncreasePercent;
     loadFields();
     document.addEventListener("input", event => {
         if (event.target.matches("input")) update();
