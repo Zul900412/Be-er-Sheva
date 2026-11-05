@@ -8,20 +8,20 @@ window.roomPriceData = {
     },
     "platformSettings": {
         "commissionVatPercent": 19,
-        "targetNetPercent": 82,
+        "targetNetPercent": 75,
         "booking": {
-            "commissionPercent": 15,
+            "commissionPercent": 20,
+            "guestVatPercent": 19,
             "geniusDiscountPercent": 20,
             "additionalDiscounts": [
                 {
                     "name": "Fin de año",
                     "percent": 16
                 }
-            ],
-            "guestVatPercent": 19
+            ]
         },
         "airbnb": {
-            "commissionPercent": 0,
+            "commissionPercent": 16,
             "discountPercent": 0
         }
     },
@@ -32,74 +32,74 @@ window.roomPriceData = {
             "plans": [
                 {
                     "baseCop": [
-                        124000,
-                        174000
+                        111000,
+                        149000
                     ],
                     "discountCop": [
                         100000,
-                        140000
+                        135000
                     ],
                     "discountEnabled": [
                         true,
                         true
                     ],
                     "bookingBaseCop": [
-                        151000,
-                        212000
+                        147000,
+                        198000
                     ]
                 },
                 {
                     "baseCop": [
-                        137000,
-                        199000
+                        122000,
+                        171000
                     ],
                     "discountCop": [
                         110000,
-                        160000
+                        155000
                     ],
                     "discountEnabled": [
                         true,
                         true
                     ],
                     "bookingBaseCop": [
-                        166000,
-                        242000
+                        162000,
+                        228000
                     ]
                 },
                 {
                     "baseCop": [
-                        139000,
-                        204000
+                        124000,
+                        175000
                     ],
                     "discountCop": [
                         112000,
-                        164000
+                        159000
                     ],
                     "discountEnabled": [
                         true,
                         true
                     ],
                     "bookingBaseCop": [
-                        169000,
-                        248000
+                        165000,
+                        233000
                     ]
                 },
                 {
                     "baseCop": [
-                        149000,
-                        224000
+                        132000,
+                        193000
                     ],
                     "discountCop": [
                         120000,
-                        180000
+                        175000
                     ],
                     "discountEnabled": [
                         true,
                         true
                     ],
                     "bookingBaseCop": [
-                        181000,
-                        272000
+                        176000,
+                        257000
                     ]
                 }
             ]
@@ -110,12 +110,30 @@ window.roomPriceData = {
             "plans": [
                 {
                     "baseCop": [
-                        119000,
-                        155000
+                        97000,
+                        137000
                     ],
                     "discountCop": [
-                        95000,
-                        125000
+                        88000,
+                        124000
+                    ],
+                    "discountEnabled": [
+                        true,
+                        true
+                    ],
+                    "bookingBaseCop": [
+                        129000,
+                        182000
+                    ]
+                },
+                {
+                    "baseCop": [
+                        108000,
+                        159000
+                    ],
+                    "discountCop": [
+                        98000,
+                        144000
                     ],
                     "discountEnabled": [
                         true,
@@ -123,17 +141,35 @@ window.roomPriceData = {
                     ],
                     "bookingBaseCop": [
                         144000,
-                        189000
+                        211000
                     ]
                 },
                 {
                     "baseCop": [
-                        131000,
-                        180000
+                        111000,
+                        163000
                     ],
                     "discountCop": [
-                        105000,
-                        145000
+                        100000,
+                        148000
+                    ],
+                    "discountEnabled": [
+                        true,
+                        true
+                    ],
+                    "bookingBaseCop": [
+                        147000,
+                        217000
+                    ]
+                },
+                {
+                    "baseCop": [
+                        120000,
+                        181000
+                    ],
+                    "discountCop": [
+                        108000,
+                        164000
                     ],
                     "discountEnabled": [
                         true,
@@ -141,43 +177,7 @@ window.roomPriceData = {
                     ],
                     "bookingBaseCop": [
                         159000,
-                        219000
-                    ]
-                },
-                {
-                    "baseCop": [
-                        133000,
-                        185000
-                    ],
-                    "discountCop": [
-                        107000,
-                        149000
-                    ],
-                    "discountEnabled": [
-                        true,
-                        true
-                    ],
-                    "bookingBaseCop": [
-                        162000,
-                        225000
-                    ]
-                },
-                {
-                    "baseCop": [
-                        143000,
-                        205000
-                    ],
-                    "discountCop": [
-                        115000,
-                        165000
-                    ],
-                    "discountEnabled": [
-                        true,
-                        true
-                    ],
-                    "bookingBaseCop": [
-                        174000,
-                        249000
+                        241000
                     ]
                 }
             ]
@@ -188,74 +188,74 @@ window.roomPriceData = {
             "plans": [
                 {
                     "baseCop": [
-                        112000,
-                        155000
+                        89000,
+                        127000
+                    ],
+                    "discountCop": [
+                        80000,
+                        115000
+                    ],
+                    "discountEnabled": [
+                        true,
+                        true
+                    ],
+                    "bookingBaseCop": [
+                        118000,
+                        169000
+                    ]
+                },
+                {
+                    "baseCop": [
+                        99000,
+                        149000
                     ],
                     "discountCop": [
                         90000,
-                        125000
+                        135000
                     ],
                     "discountEnabled": [
                         true,
                         true
                     ],
                     "bookingBaseCop": [
-                        136000,
-                        189000
+                        132000,
+                        198000
                     ]
                 },
                 {
                     "baseCop": [
-                        124000,
-                        180000
+                        102000,
+                        153000
+                    ],
+                    "discountCop": [
+                        92000,
+                        139000
+                    ],
+                    "discountEnabled": [
+                        true,
+                        true
+                    ],
+                    "bookingBaseCop": [
+                        135000,
+                        204000
+                    ]
+                },
+                {
+                    "baseCop": [
+                        111000,
+                        171000
                     ],
                     "discountCop": [
                         100000,
-                        145000
+                        155000
                     ],
                     "discountEnabled": [
                         true,
                         true
                     ],
                     "bookingBaseCop": [
-                        151000,
-                        219000
-                    ]
-                },
-                {
-                    "baseCop": [
-                        127000,
-                        185000
-                    ],
-                    "discountCop": [
-                        102000,
-                        149000
-                    ],
-                    "discountEnabled": [
-                        true,
-                        true
-                    ],
-                    "bookingBaseCop": [
-                        154000,
-                        225000
-                    ]
-                },
-                {
-                    "baseCop": [
-                        137000,
-                        205000
-                    ],
-                    "discountCop": [
-                        110000,
-                        165000
-                    ],
-                    "discountEnabled": [
-                        true,
-                        true
-                    ],
-                    "bookingBaseCop": [
-                        166000,
-                        249000
+                        147000,
+                        228000
                     ]
                 }
             ]
@@ -266,7 +266,7 @@ window.roomPriceData = {
             "plans": [
                 {
                     "baseCop": [
-                        94000
+                        83000
                     ],
                     "discountCop": [
                         75000
@@ -275,12 +275,12 @@ window.roomPriceData = {
                         true
                     ],
                     "bookingBaseCop": [
-                        114000
+                        110000
                     ]
                 },
                 {
                     "baseCop": [
-                        106000
+                        94000
                     ],
                     "discountCop": [
                         85000
@@ -289,12 +289,12 @@ window.roomPriceData = {
                         true
                     ],
                     "bookingBaseCop": [
-                        129000
+                        125000
                     ]
                 },
                 {
                     "baseCop": [
-                        109000
+                        96000
                     ],
                     "discountCop": [
                         87000
@@ -303,12 +303,12 @@ window.roomPriceData = {
                         true
                     ],
                     "bookingBaseCop": [
-                        132000
+                        128000
                     ]
                 },
                 {
                     "baseCop": [
-                        119000
+                        105000
                     ],
                     "discountCop": [
                         95000
@@ -317,7 +317,7 @@ window.roomPriceData = {
                         true
                     ],
                     "bookingBaseCop": [
-                        144000
+                        140000
                     ]
                 }
             ]
